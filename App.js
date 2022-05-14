@@ -13,7 +13,6 @@ export default function App() {
 
     );
 }
-/*hello from hacker  */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
