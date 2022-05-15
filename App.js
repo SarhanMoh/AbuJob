@@ -1,17 +1,27 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput } from 'react-native';
+
 import AdminHomePage from './app/screens/AdminHomePage';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './app/screens/LoginScreen';
+import HomeScreen from './app/screens/HomeScreen';
 
-const Stack = createStackNavigator();
+
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <AdminHomePage></AdminHomePage>
-
+    <NavigationContainer>
+    <Stack.Navigator>
+      { <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> }
+      { <Stack.Screen name="Home" component={HomeScreen} /> }
+      { <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> }
+    </Stack.Navigator>
+  </NavigationContainer>
     );
+    // <AdminHomePage></AdminHomePage>
 }
 
 const styles = StyleSheet.create({
