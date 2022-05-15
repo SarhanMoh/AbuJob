@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   button2: {
-   backgroundColor:"#B5D9D7",
+   backgroundColor:"#2885A6",
    width: '70%',
    justifyContent:'center',
    height:60,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   button1: {
-   backgroundColor:"#68A19B",
+   backgroundColor:"#A8D173",
    width: '70%',
    justifyContent:'center',
    height:60,
