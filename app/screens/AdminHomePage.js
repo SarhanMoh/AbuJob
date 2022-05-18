@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 function AdminHomePage(props) {
 const { onPress, title = 'Save' } = props;
+const navigation = useNavigation()
   return (
     <View style={styles.screenContainer}>
         <TouchableOpacity style={styles.button1} onPress={onPress}>
             <Text style={styles.text}>Users</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={onPress}>
+        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("CreateComponent")}>
             <Text style={styles.text}>Businesses</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button1} onPress={onPress}>
