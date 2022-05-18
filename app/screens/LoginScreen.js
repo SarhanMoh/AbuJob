@@ -1,13 +1,13 @@
-import { KeyboardAvoidingView ,Image,StyleSheet, Text, View ,TextInput,TouchableOpacity} from 'react-native'
+import { KeyboardAvoidingView ,Image,StyleSheet, Text, View ,TextInput,TouchableOpacity} from 'react-native';
 import React, { useEffect, useState } from 'react'
-import { auth } from '../../firebase'
-import { useNavigation } from '@react-navigation/native'
-
-const LoginScreen = () => {
+import { auth } from '../../firebase';
+// import { useNavigation } from '@react-navigation/native';
+import {dataBase} from '../../firebase';
+const LoginScreen = ({navigation}) => {
   const[email, setEmail]= useState('')
   const[password, setPassword]= useState('')
    
-  const navigation = useNavigation()
+  //const navigation = useNavigation()
   useEffect(() =>{
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user){
@@ -23,8 +23,38 @@ const LoginScreen = () => {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Registered with:', user.email);
+        addUser(user);
     })
       .catch(error =>alert(error.message))
+
+  }
+ async function addUser(user) {
+    let db = dataBase.collection("Users");
+      db.add({
+        email: user.email,
+        uid:user.uid,
+        First_name: this.state.name,
+        Last_Name: this.state.name,
+        address: this.state.address,
+        languages: this.state.languages,
+        phone_number: this.state.phone_number,
+      }).then((res) => {
+        this.setState({
+          name: '',
+          address: '',
+          languages:'',
+          phone_number:'',
+          isLoading: false,
+        });
+        this.props.navigation.navigate('Home')
+      })
+      .catch((err) => {
+        console.error("Error occured: ", err);
+        this.setState({
+          isLoading: false,
+        });
+      });
+    
   }
   const handleLogin = ()=>{
     auth
@@ -32,6 +62,7 @@ const LoginScreen = () => {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with:', user.email);
+        console.log(dataBase.collection('Admins').doc('first').get());
     })
       .catch(error =>alert(error.message))
   }
