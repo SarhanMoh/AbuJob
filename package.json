@@ -42,6 +42,7 @@
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "^0.17.7",
     "react-navigation-stack": "^2.10.4",
+    "tcomb-form-native": "^0.6.20",
     "webpack-dev-server": "~3.11.0"
   },
   "devDependencies": {

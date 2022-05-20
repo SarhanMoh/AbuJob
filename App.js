@@ -11,6 +11,9 @@ import ReadComponent from './components/ReadComponent';
 import UpdateComponent from './components/UpdateComponent';
 import LoginScreen from './app/screens/LoginScreen';
 import HomeScreen from './app/screens/HomeScreen';
+import BusinessRegister from './app/screens/BusinessRegister';
+import RequestsList from './components/RequestsList';
+import BusinessOptions from './app/screens/BusinessOptions';
 // import Categories from './app/screens/Categories';
 
 
@@ -34,7 +37,7 @@ export default function App() {
           
         }
       }
-      initialRouteName={"ReadComponent"}
+      initialRouteName={"BusinessReg"}
       >
       <Stack.Screen 
         name="CreateComponent" 
@@ -45,15 +48,30 @@ export default function App() {
         name="ReadComponent" 
         component={ReadComponent} 
         options={{ title: 'List' }}
-        
-
+      />
+      <Stack.Screen 
+        name="BusinessOptions" 
+        component={BusinessOptions} 
+        options={{ title: 'אופציות של המסדים' }}
       />
       <Stack.Screen 
        name="UpdateComponent" 
        component={UpdateComponent} 
        options={{ title: 'Update' }}
       />
+      <Stack.Screen 
+       name="RequestsList" 
+       component={RequestsList} 
+       options={{ title: 'ReqList' }}
+      />
+      {/* <Stack.Screen 
+        name="BusinessRegister" 
+        component={BusinessRegister} 
+        options={{ title: 'Register' }}
+      /> */}
+       { <Stack.Screen options={{headerShown: false}} name="BusinessReg" component={BusinessRegister} /> }
        { <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> }
+
       { <Stack.Screen name="Home" component={HomeScreen} /> }
       { <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> }
     </Stack.Navigator>

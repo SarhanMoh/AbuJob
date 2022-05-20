@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 import { StatusBar,Animated,Button,Image, StyleSheet, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable} from 'react-native';
 import { dataBase } from '../firebase';
 import {Picker} from '@react-native-picker/picker';
 import { collection } from "firebase/firestore";
+import { useState } from 'react';
 
 const IMG ='https://i.pinimg.com/564x/df/94/ab/df94abacc141db8944c42cbf88f32f38.jpg';
 const options = [
@@ -90,8 +91,8 @@ const options = [
   
   ];
  
-class ReadComponent extends Component {
-  
+const  ReadComponent =()=>  {
+  const [category , setCategory]= useState("")
     constructor() {
         super();
         //this.ref = dataBase.collection();
@@ -102,7 +103,7 @@ class ReadComponent extends Component {
         };
       }
       
-    async getList(){
+    async function getList(){
         const ref = dataBase
         .collection(this.state.category);
     const snapshot = await ref.get();
@@ -116,7 +117,7 @@ class ReadComponent extends Component {
         emptyList: tmp,
       });
     console.log(this.state.emptyList);
-    }
+    };
   // componentDidMount(){
   //   const scrollY= React.useRef(new Animated.Value(0)).current;
   // }
@@ -187,23 +188,11 @@ class ReadComponent extends Component {
                       shadowRadius:20,
                 
                 }}>
-                    <View style={styles.info}>
-                    <Text style={{fontSize:22 , fontWeight: '700' ,textAlign:'right'}}>שם:</Text>
                     <Text style={{fontSize:22 , fontWeight: '700'}}> {item.name} </Text>
-                    </View>
-                    <View style={styles.info}>
-                    <Text style={{fontSize:16 , opacity: .7,textAlign:'right'}}>כתובת:</Text>
                     <Text style={{fontSize:18 , opacity: .7}}> {item.address} </Text>
-                    </View>
-                    <View style={styles.info}>
-                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>שפות:</Text>
-                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}> {item.languages}</Text>
-                    </View>
-                    <View style={styles.info}>
-                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>מספר טלפון:</Text>
-                    <Text style={{fontSize:16 , opacity: .8 , color: '#0099cc',textAlign:'right'}}> {item.phone_number}</Text>
-                    </View>
-                  </View>
+                    <Text style={{fontSize:16 , opacity: .8}}> {item.languages}</Text>
+                    <Text style={{fontSize:16 , opacity: .8 , color: '#0099cc'}}> {item.phone_number}</Text>
+                </View>
         )
           }}
         />
@@ -214,15 +203,9 @@ class ReadComponent extends Component {
 }
 const styles = StyleSheet.create({
     container:{
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign:'right',
-
+      alignItems: 'center',
+      justifyContent: 'center',
     },
-    info:{
-    flexDirection:'row-reverse',
-    textAlign:'right'
-  },
     button:{
     alignItems: 'center',
     justifyContent: 'center',
@@ -233,23 +216,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width:'60%',
     padding:10,  
-    color: 'black',
-  },
+    
+    },
     text:{
       fontSize: 16,
       lineHeight: 21,
       fontWeight: 'bold',
       letterSpacing: 0.25,
       color: 'white',
-      textAlign:'right',
-
     },
     list:{
         flex:1,
         backgroundColor: '#ffff',
         padding: 20,
         flexDirection: 'column',
-        textAlign:'right',
         marginBottom:20,
         backgroundColor: 'ffff',
         borderRadius:12,

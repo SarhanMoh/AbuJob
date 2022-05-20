@@ -1,28 +1,20 @@
 import React from "react";
-import { View,Image, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-function AdminHomePage(props) {
+function BusinessOptions(props) {
 const { onPress, title = 'Save' } = props;
 const navigation = useNavigation()
   return (
     <View style={styles.screenContainer}>
-      <View>
-        <Image
-          style={styles.bigLogoStyle} 
-          source={require('../assets/AbuJobsBigLogo.jpeg')} />
-      </View>
-        <TouchableOpacity style={styles.button1} onPress={onPress}>
-            <Text style={styles.text}>Users</Text>
+        <TouchableOpacity style={styles.button1} onPress={()=>navigation.navigate("CreateComponent")}>
+            <Text style={styles.text}>הוספת מסד</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("BusinessOptions")}>
-            <Text style={styles.text}>Businesses</Text>
+        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("ReadComponent")}>
+            <Text style={styles.text}>רשימת מסדים</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button1} onPress={()=>navigation.navigate("RequestsList")}>
-            <Text style={styles.text}>Requests</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={onPress}>
-            <Text style={styles.text}>Reports</Text>
+        <TouchableOpacity style={styles.button1} onPress={()=>navigation.navigate("UpdateComponent")}>
+            <Text style={styles.text}>מחיקת מסד</Text>
         </TouchableOpacity>
     </View>
   );
@@ -31,24 +23,14 @@ const navigation = useNavigation()
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'column',
     // padding: 16,
     marginBottom: '40%',
-    marginTop: '20%',
+    marginTop: '40%',
     color: 'white',
   },
-  bigLogoStyle:{
-    resizeMode:'contain',
-    width:300,
-    height: 150,
-    padding : 50,
-    //paddingTop:50,
-    justifyContent: 'space-evenly',
-    //alignItems: 'flex-end',
-  },
-
   button2: {
    backgroundColor:"#2885A6",
    width: '70%',
@@ -82,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AdminHomePage;
+export default BusinessOptions;

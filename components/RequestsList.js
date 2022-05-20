@@ -1,94 +1,9 @@
 import React, { Component } from 'react';
 import { StatusBar,Animated,Button,Image, StyleSheet, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable} from 'react-native';
 import { dataBase } from '../firebase';
-import {Picker} from '@react-native-picker/picker';
 import { collection } from "firebase/firestore";
 
 const IMG ='https://i.pinimg.com/564x/df/94/ab/df94abacc141db8944c42cbf88f32f38.jpg';
-const options = [
-
-    {
-  
-      label: "רכב",
-  
-      value: "Cars",
-  
-    },
-  
-    {
-  
-      label: "שיפוצים",
-  
-      value: "Renovations",
-  
-    },
-  
-    {
-  
-      label: "טיפול",
-  
-      value: "Treatment",
-  
-    },
-  
-    {
-  
-      label: "אמנות ומלאכת יד",
-  
-      value: "Arts",
-  
-    },
-    {
-  
-      label: "קוסמטיקה",
-  
-      value: "cosmetics",
-  
-    },
-    {
-  
-      label: "תיקונים ומלאכות",
-  
-      value: "Repairs",
-  
-    },
-    {
-  
-      label: "חשמלאות",
-  
-      value: "Electricians",
-  
-    },
-    {
-  
-      label: "הוראה",
-  
-      value: "Teaching",
-  
-    },
-    {
-  
-      label: "מוסיקה",
-  
-      value: "Music",
-  
-    },
-    {
-  
-      label: "שירותי מכלות",
-  
-      value: "Grocery",
-  
-    },
-    {
-  
-      label: "טכנאים",
-  
-      value: "Technicians",
-  
-    },
-  
-  ];
  
 class ReadComponent extends Component {
   
@@ -96,7 +11,7 @@ class ReadComponent extends Component {
         super();
         //this.ref = dataBase.collection();
         this.state = {
-          category: 'Cars',  
+          category: 'Requests',  
           isLoading: false,
           emptyList: [],
         };
@@ -104,7 +19,7 @@ class ReadComponent extends Component {
       
     async getList(){
         const ref = dataBase
-        .collection(this.state.category);
+        .collection("Requests");
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach(doc => {
@@ -131,7 +46,7 @@ class ReadComponent extends Component {
               blurRadius={80}
             
             />
-            <Picker
+            {/* <Picker
             selectedValue={this.state.category}
             onValueChange={(itemValue, itemIndex) =>
             this.setState({
@@ -142,7 +57,7 @@ class ReadComponent extends Component {
                 <Picker.Item key={itemIndex} value={option.value} label={option.label}></Picker.Item>
                 ))}
         
-            </Picker>
+            </Picker> */}
             <View style={styles.container}>
             <Pressable style ={styles.button} 
             onPress={() =>this.getList()} 
@@ -189,21 +104,37 @@ class ReadComponent extends Component {
                 }}>
                     <View style={styles.info}>
                     <Text style={{fontSize:22 , fontWeight: '700' ,textAlign:'right'}}>שם:</Text>
-                    <Text style={{fontSize:22 , fontWeight: '700'}}> {item.name} </Text>
+                    <Text style={{fontSize:22 , fontWeight: '700' ,textAlign:'right'}}> {item.name} </Text>
                     </View>
                     <View style={styles.info}>
-                    <Text style={{fontSize:16 , opacity: .7,textAlign:'right'}}>כתובת:</Text>
-                    <Text style={{fontSize:18 , opacity: .7}}> {item.address} </Text>
+                    <Text style={{fontSize:18 , opacity: .7,textAlign:'right'}}>מספר עסק מורשה: </Text>
+                    <Text style={{fontSize:18 , opacity: .7,textAlign:'right'}}> {item.businessNumber} </Text>
+                    </View>
+                    <View style={styles.info}>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>שם בעל העסק:</Text>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}> {item.ownerName}</Text>
                     </View>
                     <View style={styles.info}>
                     <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>שפות:</Text>
                     <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}> {item.languages}</Text>
                     </View>
                     <View style={styles.info}>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>מייל:</Text>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}> {item.email}</Text>
+                    </View>
+                    <View style={styles.info}>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>כתובת:</Text>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}> {item.address}</Text>
+                    </View>
+                    <View style={styles.info}>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>עיר:</Text>
+                    <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}> {item.city}</Text>
+                    </View>
+                    <View style={styles.info}>
                     <Text style={{fontSize:16 , opacity: .8,textAlign:'right'}}>מספר טלפון:</Text>
                     <Text style={{fontSize:16 , opacity: .8 , color: '#0099cc',textAlign:'right'}}> {item.phone_number}</Text>
                     </View>
-                  </View>
+                </View>
         )
           }}
         />
@@ -214,15 +145,14 @@ class ReadComponent extends Component {
 }
 const styles = StyleSheet.create({
     container:{
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign:'right',
-
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     info:{
-    flexDirection:'row-reverse',
-    textAlign:'right'
-  },
+        flexDirection:'row-reverse',
+        textAlign:'right',
+        padding: 3,
+    },
     button:{
     alignItems: 'center',
     justifyContent: 'center',
@@ -230,26 +160,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     width:'60%',
     padding:10,  
-    color: 'black',
-  },
+    
+    },
     text:{
       fontSize: 16,
       lineHeight: 21,
       fontWeight: 'bold',
       letterSpacing: 0.25,
-      color: 'white',
-      textAlign:'right',
-
+      color: 'black',
     },
     list:{
         flex:1,
         backgroundColor: '#ffff',
         padding: 20,
         flexDirection: 'column',
-        textAlign:'right',
         marginBottom:20,
         backgroundColor: 'ffff',
         borderRadius:12,
