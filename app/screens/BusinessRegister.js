@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button,Image,TouchableOpacity, KeyboardAvoidingView,StyleSheet, ScrollView, ActivityIndicator, View, TextInput ,Text,Pressable} from 'react-native';
+import { Button,StatusBar,Image,TouchableOpacity, KeyboardAvoidingView,StyleSheet,SafeAreaView , ScrollView, ActivityIndicator, View, TextInput ,Text,Pressable} from 'react-native';
 import { dataBase } from '../../firebase';
 
 
@@ -98,7 +98,13 @@ class BusinessRegister extends Component {
       )
     }
     return (
-        <KeyboardAvoidingView style={styles.container}
+     <SafeAreaView style={styles.containerBig}>
+          <ScrollView 
+          style={styles.scrollView} 
+          contentContainerStyle={{ paddingBottom: 0 , padding: 20, paddingTop: StatusBar.currentHeight || 42}}
+
+          >
+          <KeyboardAvoidingView style={styles.container}
         behavior="padding">
           <View>
             <Image
@@ -200,18 +206,30 @@ class BusinessRegister extends Component {
     
           </View>
         </KeyboardAvoidingView>
+          </ScrollView>
+     </SafeAreaView>
       );
     } 
   }
 
 
   const styles = StyleSheet.create({
+    containerBig:{
+      flex:1,
+    },
     container:{
       flex :1,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#ffff',
       flexDirection:'column'
+
+    },
+    scrollView: {
+      backgroundColor: '#ffff',
+      // marginHorizontal: 1,
+      paddingBottom: 1,
+      
     },
     inputContainer:{
       width: '80%',
