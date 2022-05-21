@@ -16,7 +16,10 @@ import RequestsList from './components/RequestsList';
 import BusinessOptions from './app/screens/BusinessOptions';
 import OptionsDrawer from './app/screens/OptionsDrawer';
 // import Categories from './app/screens/Categories';
-
+import SignUp from './app/screens/SignUp';
+import FirstPage from './app/screens/FirstPage';
+import ForgetPass from './app/screens/ForgetPass';
+import SignInPage from './app/screens/SignInPage'
 
 const Stack = createNativeStackNavigator();
 // 
@@ -76,6 +79,11 @@ export default function App() {
        {<Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />} // home page navigator
         {<Stack.Screen options={{ headerShown: false }} name="Options" component={OptionsDrawer} />}  // option page navigator
       { <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> }
+      <Stack.Screen   options={{headerShown: false}} name='FirstPage' component={FirstPage} /> 
+           <Stack.Screen   options={{headerShown: false}} name='SignIn' component={SignInPage} />
+           <Stack.Screen   options={{headerShown: false}} name='SignUP' component={SignUp} />
+           <Stack.Screen   options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
+           <Stack.Screen   options={{headerShown: false}} name='Home' component={Home} />
     </Stack.Navigator>
     {/* </Stack.Navigator> */}
   </NavigationContainer>
