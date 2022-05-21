@@ -1,28 +1,22 @@
 import React from "react";
-import { View,Image, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { View, Button, StyleSheet, TouchableOpacity, Text , Image} from "react-native";
 
 function AdminHomePage(props) {
 const { onPress, title = 'Save' } = props;
-const navigation = useNavigation()
   return (
     <View style={styles.screenContainer}>
-      <View>
-        <Image
-          style={styles.bigLogoStyle} 
-          source={require('../assets/AbuJobsBigLogo.jpeg')} />
-      </View>
+    { <Image source={require("../assets/AbuJobsLogo.jpeg")} style={[styles.logo]} />}
         <TouchableOpacity style={styles.button1} onPress={onPress}>
-            <Text style={styles.text}>Users</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("BusinessOptions")}>
-            <Text style={styles.text}>Businesses</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button1} onPress={()=>navigation.navigate("RequestsList")}>
-            <Text style={styles.text}>Requests</Text>
+            <Text style={styles.text}>משתמשים</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button2} onPress={onPress}>
-            <Text style={styles.text}>Reports</Text>
+            <Text style={styles.text}>עסקים</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button1} onPress={onPress}>
+            <Text style={styles.text}>בקשות</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button2} onPress={onPress}>
+            <Text style={styles.text}>דיווחים</Text>
         </TouchableOpacity>
     </View>
   );
@@ -31,26 +25,16 @@ const navigation = useNavigation()
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    justifyContent: 'space-around',
+   // justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'column',
     // padding: 16,
-    marginBottom: '40%',
-    marginTop: '20%',
+    //marginBottom: '40%',
+    marginTop: '10%',
     color: 'white',
   },
-  bigLogoStyle:{
-    resizeMode:'contain',
-    width:300,
-    height: 150,
-    padding : 50,
-    //paddingTop:50,
-    justifyContent: 'space-evenly',
-    //alignItems: 'flex-end',
-  },
-
   button2: {
-   backgroundColor:"#2885A6",
+   backgroundColor:"#B5D9D7",
    width: '70%',
    justifyContent:'center',
    height:60,
@@ -61,7 +45,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   button1: {
-   backgroundColor:"#A8D173",
+   backgroundColor:"#68A19B",
    width: '70%',
    justifyContent:'center',
    height:60,
@@ -80,6 +64,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center',
   },
+  logo:{
+       alignItems:'center',
+       resizeMode:'contain',
+        width: '100%',
+        maxWidth:100,
+       maxHeight: 80,
+  }
 });
 
 export default AdminHomePage;
