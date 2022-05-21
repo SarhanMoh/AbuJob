@@ -72,7 +72,8 @@ export default function App() {
        { <Stack.Screen options={{headerShown: false}} name="BusinessReg" component={BusinessRegister} /> }
        { <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> }
 
-      { <Stack.Screen name="Home" component={HomeScreen} /> }
+       {<Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />} // home page navigator
+        {<Stack.Screen options={{ headerShown: false }} name="Options" component={OptionsDrawer} />}  // option page navigator
       { <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> }
     </Stack.Navigator>
     {/* </Stack.Navigator> */}
