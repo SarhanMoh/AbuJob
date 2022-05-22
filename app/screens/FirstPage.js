@@ -22,10 +22,10 @@ const FirstPage = () => {
     
     <View style = {styles.root}>
      { <Image source={require("../assets/AbuJobsLogo.jpeg")} style={[styles.logo , {height : height * 0.1}]} /> }
-     <CustomButton text="להתחבר" onPress={onSignInPressed} type="PRIMARY"/>
-     <CustomButton text="להיכנס כאורח" onPress={onEnteryPressed} type="PRIMARY"/>
+     <CustomButton text="להתחבר" onPress={()=>navigation.navigate("SignIn")} type="PRIMARY"/>
+     <CustomButton text="להיכנס כאורח" onPress={()=>navigation.navigate("Home")} type="PRIMARY"/>
      <Text style={styles.text}> אין לך חשבון ? להירשם כאן </Text>
-      <CustomButton text="הירשם" onPress={onSignUpPressed} type="C"/>
+      <CustomButton text="הירשם" onPress={()=>navigation.navigate("SignUP")} type="C"/>
     </View>
   )
 }

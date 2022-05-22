@@ -41,54 +41,46 @@ export default function App() {
           
         }
       }
-      initialRouteName={"BusinessReg"}
+      initialRouteName={"FirstPage"}
       >
       <Stack.Screen 
         name="CreateComponent" 
         component={CreateComponent} 
-        options={{ title: 'יצירת חשבון' }}
+        options={{ title: 'יצירת חשבון', headerShown: false }}
       />
       <Stack.Screen 
         name="ReadComponent" 
         component={ReadComponent} 
-        options={{ title: 'List' }}
+        options={{ title: 'List' , headerShown: false}}
       />
       <Stack.Screen 
         name="BusinessOptions" 
         component={BusinessOptions} 
-        options={{ title: 'אופציות של המסדים' }}
+         options={{ title: 'אופציות של המסדים', headerShown: false }}
       />
       <Stack.Screen 
        name="UpdateComponent" 
        component={UpdateComponent} 
-       options={{ title: 'Update' }}
+       options={{ title: 'Update' , headerShown: false}}
       />
       <Stack.Screen 
        name="RequestsList" 
        component={RequestsList} 
-       options={{ title: 'ReqList' }}
+       options={{ title: 'ReqList' , headerShown: false}}
       />
-      {/* <Stack.Screen 
-        name="BusinessRegister" 
-        component={BusinessRegister} 
-        options={{ title: 'Register' }}
-      /> */}
-       { <Stack.Screen options={{headerShown: false}} name="BusinessReg" component={BusinessRegister} /> }
-       { <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> }
-
-       {<Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />} // home page navigator
-        {<Stack.Screen options={{ headerShown: false }} name="Options" component={OptionsDrawer} />}  // option page navigator
-      { <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> }
+      
+      <Stack.Screen options={{headerShown: false}} name="BusinessReg" component={BusinessRegister} /> 
+      <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> 
+      <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
+      <Stack.Screen options={{ headerShown: false }} name="Options" component={OptionsDrawer} /> 
+      <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> 
       <Stack.Screen   options={{headerShown: false}} name='FirstPage' component={FirstPage} /> 
-           <Stack.Screen   options={{headerShown: false}} name='SignIn' component={SignInPage} />
-           <Stack.Screen   options={{headerShown: false}} name='SignUP' component={SignUp} />
-           <Stack.Screen   options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
-           <Stack.Screen   options={{headerShown: false}} name='Home' component={Home} />
-    </Stack.Navigator>
-    {/* </Stack.Navigator> */}
+      <Stack.Screen   options={{headerShown: false}} name='SignIn' component={SignInPage} />
+      <Stack.Screen   options={{headerShown: false}} name='SignUP' component={SignUp} />
+      <Stack.Screen   options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
+      </Stack.Navigator>
   </NavigationContainer>
     );
-    // <AdminHomePage></AdminHomePage>
 }
 
 const styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import React,{useState}from 'react'
-import { View,  Image , StyleSheet , useWindowDimensions} from 'react-native'
+import { View,  Image , StyleSheet , useWindowDimensions , TouchableOpacity} from 'react-native'
 import CustomInPut from './scr/CustomInPut'
 import CustomButton from './scr/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 const SignInPage = () => {
     const {height} = useWindowDimensions();
     const [Email,setEmail] = useState("");
-    const navigations= useNavigation();
+    const navigation= useNavigation();
     const [Password,setPass] = useState("");
     const [EmailError,setEmailError] = useState("");
     const [Pass,setPassError] = useState("");
@@ -75,12 +75,20 @@ const SignInPage = () => {
     };
   return (
     <View style = {styles.root}>
+         <TouchableOpacity onPress={()=>navigation.navigate("AdminHomePage")}>
+        <Image
+        style={styles.backButton}
+        source={require('../assets/backButton.png')} 
+        
+        />  
+      </TouchableOpacity>
     {<Image source={require("../assets/AbuJobsLogo.jpeg")} style={[styles.logo , {height : height * 0.3}]} /> }
-   <CustomInPut placeholder="אימייל" value={Email} setValue={setEmail} />
+   <CustomInPut placeholder="מייל" value={Email} setValue={setEmail} />
    <CustomInPut placeholder="סיסמה" value={Password} setValue={setPass} secureTextEntry={true}/>
    <CustomButton text="להתחבר" onPress={onSignInPressed} type="PRIMARY"/>
    <CustomButton text="שכחת את הסיסמה ?" onPress={onFPressed} type="TERITARY" />
    <CustomButton text="אין לך חשבון ? להירשם כאן" onPress={onAPressed} type="TERITARY"/>
+
     </View>
   )
 }
@@ -97,5 +105,19 @@ const styles = StyleSheet.create({
         maxWidth:500,
        maxHeight: 400,
     },
+    backButton:{
+      width:10,
+      height:40,
+      resizeMode:"contain",
+      // alignSelf:'flex-start',
+      // justifyContent:'flex-start',
+      //position: 'absolute',
+      paddingLeft: 100,
+      marginTop:20,
+      marginLeft: "65%",
+      borderRadius:10,
+      borderColor:'black',
+      borderWidth:3,
+      },
 });
 export default SignInPage;
