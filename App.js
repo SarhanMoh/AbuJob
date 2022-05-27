@@ -19,7 +19,9 @@ import OptionsDrawer from './app/screens/OptionsDrawer';
 import SignUp from './app/screens/SignUp';
 import FirstPage from './app/screens/FirstPage';
 import ForgetPass from './app/screens/ForgetPass';
-import SignInPage from './app/screens/SignInPage'
+import SignInPage from './app/screens/SignInPage';
+import CategoryPage from "./app/screens/CategoryPage";
+import BusinessPage from "./app/screens/BusinessPage";
 
 const Stack = createNativeStackNavigator();
 // 
@@ -73,11 +75,13 @@ export default function App() {
       <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> 
       <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
       <Stack.Screen options={{ headerShown: false }} name="Options" component={OptionsDrawer} /> 
+      <Stack.Screen options={{ headerShown: false }} name="Category" component={CategoryPage}/>
+      <Stack.Screen options={{ headerShown: false }} name="BusinessPage" component={BusinessPage}/>
       <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> 
-      <Stack.Screen   options={{headerShown: false}} name='FirstPage' component={FirstPage} /> 
-      <Stack.Screen   options={{headerShown: false}} name='SignIn' component={SignInPage} />
-      <Stack.Screen   options={{headerShown: false}} name='SignUP' component={SignUp} />
-      <Stack.Screen   options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
+      <Stack.Screen options={{headerShown: false}} name='FirstPage' component={FirstPage} /> 
+      <Stack.Screen options={{headerShown: false}} name='SignIn' component={SignInPage} />
+      <Stack.Screen options={{headerShown: false}} name='SignUP' component={SignUp} />
+      <Stack.Screen options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
       </Stack.Navigator>
   </NavigationContainer>
     );
