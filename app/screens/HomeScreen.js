@@ -16,245 +16,7 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
-
-const options = [
-  {
-    label: "רכב",
-
-    value: "Cars",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-
-  {
-    label: "שיפוצים",
-
-    value: "Renovations",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-
-  {
-    label: "טיפול",
-
-    value: "Treatment",
-
-    color: "dodgerblue",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-
-  {
-    label: "אמנות ומלאכת יד",
-
-    value: "Arts",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "קוסמטיקה",
-
-    value: "cosmetics",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "תיקונים ומלאכות",
-
-    value: "Repairs",
-
-    color: "dodgerblue",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "חשמלאות",
-
-    value: "Electricians",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "הוראה",
-
-    value: "Teaching",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "מוסיקה",
-
-    value: "Music",
-
-    color: "dodgerblue",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "שירותי מכלות",
-
-    value: "Grocery",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "טכנאים",
-
-    value: "Technicians",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-];
-const recently = [
-  {
-    name: "עמותה ###י",
-
-    key: 100,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "טיפול",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 99,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "רכב",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 98,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "שיפוצים",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 97,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "קןסמטיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 96,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "חשמלאות",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 95,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "קןסמטיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 94,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "טיפול",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 93,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "מוסיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 92,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "מוסיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 91,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "הוראה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 90,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "חשמלאות",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 89,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "חשמלאות",
-
-    city: "ירושלים",
-  },
-];
+import { options, recently } from "../../components/NewComponents";
 
 const SPACING = 8,
   cellWidth = 250,
@@ -287,6 +49,7 @@ export default function HomeScreen({ navigation }) {
             </TouchableHighlight>
             <TextInput
               placeholder="Search..."
+              placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => setSearchValue(SearchValue)}
               style={{ color: "black", marginLeft: 5 }}
@@ -312,6 +75,11 @@ export default function HomeScreen({ navigation }) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
+                onPress={() => {
+                  const label = item.label;
+                  const key = item.value;
+                  navigation.navigate("Category", { label, key });
+                }}
                 style={{
                   width: cellWidth,
                   height: cellHeight,
@@ -509,4 +277,3 @@ const styles = StyleSheet.create({
     lineHeight: 16 * 1.5,
   },
 });
-
