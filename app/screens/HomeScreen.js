@@ -296,6 +296,7 @@ export default function HomeScreen({ navigation }) {
             </TouchableHighlight>
             <TextInput
               placeholder="Search..."
+              placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => setSearchValue(SearchValue)}
               style={{ color: "black", marginLeft: 5 }}
@@ -523,4 +524,3 @@ const styles = StyleSheet.create({
     lineHeight: 16 * 1.5,
   },
 });
-
