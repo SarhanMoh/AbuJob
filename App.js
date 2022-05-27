@@ -41,7 +41,7 @@ export default function App() {
           
         }
       }
-      initialRouteName={"FirstPage"}
+      initialRouteName={"SignUP"}
       >
       <Stack.Screen 
         name="CreateComponent" 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StatusBar,Animated,Button,Image, StyleSheet, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable} from 'react-native';
+import { StatusBar,Animated,Button,Image, StyleSheet, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable , SafeAreaView} from 'react-native';
 import { dataBase } from '../firebase';
 import { collection } from "firebase/firestore";
 
 const IMG ='https://i.pinimg.com/564x/df/94/ab/df94abacc141db8944c42cbf88f32f38.jpg';
  
-class ReadComponent extends Component {
+class RequestsList extends Component {
   
     constructor() {
         super();
@@ -18,13 +18,14 @@ class ReadComponent extends Component {
       }
       
     async getList(){
+    
         const ref = dataBase
         .collection("Requests");
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach(doc => {
-      //console.log(doc.id, '=>', doc.data());
       tmp.push(doc.data());
+      console.log(doc.data());
       
     });
     this.setState({
@@ -32,13 +33,10 @@ class ReadComponent extends Component {
       });
     console.log(this.state.emptyList);
     }
-  // componentDidMount(){
-  //   const scrollY= React.useRef(new Animated.Value(0)).current;
-  // }
     render() {
-     // const scrollY= React.useRef(new Animated.Value(0)).current;
-
+     
         return (
+          <SafeAreaView style={styles.allContainer}>
           <View style={{flex:1 , backgroundColor:'#fff'}}>
             <Image
               source={{uri:IMG}}
@@ -46,18 +44,12 @@ class ReadComponent extends Component {
               blurRadius={80}
             
             />
-            {/* <Picker
-            selectedValue={this.state.category}
-            onValueChange={(itemValue, itemIndex) =>
-            this.setState({
-                    category: itemValue,
-                  })
-            }>
-                {options.map((option, itemIndex) => (
-                <Picker.Item key={itemIndex} value={option.value} label={option.label}></Picker.Item>
-                ))}
-        
-            </Picker> */}
+          <FlatList
+          // const scrollY = React.useRef(new Animated.value(0)).current;
+          data={this.state.emptyList}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 , padding: 20, paddingTop: StatusBar.currentHeight || 42}}
+          ListHeaderComponent={
             <View style={styles.container}>
             <Pressable style ={styles.button} 
             onPress={() =>this.getList()} 
@@ -65,23 +57,11 @@ class ReadComponent extends Component {
             // backgroundColor='#000'
             // borderColor= "#000"
             title='הצג רשימה'
-
           >
-            <Text style={styles.text}>הצג רשימה</Text>
+          <Text style={styles.text}>הצג רשימה</Text>
           </Pressable>
           </View>
-          {/* <ImageBackground
-            source={{uri: IMG}}
-            resizeMode="cover"
-            style={{StyleSheet.absoluteFillObject}}
-          /> */}
-        
-          
-          <Animated.FlatList
-          // const scrollY = React.useRef(new Animated.value(0)).current;
-          data={this.state.emptyList}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 , padding: 20, paddingTop: StatusBar.currentHeight || 42}}
+          }
           // onScroll ={Animated.event (
           //   [{ nativeEvent : {contentOffset:{y:''}}}],
           //   {useNativeDriver:true}
@@ -92,6 +72,7 @@ class ReadComponent extends Component {
             //:כתובת
             //:שפות
             //:טלפון
+            
                 <View key={index} style={{flexDirection:'column' , padding:20,marginBottom:20,backgroundColor:'rgba(255,255,255,0.8)', borderRadius:14,
                       shadowColor: "#000",
                       shadowOffset:{
@@ -139,11 +120,16 @@ class ReadComponent extends Component {
           }}
         />
 
-          </View>
+            </View>
+          </SafeAreaView>
         );
     }  
 }
 const styles = StyleSheet.create({
+  allContainer:{
+    flex:1,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
     container:{
       alignItems: 'center',
       justifyContent: 'center',
@@ -154,6 +140,7 @@ const styles = StyleSheet.create({
         padding: 3,
     },
     button:{
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
@@ -193,4 +180,4 @@ const styles = StyleSheet.create({
     },
 
 })
-export default ReadComponent;
+export default RequestsList;

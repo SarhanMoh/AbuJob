@@ -5,28 +5,28 @@ import CustomButton from './scr/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 //import Logo from './assets/AbuJobsLogo.jpeg'
 const ForgetPass = () => {
-   const navigations= useNavigation();
+   const navigation= useNavigation();
     const {height} = useWindowDimensions();
     const [Email,setEmail] = useState('');
     const onSignInPressed = () =>
     {
-      navigations.navigate('SignInPage')
+      navigation.navigate('SignInPage')
     };
     const onAPressed = () =>
     {
-      navigations.navigate('SignInPage')
+      navigation.navigate('SignInPage')
     };
 
   return (
     
     <View style = {styles.root}>
     {<Image source={require("../assets/AbuJobsLogo.jpeg")} style={[styles.logo , {height : height * 0.1}]} /> }
-   <Text style={styles.text}>הזן כתובת אימייל</Text>
-   <CustomInPut placeholder="אימייל" value={Email} setValue={setEmail} />
+   <Text style={styles.text}>הזן כתובת מייל</Text>
+   <CustomInPut placeholder="מייל" value={Email} setValue={setEmail} />
    <CustomButton text="חזרה כדי להיכנס" onPress={onAPressed} type="TERITARY"/>
    {/* <CustomInPut placeholder="סיסמה" value={Password} setValue={setPass} secureTextEntry={true}/> */}
    <CustomButton text="לִשְׁלוֹחַ" onPress={onSignInPressed} type="PRIMARY"/>
-   <Text style={styles.text}>אנו נשלח קישור לכתובת האימייל שלך כדי להיכנס שוב</Text>
+   <Text style={styles.text}>אנו נשלח קישור לכתובת מייל שלך כדי להיכנס שוב</Text>
    <CustomButton text="אין לך חשבון ? להירשם כאן" onPress={onAPressed} type="TERITARY"/>
     </View>
   )

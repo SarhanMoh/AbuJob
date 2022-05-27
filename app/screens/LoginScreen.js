@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { auth } from '../../firebase';
 // import { useNavigation } from '@react-navigation/native';
 import {dataBase} from '../../firebase';
+
 const LoginScreen = ({navigation}) => {
   const[email, setEmail]= useState('')
   const[password, setPassword]= useState('')
+  // const { key } = route.params;
+  // console.log(key)
    
   //const navigation = useNavigation()
   useEffect(() =>{

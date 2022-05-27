@@ -1,6 +1,8 @@
 import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import reactDom from "react-dom";
+import { dataBase } from '../../firebase';
+
 import {
   View,
   Button,
@@ -16,7 +18,10 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
+import Component from '../../components/newComponents'
 
+const Options1 = Component.options;
+//console.log(Options1);
 const options = [
   {
     label: "רכב",
@@ -255,7 +260,11 @@ const recently = [
     city: "ירושלים",
   },
 ];
-
+function all(){
+  const ref = dataBase
+  .collection(this.state.category);
+  
+}
 const SPACING = 8,
   cellWidth = 250,
   cellHeight = 300;
@@ -303,7 +312,7 @@ export default function HomeScreen({ navigation }) {
         </View>
         <View style={{ height: 7 }}></View>
         <FlatList
-          data={options}
+          data={Options1}
           keyExtractor={(item) => item.value}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -312,6 +321,11 @@ export default function HomeScreen({ navigation }) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
+              onPress={()=> {
+                const key = item.value
+                navigation.navigate('Login', {key})
+                
+              }}
                 style={{
                   width: cellWidth,
                   height: cellHeight,
