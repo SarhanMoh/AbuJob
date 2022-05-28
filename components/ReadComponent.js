@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { StatusBar,Animated,Button,Image, StyleSheet, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable} from 'react-native';
+import { StatusBar,Animated,Button,Image, StyleSheet,TouchableOpacity, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable} from 'react-native';
 import { dataBase } from '../firebase';
 import {Picker} from '@react-native-picker/picker';
 import { collection } from "firebase/firestore";
+import { useNavigation } from '@react-navigation/native';
+import { withNavigation } from 'react-navigation';
 
 const IMG ='https://i.pinimg.com/564x/df/94/ab/df94abacc141db8944c42cbf88f32f38.jpg';
 const options = [
@@ -131,6 +133,13 @@ class ReadComponent extends Component {
               blurRadius={80}
             
             />
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("AdminHomePage")}>
+                <Image
+                style={styles.backButton}
+                source={require('../app/assets/backButton.png')} 
+        
+                /> 
+            </TouchableOpacity> 
             <Picker
             selectedValue={this.state.category}
             onValueChange={(itemValue, itemIndex) =>
@@ -217,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign:'right',
-
+    
     },
     info:{
     flexDirection:'row-reverse',
@@ -264,6 +273,21 @@ const styles = StyleSheet.create({
         // width: 70,
         // height:70,
     },
+    backButton:{
+      width:10,
+      height:40,
+      resizeMode:"contain",
+      // alignSelf:'flex-start',
+      // justifyContent:'flex-start',
+      //position: 'absolute',
+      paddingLeft: 100,
+      marginTop:20,
+      marginLeft: "65%",
+      borderRadius:10,
+      borderColor:'black',
+      borderWidth:3,
+      marginTop:"10%",
+      },
 
 })
 export default ReadComponent;

@@ -16,21 +16,33 @@ const styles = StyleSheet.create({
         marginVertical:5,
         padding:15,
         alignItems:'center',
-        borderRadius:100,
-    },
+        borderRadius:10,
+        backgroundColor : 'white',
+        marginTop: 10,
+    }, 
     container_PRIMARY:{
-        backgroundColor:"#14AAF5",
+        backgroundColor:"#ffff",
+        borderColor: '#2885A6',
+        borderWidth: 3,
     },
     container_TERITARY:{},
     text:{
-        fontWeight:'bold',
-        color:'white',
+      color: '#2885A6',
+      fontWeight: '700',
+      fontSize: 16,
     },
     text_TERITARY:{
     color:'gray',
     },
     container_C:{
-      backgroundColor:"#7ECC49",
+      backgroundColor:"#ffff",
+      borderColor: '#A8D173',
+      borderWidth: 3,
   },
+  text_C:{
+    color: '#A8D173',
+    fontWeight: '700',
+    fontSize: 16,
+  }
 });
 export default CustomButton;

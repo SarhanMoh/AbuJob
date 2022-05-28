@@ -6,34 +6,24 @@ import { useNavigation } from '@react-navigation/native'
 const FirstPage = () => {
     const {height} = useWindowDimensions();
     const navigation = useNavigation();
-    const onSignInPressed = () =>
-    {
-     navigation.navigate('SignInPage')
-    };
-    const onEnteryPressed = () =>
-    {
-      navigation.navigate('Home')
-    };
-    const onSignUpPressed = () =>
-    {
-      navigation.navigate('SignUp')
-    };
   return (
     
     <View style = {styles.root}>
      { <Image source={require("../assets/AbuJobsLogo.jpeg")} style={[styles.logo , {height : height * 0.1}]} /> }
-     <CustomButton text="להתחבר" onPress={onSignInPressed} type="PRIMARY"/>
-     <CustomButton text="להיכנס כאורח" onPress={onEnteryPressed} type="PRIMARY"/>
+     <CustomButton text="להתחבר" onPress={()=>navigation.navigate("SignIn")} type="PRIMARY"/>
+     <CustomButton text="להיכנס כאורח" onPress={()=>navigation.navigate("Home")} type="PRIMARY"/>
      <Text style={styles.text}> אין לך חשבון ? להירשם כאן </Text>
-      <CustomButton text="הירשם" onPress={onSignUpPressed} type="C"/>
+      <CustomButton text="הירשם" onPress={()=>navigation.navigate("SignUP")} type="C"/>
     </View>
   )
 }
 const styles = StyleSheet.create({
     root:
     {
+    flex :1,
     alignItems : 'center',
     padding: 20,
+    backgroundColor:'#ffff'
     },
     logo:
     {
