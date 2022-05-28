@@ -1,6 +1,8 @@
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React , {useEffect , useState} from "react";
 import { AirbnbRating } from "react-native-ratings";
+import {dataBase} from '../../firebase';
+
 import {
   View,
   Image,
@@ -13,6 +15,7 @@ import {
   FlatList,
   Platform,
   StatusBar,
+  ActivityIndicator,
   Dimensions,
 } from "react-native";
 import { options, recently } from "../../components/NewComponents";
@@ -26,9 +29,29 @@ export default function CategoryPage({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
+  const [emptyList , setEmptyList] = React.useState([]);
 
   const { label, key } = route.params;
+  useEffect(() =>{
+    async function getList(){
+      console.log("entered");
+      const ref = dataBase
+      .collection(key);
+      const snapshot = await ref.get();
+      let tmp = [];
+      snapshot.forEach(doc => {
+      //console.log(doc.id, '=>', doc.data());
+      tmp.push(doc.data());
+  
+      });
+     setEmptyList(tmp);
+      //console.log(tmp);
 
+    }
+    
+    getList();
+  } ,[])
+  console.log(emptyList);
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -84,28 +107,33 @@ export default function CategoryPage({ route, navigation }) {
               קטוגוריה: {label}
             </Text>
           </View>
-          <View style={{ height: 1, backgroundColor: "#81daf5" }}></View>
+          <View style={{ height: 1, backgroundColor: "#81daf5" }}>
+              
+
+          </View>
         </View>
       </View>
+      {emptyList.length > 0 ?(  
       <View style={{ flex: 1 }}>
         <FlatList
-          data={recently}
-          keyExtractor={(item) => item.key}
+          data={emptyList}
+          keyExtractor={(item) => `${item.phone_number}`}
           contentContainerStyle={{
             padding: SPACING,
           }}
           renderItem={({ item }) => {
-            if (item.catagory == label) {
+            
               return (
                 <TouchableOpacity
                   onPress={() => {
                     const name = item.name;
                     const city = item.city;
                     const pic = item.profilePic;
-                    const category = item.catagory;
+                    const category = label;
                     const address = item.address;
-                    const phone = item.phone;
+                    const phone = item.phone_number;
                     const rate = item.rating;
+                    const job = item.job
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -114,6 +142,7 @@ export default function CategoryPage({ route, navigation }) {
                       address,
                       phone,
                       rate,
+                      job,
                     });
                   }}
                   style={{
@@ -157,10 +186,14 @@ export default function CategoryPage({ route, navigation }) {
                   </View>
                 </TouchableOpacity>
               );
-            }
+            
           }}
         />
       </View>
+  ):(<View>
+     <ActivityIndicator size="large" color="#0000ff" />
+  </View>)
+}
     </SafeAreaView>
   );
 }

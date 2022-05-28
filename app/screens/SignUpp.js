@@ -28,7 +28,25 @@ const LoginScreen = ({navigation}) => {
         console.log('Registered with:', user.email);
         addUser(user);
     })
-      .catch(error =>alert(error.message))
+      .catch((error )=>{
+          
+        //alert(error.message)
+        switch (error.code) {
+            case "auth/email-already-in-use":
+              alert("מייל כבר קיים", [{ text: "בסדר" }]);
+              break;
+            case "auth/wrong-password":
+              alert("שגוי", "מייל או סיסמה לא נכונים", [{ text: "בסדר" }]);
+              break;
+            case "auth/user-not-found":
+              alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
+              break;
+            default:
+              console.log(error);
+              alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
+              break;
+          }
+    })
 
   }
  async function addUser(user) {
@@ -59,16 +77,16 @@ const LoginScreen = ({navigation}) => {
       });
     
   }
-  const handleLogin = ()=>{
-    auth
-      .signInWithEmailAndPassword(email , password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
-        console.log(dataBase.collection('Admins').doc('first').get());
-    })
-      .catch(error =>alert(error.message))
-  }
+//   const handleLogin = ()=>{
+//     auth
+//       .signInWithEmailAndPassword(email , password)
+//       .then(userCredentials => {
+//         const user = userCredentials.user;
+//         console.log('Logged in with:', user.email);
+//         console.log(dataBase.collection('Admins').doc('first').get());
+//     })
+//       .catch(error =>alert(error.message))
+//   }
 
     return (
     <KeyboardAvoidingView style={styles.container}
@@ -77,7 +95,7 @@ const LoginScreen = ({navigation}) => {
         <Image
           style={styles.bigLogoStyle} 
           source={require('../assets/AbuJobsBigLogo.jpeg')} />
-        <Text style ={[styles.adminText]}> ברוך הבא אדמין</Text>
+        <Text style ={[styles.adminText]}>Welcome Admin</Text>
 
       </View>
       <View style={styles.inputContainer}> 
@@ -175,9 +193,9 @@ const styles = StyleSheet.create({
   adminText:{
     padding: '20%',
     marginTop: '-20%',
-    fontSize: 24,
-    fontWeight: '900',
-    color: '#A8D173',
+    fontSize: 25,
+    fontWeight: '800',
+    color: '#2885A6',
   },
   bigLogoStyle:{
     resizeMode:'contain',

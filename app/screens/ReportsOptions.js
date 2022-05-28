@@ -1,46 +1,41 @@
 import React from "react";
-import { View,Image, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Button,Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from "react-native-safe-area-context";
 
-function AdminHomePage(props) {
+function ReportsOptions(props) {
 const { onPress, title = 'Save' } = props;
 const navigation = useNavigation()
   return (
-      <View style={styles.screenContainer}>
-      <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
+    <View style={styles.screenContainer}>
+       <TouchableOpacity onPress={()=>navigation.navigate("AdminHomePage")}>
         <Image
         style={styles.backButton}
         source={require('../assets/backButton.png')} 
         
-        />
-        
+        />  
       </TouchableOpacity>
       <View>
         <Image
           style={styles.bigLogoStyle} 
           source={require('../assets/AbuJobsBigLogo.jpeg')} />
       </View>
-        {/* <TouchableOpacity style={styles.button1} onPress={onPress}>
-            <Text style={styles.text}>משתמשים</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("BusinessOptions")}>
-            <Text style={styles.text}>עסקים</Text>
+        <TouchableOpacity style={styles.button1} onPress={()=>navigation.navigate("ReportsRead")}>
+            <Text style={styles.text}>דיווחים כללים</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button1} onPress={()=>navigation.navigate("RequestsList")}>
-            <Text style={styles.text}>בקשות</Text>
+        <TouchableOpacity style={styles.button2} onPress={()=>navigation.navigate("ReportsRead")}>
+            <Text style={styles.text}>דיווחים טכנים </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button2} onPress={()=> navigation.navigate("ReportsOptions")}>
-            <Text style={styles.text}>דיווחים</Text>
+        <TouchableOpacity style={styles.button1} onPress={()=>navigation.navigate("ReportsRead")}>
+            <Text style={styles.text}>דיווחים על מסדים</Text>
         </TouchableOpacity>
-      </View>
+    </View>
   );
 };
 //#68A19B
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'column',
     // padding: 16,
@@ -51,17 +46,6 @@ const styles = StyleSheet.create({
     
     backgroundColor: '#fff'
   },
-  bigLogoStyle:{
-    resizeMode:'contain',
-    width:300,
-    height: 150,
-    padding : 50,
-    //paddingTop:50,
-    justifyContent: 'space-evenly',
-    //alignItems: 'flex-end',
-
-  },
-
   button2: {
    backgroundColor:"#2885A6",
    width: '70%',
@@ -92,8 +76,8 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'center',
     alignItems:'center',
-    
   },
+  
   backButton:{
     width:10,
     height:40,
@@ -107,7 +91,16 @@ const styles = StyleSheet.create({
     borderRadius:10,
     borderColor:'black',
     borderWidth:3,
-    }
+    },
+    bigLogoStyle:{
+      resizeMode:'contain',
+      width:300,
+      height: 150,
+      padding : 50,
+      //paddingTop:50,
+      justifyContent: 'space-between',
+      //alignItems: 'flex-end',
+    },
 });
 
-export default AdminHomePage;
+export default ReportsOptions;

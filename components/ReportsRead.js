@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar,Animated,Button,ImageBackground, Image,StyleSheet,TouchableOpacity, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable} from 'react-native';
+import { StatusBar,Animated,Button,Image,ImageBackground ,StyleSheet,TouchableOpacity, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable} from 'react-native';
 import { dataBase } from '../firebase';
 import {Picker} from '@react-native-picker/picker';
 import { collection } from "firebase/firestore";
@@ -8,118 +8,37 @@ import { withNavigation } from 'react-navigation';
 
 const options = [
 
-  {
-
-    label: "רכב",
-
-    value: "Cars",
-
-  },
-
-  {
-
-    label: "שיפוצים",
-
-    value: "Renovations",
-
-  },
-
-  {
-
-    label: "טיפול",
-
-    value: "Treatment",
-
-  },
-
-  {
-
-    label: "אמנות ומלאכת יד",
-
-    value: "Arts",
-
-  },
-  {
-
-    label: "קוסמטיקה",
-
-    value: "cosmetics",
-
-  },
-  {
-
-    label: "תיקונים ומלאכות",
-
-    value: "Repairs",
-
-  },
-  {
-
-    label: "חשמלאות",
-
-    value: "Electricians",
-
-  },
-  {
-
-    label: "הוראה",
-
-    value: "Teaching",
-
-  },
-  {
-
-    label: "מוסיקה",
-
-    value: "Music",
-
-  },
-  {
-
-    label: "שירותי מכלות",
-
-    value: "Grocery",
-
-  },
-  {
-
-    label: "טכנאים",
-
-    value: "Technicians",
-
-  },
-  {
-
-    label: "כושר ואימון פיזי",
-
-    value: "Fitness",
-
-  },
-  {
-
-    label: "שונות",
-
-    value: "Various",
-
-  },
-  {
-
-    label: "קייטרינג",
-
-    value: "Catering",
-
-  },
-
-
-];
+    {
+  
+      label: "דוח כללי",
+  
+      value: "Report",
+  
+    },
+    {
+  
+      label: "דוח טכני",
+  
+      value: "technicalReport",
+  
+    },
+  
+    {
+  
+      label: "דוח על מסד",
+  
+      value: "businessReport",
+  
+    },
+  ];
  
-class ReadComponent extends Component {
+class ReportsRead extends Component {
   
     constructor() {
         super();
         //this.ref = dataBase.collection();
         this.state = {
-          category: 'Cars',  
+          category: 'Report',  
           isLoading: false,
           emptyList: [],
         };
@@ -154,7 +73,7 @@ class ReadComponent extends Component {
               blurRadius={50}
               resizeMode="cover"
             />
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("BusinessOptions")}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("ReportsOptions")}>
                 <Image
                 style={styles.backButton}
                 source={require('../app/assets/backButton.png')} 
@@ -311,4 +230,4 @@ const styles = StyleSheet.create({
       },
 
 })
-export default ReadComponent;
+export default ReportsRead;

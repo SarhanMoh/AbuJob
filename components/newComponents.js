@@ -8,7 +8,7 @@ const options = [
 
     color: "#69d2e7",
 
-    icon: require("../app/assets/tempIcon.png"),
+    icon: require("../app/assets/Cars.png"),
   },
 
   {
@@ -18,7 +18,7 @@ const options = [
 
     color: "#a7dbd8",
 
-    icon: require("../app/assets/tempIcon.png"),
+    icon: require('../app/assets/renovations.png'),
   },
 
   {
@@ -26,9 +26,10 @@ const options = [
 
     value: "Treatment",
 
-    color: "#c02942",
+    // color: "#c02942",
+    color : "#08f26e",
 
-    icon: require("../app/assets/tempIcon.png"),
+    icon: require("../app/assets/Treatment.png"),
   },
 
   {
@@ -36,27 +37,17 @@ const options = [
 
     value: "Arts",
 
-    color: "#e0e4cc",
+    color: "#fe4365",
 
-    icon: require("../app/assets/tempIcon.png"),
-  },
-  {
-    label: "קוסמטיקה",
-
-    value: "cosmetics",
-
-    color: "#f38630",
-
-    icon: require("../app/assets/tempIcon.png"),
+    icon: require("../app/assets/arts.png"),
   },
   {
     label: "תיקונים ומלאכות",
-
+    
     value: "Repairs",
-
-    color: "#fa6900",
-
-    icon: require("../app/assets/tempIcon.png"),
+    
+    color: "#efa536",    
+    icon: require("../app/assets/Repairs.png"),
   },
   {
     label: "חשמלאות",
@@ -64,17 +55,25 @@ const options = [
     value: "Electricians",
 
     color: "#fe4365",
-
-    icon: require("../app/assets/tempIcon.png"),
+    
+    icon: require("../app/assets/Electricians.png"),
   },
   {
     label: "הוראה",
-
+    
     value: "Teaching",
-
+    
     color: "#fc9d9a",
+    
+    icon: require("../app/assets/Teaching.png"),
+  },
+  {
+    label: "קוסמטיקה",
 
-    icon: require("../app/assets/tempIcon.png"),
+    value: "cosmetics",
+
+    color: "#fe4365",
+    icon: require("../app/assets/cosmetics.png"),
   },
   {
     label: "מוסיקה",
@@ -83,7 +82,7 @@ const options = [
 
     color: "#f9cdad",
 
-    icon: require("../app/assets/tempIcon.png"),
+    icon: require("../app/assets/Music.png"),
   },
   {
     label: "שירותי מכלות",
@@ -92,7 +91,7 @@ const options = [
 
     color: "#c8c8a9",
 
-    icon: require("../app/assets/tempIcon.png"),
+    icon: require("../app/assets/Grocery.png"),
   },
   {
     label: "טכנאים",
@@ -101,7 +100,7 @@ const options = [
 
     color: "#83af9b",
 
-    icon: require("../app/assets/tempIcon.png"),
+    icon: require("../app/assets/Technicians.png"),
   },
 ];
 const recently = [

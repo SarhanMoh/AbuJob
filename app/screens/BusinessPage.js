@@ -47,8 +47,12 @@ export default function BusinessPage({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
-  const { name, city, pic, category, address, phone, rate } = route.params;
+  const { name, city, pic, category, address, phone, rate ,job } = route.params;
+  function checkLogin(){
+      
+    
 
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -157,7 +161,10 @@ export default function BusinessPage({ route, navigation }) {
               isDisabled={true}
             />
           </View>
-          <TouchableOpacity style={styles.rateButton}>
+          <TouchableOpacity
+           style={styles.rateButton} 
+           onPress={()=> checkLogin()}
+          >
             <Text
               style={{
                 fontSize: 25,
@@ -189,7 +196,7 @@ export default function BusinessPage({ route, navigation }) {
               right: SPACING,
             }}
           >
-            תיאור עלינו:
+            תיאור עלינו: 
           </Text>
           <View style={styles.Description}>
             <Text
@@ -199,9 +206,7 @@ export default function BusinessPage({ route, navigation }) {
                 alignSelf: "flex-end",
                 margin: SPACING,
               }}
-            >
-              יהיה כאן קצת עלינו......
-            </Text>
+            >{job}</Text>
           </View>
         </View>
         <View>

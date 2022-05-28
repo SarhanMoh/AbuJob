@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, ScrollView, ActivityIndicator, View, TextInput ,Text} from 'react-native';
+import { Button, StyleSheet, ScrollView, Pressable,Image,ImageBackground,ActivityIndicator, TouchableOpacity,View, TextInput ,Text} from 'react-native';
 import { dataBase } from '../firebase';
 import {Picker} from '@react-native-picker/picker';
 import { collection, deleteDoc } from "firebase/firestore";
@@ -9,89 +9,110 @@ import { useNavigation } from '@react-navigation/native';
 
 const options = [
 
-    {
-  
-      label: "רכב",
-  
-      value: "Cars",
-  
-    },
-  
-    {
-  
-      label: "שיפוצים",
-  
-      value: "Renovations",
-  
-    },
-  
-    {
-  
-      label: "טיפול",
-  
-      value: "Treatment",
-  
-    },
-  
-    {
-  
-      label: "אמנות ומלאכת יד",
-  
-      value: "Arts",
-  
-    },
-    {
-  
-      label: "קוסמטיקה",
-  
-      value: "cosmetics",
-  
-    },
-    {
-  
-      label: "תיקונים ומלאכות",
-  
-      value: "Repairs",
-  
-    },
-    {
-  
-      label: "חשמלאות",
-  
-      value: "Electricians",
-  
-    },
-    {
-  
-      label: "הוראה",
-  
-      value: "Teaching",
-  
-    },
-    {
-  
-      label: "מוסיקה",
-  
-      value: "Music",
-  
-    },
-    {
-  
-      label: "שירותי מכלות",
-  
-      value: "Grocery",
-  
-    },
-    {
-  
-      label: "טכנאים",
-  
-      value: "Technicians",
-  
-    },
-  
-  ];
- 
+  {
+
+    label: "רכב",
+
+    value: "Cars",
+
+  },
+
+  {
+
+    label: "שיפוצים",
+
+    value: "Renovations",
+
+  },
+
+  {
+
+    label: "טיפול",
+
+    value: "Treatment",
+
+  },
+
+  {
+
+    label: "אמנות ומלאכת יד",
+
+    value: "Arts",
+
+  },
+  {
+
+    label: "קוסמטיקה",
+
+    value: "cosmetics",
+
+  },
+  {
+
+    label: "תיקונים ומלאכות",
+
+    value: "Repairs",
+
+  },
+  {
+
+    label: "חשמלאות",
+
+    value: "Electricians",
+
+  },
+  {
+
+    label: "הוראה",
+
+    value: "Teaching",
+
+  },
+  {
+
+    label: "מוסיקה",
+
+    value: "Music",
+
+  },
+  {
+
+    label: "שירותי מכלות",
+
+    value: "Grocery",
+
+  },
+  {
+
+    label: "טכנאים",
+
+    value: "Technicians",
+
+  },
+  {
+
+    label: "כושר ואימון פיזי",
+
+    value: "Fitness",
+
+  },
+  {
+
+    label: "שונות",
+
+    value: "Various",
+
+  },
+  {
+
+    label: "קייטרינג",
+
+    value: "Catering",
+
+  },
+
+
+];
 class UpdateComponent extends Component {
     constructor({navigation}) {
         
@@ -128,6 +149,19 @@ class UpdateComponent extends Component {
     render() {
         return (
       <View>
+        <ImageBackground
+              source={require('../app/assets/back.png')}
+              style={StyleSheet.absoluteFillObject}
+              blurRadius={50}
+              resizeMode="cover"
+            />
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate("BusinessOptions")}>
+                <Image
+                style={styles.backButton}
+                source={require('../app/assets/backButton.png')} 
+        
+                /> 
+            </TouchableOpacity>
             <Picker
             selectedValue={this.state.category}
             onValueChange={(itemValue, itemIndex) =>
@@ -140,25 +174,29 @@ class UpdateComponent extends Component {
                 ))}
         
             </Picker>
-            <Button
-            title='הצג רשימה'
+            <View style={styles.container}>
+            <Pressable style ={styles.button2} 
             onPress={() =>this.getList()} 
-            color="black"
-          />
+            title='הצג רשימה'
+          >
+            <Text style={styles.text}>הצג רשימה</Text>
+          </Pressable>
+          </View>
           <FlatList
           data={this.state.emptyList}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 150}}
-          ListEmptyComponent={({ item, index }) => {
-            return (
-                <View key={index} style={styles.list}>
-                        <Text>"אין תוצאות ..." </Text>
+          contentContainerStyle={{ paddingBottom: 1000000}}
+        //   ListEmptyComponent={({ item, index }) => {
+        //     return (
+        //         <View key={index} style={styles.list}>
+        //                 <Text style={styles.text2}>"אין תוצאות ..." </Text>
 
-                    </View>
-        )
-          }}
+        //             </View>
+        // )
+        //   }}
           renderItem={({ item, index }) => {
             return (
+              
                 <View key={index} style={styles.list}>
                     <View style={styles.dataList}>
                         <Text>שם :{item.name} </Text>
@@ -166,12 +204,19 @@ class UpdateComponent extends Component {
                         <Text>שפות:{item.languages}</Text>
                         <Text>טלפון :{item.phone_number}</Text>
                     </View>
+                   
                     <View>
-                      <Button
+                      {/* <Button
                           title='מחיקה'
                           onPress={() =>this.deleteItem(item)} 
                           color="red"
-                      />
+                      /> */}
+                      <Pressable style ={styles.button3} 
+                          onPress={() =>this.deleteItem(item)} 
+                          title='מחיקה'
+                      >
+                        <Text style={styles.text3}>מחיקה</Text>
+                      </Pressable>
                     </View>
                 </View>
         )
@@ -183,29 +228,108 @@ class UpdateComponent extends Component {
     }  
 }
 const styles = StyleSheet.create({
+    container:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign:'right',
+    },
     button:{
       flex :1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#ffff',
+      backgroundColor: 'black',
+      color: 'black',
   
+    },
+    button3:{
+      flex :1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'red',
+      color: 'black',
+      width:'100%',
+      borderColor: 'red',
+      borderWidth: 2,
+  
+    },
+    button2:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+    width:'60%',
+    padding:10,  
+    color: 'white',
+      
+      
+    },
+    text:{
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
+      textAlign:'right',
+
+    },
+    text2:{
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'black',
+      textAlign:'right',
+
+    },
+    text3:{
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
+      textAlign:'right',
+
     },
     list:{
         flex:1,
-        backgroundColor: '#ffff',
-        padding: 20,
+        //backgroundColor: '#ffff',
+        padding: 25,
+
+        marginVertical:5,
+        marginHorizontal:5,
+        //paddingBottom: 50,
         flexDirection:"row-reverse",
         justifyContent:'space-between',
+        borderColor: 'black',
+        borderWidth: 1
        
     },
     dataList:{
-
+        textAlign:"right",
         flexDirection:'column'
     },
     delete:{
         width:45,
         height:45,
-    }
+    },
+    backButton:{
+      width:10,
+      height:40,
+      resizeMode:"contain",
+      // alignSelf:'flex-start',
+      // justifyContent:'flex-start',
+      //position: 'absolute',
+      paddingLeft: 100,
+      marginTop:20,
+      marginLeft: "65%",
+      borderRadius:10,
+      borderColor:'black',
+      borderWidth:3,
+      marginTop:"10%",
+      },
 
 })
 export default UpdateComponent;

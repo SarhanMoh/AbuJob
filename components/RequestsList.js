@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StatusBar,Animated,Button,Image, StyleSheet, ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable , SafeAreaView} from 'react-native';
+import { StatusBar,Animated,Button,Image, StyleSheet,TouchableOpacity,ImageBackground ,ScrollView,FlatList,Easing, ActivityIndicator, View, TextInput ,Text, Pressable , SafeAreaView} from 'react-native';
 import { dataBase } from '../firebase';
 import { collection } from "firebase/firestore";
 
-const IMG ='https://i.pinimg.com/564x/df/94/ab/df94abacc141db8944c42cbf88f32f38.jpg';
  
 class RequestsList extends Component {
   
@@ -36,14 +35,21 @@ class RequestsList extends Component {
     render() {
      
         return (
-          <SafeAreaView style={styles.allContainer}>
+          //<SafeAreaView style={styles.allContainer}>
           <View style={{flex:1 , backgroundColor:'#fff'}}>
-            <Image
-              source={{uri:IMG}}
+          <ImageBackground
+              source={require('../app/assets/back.png')}
               style={StyleSheet.absoluteFillObject}
-              blurRadius={80}
-            
+              blurRadius={50}
+              resizeMode="cover"
             />
+           <TouchableOpacity onPress={()=>this.props.navigation.navigate("AdminHomePage")}>
+                <Image
+                style={styles.backButton}
+                source={require('../app/assets/backButton.png')} 
+        
+                /> 
+            </TouchableOpacity> 
           <FlatList
           // const scrollY = React.useRef(new Animated.value(0)).current;
           data={this.state.emptyList}
@@ -121,14 +127,14 @@ class RequestsList extends Component {
         />
 
             </View>
-          </SafeAreaView>
+         // </SafeAreaView>
         );
     }  
 }
 const styles = StyleSheet.create({
   allContainer:{
     flex:1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight *1.5 : 0,
   },
     container:{
       alignItems: 'center',
@@ -140,14 +146,15 @@ const styles = StyleSheet.create({
         padding: 3,
     },
     button:{
-    marginTop: 20,
+    //marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20,
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     width:'60%',
     padding:10,  
     
@@ -157,13 +164,29 @@ const styles = StyleSheet.create({
       lineHeight: 21,
       fontWeight: 'bold',
       letterSpacing: 0.25,
-      color: 'black',
+      color: 'white',
     },
+    backButton:{
+      width:10,
+      height:40,
+      resizeMode:"contain",
+      // alignSelf:'flex-start',
+      // justifyContent:'flex-start',
+      //position: 'absolute',
+      paddingLeft: 100,
+      marginTop:20,
+      marginLeft: "65%",
+      borderRadius:10,
+      borderColor:'black',
+      borderWidth:3,
+      marginTop:"10%",
+      },
     list:{
         flex:1,
         backgroundColor: '#ffff',
         padding: 20,
         flexDirection: 'column',
+        paddingTop: 20,
         marginBottom:20,
         backgroundColor: 'ffff',
         borderRadius:12,

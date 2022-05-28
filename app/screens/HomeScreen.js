@@ -1,8 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import reactDom from "react-dom";
-import { dataBase } from '../../firebase';
-
 import {
   View,
   Button,
@@ -18,259 +16,32 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
-import Component from '../../components/newComponents'
+import { options, recently } from "../../components/NewComponents";
 
-const Options1 = Component.options;
-//console.log(Options1);
-const options = [
-  {
-    label: "רכב",
-
-    value: "Cars",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-
-  {
-    label: "שיפוצים",
-
-    value: "Renovations",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-
-  {
-    label: "טיפול",
-
-    value: "Treatment",
-
-    color: "dodgerblue",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-
-  {
-    label: "אמנות ומלאכת יד",
-
-    value: "Arts",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "קוסמטיקה",
-
-    value: "cosmetics",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "תיקונים ומלאכות",
-
-    value: "Repairs",
-
-    color: "dodgerblue",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "חשמלאות",
-
-    value: "Electricians",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "הוראה",
-
-    value: "Teaching",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "מוסיקה",
-
-    value: "Music",
-
-    color: "dodgerblue",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "שירותי מכלות",
-
-    value: "Grocery",
-
-    color: "#6495ED",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-  {
-    label: "טכנאים",
-
-    value: "Technicians",
-
-    color: "#007fff",
-
-    icon: require("../assets/tempIcon.png"),
-  },
-];
-const recently = [
-  {
-    name: "עמותה ###י",
-
-    key: 100,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "טיפול",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 99,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "רכב",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 98,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "שיפוצים",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 97,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "קןסמטיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 96,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "חשמלאות",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 95,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "קןסמטיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 94,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "טיפול",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 93,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "מוסיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 92,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "מוסיקה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 91,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "הוראה",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 90,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "חשמלאות",
-
-    city: "ירושלים",
-  },
-  {
-    name: "עמותה ###י",
-
-    key: 89,
-
-    profilePic: require("../assets/profileIcon.png"),
-
-    catagory: "חשמלאות",
-
-    city: "ירושלים",
-  },
-];
-function all(){
-  const ref = dataBase
-  .collection(this.state.category);
-  
-}
 const SPACING = 8,
   cellWidth = 250,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 
 export default function HomeScreen({ navigation }) {
+  // const [category , setCategory] = useState('')
+  // let emptyList = []
+  // async function getList(){
+  //   const ref = dataBase
+  //   .collection(this.state.category);
+  //   const snapshot = await ref.get();
+  //   let tmp = [];
+  //   snapshot.forEach(doc => {
+  //   //console.log(doc.id, '=>', doc.data());
+  //   tmp.push(doc.data());
+
+  //   });
+  //   this.setState({
+  //     emptyList: tmp,
+  //   });
+  //   console.log(this.state.emptyList);
+
+  // }
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
@@ -313,7 +84,7 @@ export default function HomeScreen({ navigation }) {
         </View>
         <View style={{ height: 7 }}></View>
         <FlatList
-          data={Options1}
+          data={options}
           keyExtractor={(item) => item.value}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -322,11 +93,14 @@ export default function HomeScreen({ navigation }) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-              onPress={()=> {
-                const key = item.value
-                navigation.navigate('Login', {key})
-                
-              }}
+                onPress={async() => {
+                  const label = item.label;
+                  const key = item.value;
+                  // setCategory(item.value);
+                  // console.log(category);
+                  // await getList();
+                  navigation.navigate("Category", { label, key });
+                }}
                 style={{
                   width: cellWidth,
                   height: cellHeight,
@@ -431,13 +205,14 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   cataIcon: {
-    width: cellWidth * 0.7,
-    height: cellWidth * 0.7,
+    width: cellWidth * 1,
+    height: cellWidth * 1,
     alignSelf: "flex-start",
+    justifyContent: 'center',
     resizeMode: "contain",
     position: "absolute",
     top: SPACING * 2,
-    left: SPACING * 2,
+    left: SPACING * 1,
   },
   Topper: {
     height: 45,

@@ -8,12 +8,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateComponent from './components/CreateComponent';
 import ReadComponent from './components/ReadComponent';
+import ReportsRead from './components/ReportsRead';
 import UpdateComponent from './components/UpdateComponent';
 import LoginScreen from './app/screens/LoginScreen';
 import HomeScreen from './app/screens/HomeScreen';
 import BusinessRegister from './app/screens/BusinessRegister';
 import RequestsList from './components/RequestsList';
 import BusinessOptions from './app/screens/BusinessOptions';
+import ReportsOptions from './app/screens/ReportsOptions';
 import OptionsDrawer from './app/screens/OptionsDrawer';
 // import Categories from './app/screens/Categories';
 import SignUp from './app/screens/SignUp';
@@ -22,7 +24,9 @@ import ForgetPass from './app/screens/ForgetPass';
 import SignInPage from './app/screens/SignInPage';
 import CategoryPage from "./app/screens/CategoryPage";
 import BusinessPage from "./app/screens/BusinessPage";
-
+import AuthContext, { useAuth } from "./app/context/AuthContext";
+import SignUpp from "./app/screens/SignUpp";
+import Reports from './app/screens/Reports';
 const Stack = createNativeStackNavigator();
 // 
 export default function App() {                
@@ -31,6 +35,7 @@ export default function App() {
     {/* <Stack.Navigator> */}
      
       {/* <Stack.Screen options={{headerShown: false}} name="Categories" component={Categories} />  */}
+      <AuthContext>
       <Stack.Navigator
       screenOptions={{
           headerStyle: {
@@ -43,11 +48,21 @@ export default function App() {
           
         }
       }
-      initialRouteName={"SignUP"}
+      initialRouteName={"Home"}
       >
       <Stack.Screen 
         name="CreateComponent" 
         component={CreateComponent} 
+        options={{ title: 'יצירת חשבון', headerShown: false }}
+      />
+      <Stack.Screen 
+        name="Reports" 
+        component={Reports} 
+        options={{ title: 'דיווחים', headerShown: false }}
+      />
+      <Stack.Screen 
+        name="SignUpp" 
+        component={SignUpp} 
         options={{ title: 'יצירת חשבון', headerShown: false }}
       />
       <Stack.Screen 
@@ -56,9 +71,19 @@ export default function App() {
         options={{ title: 'List' , headerShown: false}}
       />
       <Stack.Screen 
+        name="ReportsRead" 
+        component={ReportsRead} 
+        options={{ title: 'List' , headerShown: false}}
+      />
+      <Stack.Screen 
         name="BusinessOptions" 
         component={BusinessOptions} 
          options={{ title: 'אופציות של המסדים', headerShown: false }}
+      />
+      <Stack.Screen 
+        name="ReportsOptions" 
+        component={ReportsOptions} 
+         options={{ title: 'דיווחים ', headerShown: false }}
       />
       <Stack.Screen 
        name="UpdateComponent" 
@@ -80,9 +105,10 @@ export default function App() {
       <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> 
       <Stack.Screen options={{headerShown: false}} name='FirstPage' component={FirstPage} /> 
       <Stack.Screen options={{headerShown: false}} name='SignIn' component={SignInPage} />
-      <Stack.Screen options={{headerShown: false}} name='SignUP' component={SignUp} />
+      <Stack.Screen options={{headerShown: false}} name='SignUp' component={SignUp} />
       <Stack.Screen options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
       </Stack.Navigator>
+      </AuthContext>
   </NavigationContainer>
     );
 }

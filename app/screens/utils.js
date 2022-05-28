@@ -1,11 +1,11 @@
 export const routes = [
-  "Get started",
-  "Features",
-  "Tools",
-  "Services",
-  "Portfolio",
-  "Careers",
-  "Contacts",
+  "מי אנחנו",
+  "הצטרפות עסקים",
+  "התחברות משתמש",
+  "כניסת אדמין",
+  //"Portfolio",
+  "להגיש תלונה",
+  "צור קשר",
 ];
 export const links = ["Follow us", "Quota", "Awesome link"];
 export const colors = [

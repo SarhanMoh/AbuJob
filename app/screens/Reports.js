@@ -1,22 +1,44 @@
 import React, { Component } from 'react';
-import { Button,StatusBar,Image,TouchableOpacity, KeyboardAvoidingView,StyleSheet,SafeAreaView , ScrollView, ActivityIndicator, View, TextInput ,Text,Pressable} from 'react-native';
+import { Button,StatusBar,Image,TouchableOpacity,FlatList, KeyboardAvoidingView,StyleSheet,SafeAreaView , ScrollView, ActivityIndicator, View, TextInput ,Text,Pressable} from 'react-native';
 import { dataBase } from '../../firebase';
+import {Picker} from '@react-native-picker/picker';
 
 
-class BusinessRegister extends Component {
+const options = [
+
+    {
+  
+      label: "דוח כללי",
+  
+      value: "Report",
+  
+    },
+    {
+  
+      label: "דוח טכני",
+  
+      value: "technicalReport",
+  
+    },
+  
+    {
+  
+      label: "דוח על מסד",
+  
+      value: "businessReport",
+  
+    },
+  ];
+class Reports extends Component {
   constructor() {
     super();
     // this.ref = dataBase.collection('glory');
     this.state = {
-      category: 'Requests',  
+      category: 'Report',  
       name: '',
       email:'',
-      address: '',
-      businessNumber:'',
-      languages: '',
-      city:'',
+      report:'',
       phone_number: '',
-      ownerName: '',
       isLoading: false
     };
   }
@@ -27,32 +49,23 @@ class BusinessRegister extends Component {
     state[prop] = val;
     this.setState(state);
   }
-  addRequests() {
-    let db = dataBase.collection('Requests');
+  addReport() {
+    let db = dataBase.collection(this.state.category);
     if(this.state.name === ''){
-      alert(' חייב  לרשום שם עסק ')
+      alert('חייב לרשום שם')
      }
-     else if(this.state.businessNumber === ''){
-      alert('חייב  לרשום מספר עסק מורשה ')
-     }
-    else if(this.state.ownerName === ''){
-     alert('חייב  לרשום שם בעל העסק ')
-    }
-    else if(this.state.languages === ''){
-      alert('חייב לרשום  שפות ')
+     else if(this.state.report === ''){
+      alert('חייב לרשום תאיור ')
      }
     else if(this.state.email === ''){
-      alert('חייב לרשום מייל ')
+      alert('חייב לרשום מייל')
      } 
-     else if(this.state.address === ''){
-        alert('חייב לרשום כתובת ')
-       }
     else if(this.state.phone_number === ''){
-        alert('חייב לרשום מספר טלפון ')
+        alert('חייב לרשום מספר טלפון')
        }
-    else if(this.state.city === ''){
-        alert('חייב לרשום עיר ')
-       }  
+    else if(this.state.phone_number.length > 10 ||this.state.phone_number.length <9 ){
+        alert(' חייב לרשום מספר טלפון נכון ')
+       }
     else {
       this.setState({
         isLoading: true,
@@ -60,28 +73,20 @@ class BusinessRegister extends Component {
       db.add({
         name: this.state.name,
         email: this.state.email,
-        languages: this.state.languages,
         phone_number: this.state.phone_number,
-        ownerName: this.state.ownerName,
-        address: this.state.address,
-        city: this.state.city,
-        businessNumber: this.state.businessNumber,
+        report: this.state.report,
       }).then((res) => {
         this.setState({
           name: '',
-          address: '',
-          languages:'',
           phone_number:'',
           email:'',
-          ownerName:'',
-          city:'',
-          businessNumber:'',
+          report:'',
          isLoading: false,
         });
-        this.props.navigation.navigate('ReadComponent')
+        this.props.navigation.navigate('Home')
       })
       .catch((err) => {
-        console.error("Error occured: ", err);
+        console.error("Error Occured: ", err);
         this.setState({
           isLoading: false,
         });
@@ -109,46 +114,17 @@ class BusinessRegister extends Component {
           <View>
             <Image
               style={styles.bigLogoStyle} 
-              source={require('../assets/AbuJobsBigLogo.jpeg')} />
-            {/* <Text style ={[styles.adminText,]}>Welcome Admin</Text> */}
-    
+              source={require('../assets/AbuJobsBigLogo.jpeg')} />    
           </View>
           <View style={styles.inputContainer}> 
-            <Text style={styles.textInfo}>שם עסק</Text>
+            <Text style={styles.textInfo}>שם מדווח</Text>
             <TextInput
-              placeholder='שם עסק'
+              placeholder='שם מדווח'
               placeholderTextColor="#899499"
               value={this.state.name}
               textAlign= "right"
-    
+              maxLength={30}
               onChangeText={(val) => this.onValUpdate(val, 'name')}
-              style={styles.input}
-            />
-            <Text style={styles.textInfo}>מספר עסק מורשה </Text>
-            <TextInput
-              placeholder='ע.מ'
-              placeholderTextColor="#899499"
-              value={this.state.businessNumber}
-              textAlign= "right"
-              onChangeText={(val) => this.onValUpdate(val, 'businessNumber')}
-              style={styles.input}
-            />
-            <Text style={styles.textInfo}>שם בעל העסק</Text>
-            <TextInput
-              placeholder='שם  בעל העסק'
-              placeholderTextColor="#899499"
-              textAlign= "right"
-              value={this.state.ownerName}
-              onChangeText={(val) => this.onValUpdate(val, 'ownerName')}
-              style={styles.input}
-            />
-              <Text style={styles.textInfo}>שפות דיבור</Text>
-            <TextInput
-              placeholder='שפות דיבור'
-              placeholderTextColor="#899499"
-              value={this.state.languages}
-              textAlign= "right"
-              onChangeText={(val) => this.onValUpdate(val, 'languages')}
               style={styles.input}
             />
             <Text style={styles.textInfo}>מייל</Text>
@@ -157,16 +133,8 @@ class BusinessRegister extends Component {
               placeholderTextColor="#899499"
               value={this.state.email}
               textAlign= "right"
+              maxLength={30}
               onChangeText={(val) => this.onValUpdate(val, 'email')}
-              style={styles.input}
-            />
-            <Text style={styles.textInfo}>כתובת</Text>
-            <TextInput
-              placeholder='כתובת'
-              placeholderTextColor="#899499"
-              value={this.state.address}
-              textAlign= "right"
-              onChangeText={(val) => this.onValUpdate(val, 'address')}
               style={styles.input}
             />
             <Text style={styles.textInfo}>מספר טלפון</Text>
@@ -175,37 +143,49 @@ class BusinessRegister extends Component {
               placeholderTextColor="#899499"
               value={this.state.phone_number}
               textAlign= "right"
+              maxLength={10}
+              textAlignVertical= "top"
               onChangeText={(val) => this.onValUpdate(val, 'phone_number')}
               style={styles.input}
             />
-            <Text style={styles.textInfo}>עיר</Text>
+            <Text style={styles.textInfo}>תיאור הדוח</Text>
             <TextInput
-              placeholder='עיר'
+              placeholder='תיאור הדוח'
               placeholderTextColor="#899499"
+              multiline={true}
+              maxLength={200}
+              numberOfLines={5}
               textAlign= "right"
-              value={this.state.city}
-              onChangeText={(val) => this.onValUpdate(val, 'city')}
-              style={styles.input}
+              value={this.state.report}
+              onChangeText={(val) => this.onValUpdate(val, 'report')}
+              style={styles.input2}
             />
           </View>
-    
-          <View style={styles.buttonContainer}>
+
+        </KeyboardAvoidingView>
+        <Text style={styles.textInfo2}>סוג דוח</Text>
+          <Picker
+            selectedValue={this.state.category}
+            onValueChange={(itemValue, itemIndex) =>
+            this.setState({
+                    category: itemValue,
+                  })
+            }>
+                
+                {options.map((option , itemIndex) => (
+                <Picker.Item key={itemIndex} value={option.value} label={option.label} style={{flexDirection:'column-reverse'}}></Picker.Item>
+                ))}
+            {/* <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" /> */}
+            </Picker>
+            <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={() =>this.addRequests()}
+              onPress={() =>this.addReport()}
               style={styles.button}
             >
             <Text style={styles.buttonText}>שלח</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-              onPress={handleSignUp}
-              style={[styles.button , styles.buttonOutLine]}
-            >
-                <Text style={styles.buttonOutLineText}>Register</Text>
-    
-            </TouchableOpacity> */}
-    
           </View>
-        </KeyboardAvoidingView>
           </ScrollView>
      </SafeAreaView>
       );
@@ -250,6 +230,19 @@ class BusinessRegister extends Component {
   
       // flexDirection:'column-reverse'
     },
+    textInfo2:{
+      alignContent: "flex-end",
+      paddingTop: 15,
+      paddingBottom:1,
+      flex: 1,
+      paddingRight: "12%",
+      alignSelf:'flex-end',
+      fontSize: 20,
+      fontWeight: 'bold',
+   
+  
+      // flexDirection:'column-reverse'
+    },
     input: {
       backgroundColor: '#ffff',
       paddingHorizontal: 15,
@@ -262,8 +255,22 @@ class BusinessRegister extends Component {
   
       // flexDirection:'row-reverse'
     },
+    input2: {
+      backgroundColor: '#ffff',
+      paddingHorizontal: 15,
+      paddingVertical: 10,
+      borderRadius: 10,
+      marginTop: 5,
+      borderColor: '#2885A6',
+      borderWidth: 1,
+      height: 100,
+    
+      //alignSelf:'flex-end'
+  
+      // flexDirection:'row-reverse'
+    },
     buttonContainer:{
-        width:'60%',
+        //width:'60%',
         justifyContent:'center',
         alignItems: 'center',
         marginTop: 40,
@@ -312,4 +319,4 @@ class BusinessRegister extends Component {
   
   })
 
-export default BusinessRegister;
+export default Reports;
