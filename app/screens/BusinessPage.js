@@ -16,6 +16,7 @@ import {
   StatusBar,
   Dimensions,
   Linking,
+  ImageBackground,
 } from "react-native";
 
 const SPACING = 8,
@@ -47,18 +48,15 @@ export default function BusinessPage({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
-  const { name, city, pic, category, address, phone, rate ,job } = route.params;
-  function checkLogin(){
-      
-    
-
-  }
+  const { name, city, pic, category, address, phone, rate, job } = route.params;
+  function checkLogin() {}
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        source={require("../assets/blurImg.jpg")}
+      <ImageBackground
+        source={require("../assets/back.png")}
         style={StyleSheet.absoluteFillObject}
-        blurRadius={10}
+        resizeMode="cover"
+        blurRadius={25}
       />
       <View style={styles.Header}>
         <View style={styles.Topper}>
@@ -162,8 +160,8 @@ export default function BusinessPage({ route, navigation }) {
             />
           </View>
           <TouchableOpacity
-           style={styles.rateButton} 
-           onPress={()=> checkLogin()}
+            style={styles.rateButton}
+            onPress={() => checkLogin()}
           >
             <Text
               style={{
@@ -196,7 +194,7 @@ export default function BusinessPage({ route, navigation }) {
               right: SPACING,
             }}
           >
-            תיאור עלינו: 
+            תיאור עלינו:
           </Text>
           <View style={styles.Description}>
             <Text
@@ -206,7 +204,9 @@ export default function BusinessPage({ route, navigation }) {
                 alignSelf: "flex-end",
                 margin: SPACING,
               }}
-            >{job}</Text>
+            >
+              {job}
+            </Text>
           </View>
         </View>
         <View>
@@ -273,7 +273,10 @@ export default function BusinessPage({ route, navigation }) {
               {" Date Here"}
             </Text>
           </View>
-          <TouchableOpacity style={{ margin: SPACING * 0.5 }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Reports")}
+            style={{ margin: SPACING * 0.5 }}
+          >
             <Text
               style={{
                 fontWeight: "600",

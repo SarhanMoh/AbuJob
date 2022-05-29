@@ -1,39 +1,34 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View , TextInput } from 'react-native';
-
-import AdminHomePage from './app/screens/AdminHomePage';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CreateComponent from './components/CreateComponent';
-import ReadComponent from './components/ReadComponent';
-import ReportsRead from './components/ReportsRead';
-import UpdateComponent from './components/UpdateComponent';
-import LoginScreen from './app/screens/LoginScreen';
-import HomeScreen from './app/screens/HomeScreen';
-import BusinessRegister from './app/screens/BusinessRegister';
-import RequestsList from './components/RequestsList';
-import BusinessOptions from './app/screens/BusinessOptions';
-import ReportsOptions from './app/screens/ReportsOptions';
-import OptionsDrawer from './app/screens/OptionsDrawer';
-// import Categories from './app/screens/Categories';
-import SignUp from './app/screens/SignUp';
-import FirstPage from './app/screens/FirstPage';
-import ForgetPass from './app/screens/ForgetPass';
-import SignInPage from './app/screens/SignInPage';
+import React from "react";
+import { StyleSheet, Text, View, TextInput } from "react-native";
+import AdminHomePage from "./app/screens/AdminHomePage";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CreateComponent from "./components/CreateComponent";
+import ReadComponent from "./components/ReadComponent";
+import ReportsRead from "./components/ReportsRead";
+import UpdateComponent from "./components/UpdateComponent";
+import LoginScreen from "./app/screens/LoginScreen";
+import HomeScreen from "./app/screens/HomeScreen";
+import BusinessRegister from "./app/screens/BusinessRegister";
+import RequestsList from "./components/RequestsList";
+import BusinessOptions from "./app/screens/BusinessOptions";
+import ReportsOptions from "./app/screens/ReportsOptions";
+import OptionsDrawer from "./app/screens/OptionsDrawer";
+import SignUp from "./app/screens/SignUp";
+import FirstPage from "./app/screens/FirstPage";
+import ForgetPass from "./app/screens/ForgetPass";
+import SignInPage from "./app/screens/SignInPage";
 import CategoryPage from "./app/screens/CategoryPage";
 import BusinessPage from "./app/screens/BusinessPage";
 import AuthContext, { useAuth } from "./app/context/AuthContext";
-import SignUpp from "./app/screens/SignUpp";
-import Reports from './app/screens/Reports';
+import Reports from "./app/screens/Reports";
 const Stack = createNativeStackNavigator();
-// 
-export default function App() {                
+//
+export default function App() {
   return (
     <NavigationContainer>
-    {/* <Stack.Navigator> */}
-     
+      {/* <Stack.Navigator> */}
+
       {/* <Stack.Screen options={{headerShown: false}} name="Categories" component={Categories} />  */}
       <AuthContext>
       <Stack.Navigator
@@ -109,15 +104,15 @@ export default function App() {
       <Stack.Screen options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
       </Stack.Navigator>
       </AuthContext>
-  </NavigationContainer>
-    );
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

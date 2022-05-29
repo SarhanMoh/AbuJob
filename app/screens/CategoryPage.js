@@ -1,11 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
-import React , {useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
 import { AirbnbRating } from "react-native-ratings";
-import {dataBase} from '../../firebase';
+import { dataBase } from "../../firebase";
 
 import {
   View,
   Image,
+  ImageBackground,
   StyleSheet,
   TouchableOpacity,
   TouchableHighlight,
@@ -18,7 +19,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from "react-native";
-import { options, recently } from "../../components/NewComponents";
+import { options, recently } from "../../components/newComponents";
 
 const SPACING = 8,
   cellWidth = 250,
@@ -29,35 +30,33 @@ export default function CategoryPage({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
-  const [emptyList , setEmptyList] = React.useState([]);
+  const [emptyList, setEmptyList] = React.useState([]);
 
   const { label, key } = route.params;
-  useEffect(() =>{
-    async function getList(){
+  useEffect(() => {
+    async function getList() {
       console.log("entered");
-      const ref = dataBase
-      .collection(key);
+      const ref = dataBase.collection(key);
       const snapshot = await ref.get();
       let tmp = [];
-      snapshot.forEach(doc => {
-      //console.log(doc.id, '=>', doc.data());
-      tmp.push(doc.data());
-  
+      snapshot.forEach((doc) => {
+        //console.log(doc.id, '=>', doc.data());
+        tmp.push(doc.data());
       });
-     setEmptyList(tmp);
+      setEmptyList(tmp);
       //console.log(tmp);
-
     }
-    
+
     getList();
-  } ,[])
+  }, []);
   console.log(emptyList);
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        source={require("../assets/blurImg.jpg")}
+      <ImageBackground
+        source={require("../assets/back.png")}
         style={StyleSheet.absoluteFillObject}
-        blurRadius={10}
+        resizeMode="cover"
+        blurRadius={25}
       />
       <View style={styles.Header}>
         <View style={styles.Topper}>
@@ -107,22 +106,18 @@ export default function CategoryPage({ route, navigation }) {
               קטוגוריה: {label}
             </Text>
           </View>
-          <View style={{ height: 1, backgroundColor: "#81daf5" }}>
-              
-
-          </View>
+          <View style={{ height: 1, backgroundColor: "#81daf5" }}></View>
         </View>
       </View>
-      {emptyList.length > 0 ?(  
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={emptyList}
-          keyExtractor={(item) => `${item.phone_number}`}
-          contentContainerStyle={{
-            padding: SPACING,
-          }}
-          renderItem={({ item }) => {
-            
+      {emptyList.length > 0 ? (
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={emptyList}
+            keyExtractor={(item) => `${item.phone_number}`}
+            contentContainerStyle={{
+              padding: SPACING,
+            }}
+            renderItem={({ item }) => {
               return (
                 <TouchableOpacity
                   onPress={() => {
@@ -133,7 +128,7 @@ export default function CategoryPage({ route, navigation }) {
                     const address = item.address;
                     const phone = item.phone_number;
                     const rate = item.rating;
-                    const job = item.job
+                    const job = item.job;
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -186,14 +181,14 @@ export default function CategoryPage({ route, navigation }) {
                   </View>
                 </TouchableOpacity>
               );
-            
-          }}
-        />
-      </View>
-  ):(<View>
-     <ActivityIndicator size="large" color="#0000ff" />
-  </View>)
-}
+            }}
+          />
+        </View>
+      ) : (
+        <View>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
     </SafeAreaView>
   );
 }

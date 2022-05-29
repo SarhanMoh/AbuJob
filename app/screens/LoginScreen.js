@@ -1,55 +1,63 @@
-import { KeyboardAvoidingView ,Image,StyleSheet, Text, View ,TextInput,TouchableOpacity} from 'react-native';
-import React, { useEffect, useState } from 'react'
-import { auth } from '../../firebase';
+import {
+  KeyboardAvoidingView,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { auth } from "../../firebase";
 // import { useNavigation } from '@react-navigation/native';
-import {dataBase} from '../../firebase';
+import { dataBase } from "../../firebase";
 
-const LoginScreen = ({navigation}) => {
-  const[email, setEmail]= useState('')
-  const[password, setPassword]= useState('')
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // const { key } = route.params;
   // console.log(key)
-   
+
   //const navigation = useNavigation()
-  useEffect(() =>{
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user){
-        navigation.navigate("AdminHomePage")
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("AdminHomePage");
       }
-    })
-    return unsubscribe
-  })
+    });
+    return unsubscribe;
+  });
 
-  const handleSignUp= () => {
+  const handleSignUp = () => {
     auth
-      .createUserWithEmailAndPassword(email , password)
-      .then(userCredentials => {
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log('Registered with:', user.email);
+        console.log("Registered with:", user.email);
         addUser(user);
-    })
-      .catch(error =>alert(error.message))
-
-  }
- async function addUser(user) {
+      })
+      .catch((error) => alert(error.message));
+  };
+  async function addUser(user) {
     let db = dataBase.collection("Users");
-      db.add({
-        email: user.email,
-        uid:user.uid,
-        First_name: this.state.name,
-        Last_Name: this.state.name,
-        address: this.state.address,
-        languages: this.state.languages,
-        phone_number: this.state.phone_number,
-      }).then((res) => {
+    db.add({
+      email: user.email,
+      uid: user.uid,
+      First_name: this.state.name,
+      Last_Name: this.state.name,
+      address: this.state.address,
+      languages: this.state.languages,
+      phone_number: this.state.phone_number,
+    })
+      .then((res) => {
         this.setState({
-          name: '',
-          address: '',
-          languages:'',
-          phone_number:'',
+          name: "",
+          address: "",
+          languages: "",
+          phone_number: "",
           isLoading: false,
         });
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate("Home");
       })
       .catch((err) => {
         console.error("Error occured: ", err);
@@ -57,137 +65,125 @@ const LoginScreen = ({navigation}) => {
           isLoading: false,
         });
       });
-    
   }
-  const handleLogin = ()=>{
+  const handleLogin = () => {
     auth
-      .signInWithEmailAndPassword(email , password)
-      .then(userCredentials => {
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
-        console.log(dataBase.collection('Admins').doc('first').get());
-    })
-      .catch(error =>alert(error.message))
-  }
+        console.log("Logged in with:", user.email);
+        console.log(dataBase.collection("Admins").doc("first").get());
+      })
+      .catch((error) => alert(error.message));
+  };
 
-    return (
-    <KeyboardAvoidingView style={styles.container}
-    behavior="padding">
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View>
         <Image
-          style={styles.bigLogoStyle} 
-          source={require('../assets/AbuJobsBigLogo.jpeg')} />
-        <Text style ={[styles.adminText]}> ברוך הבא אדמין</Text>
-
+          style={styles.bigLogoStyle}
+          source={require("../assets/AbuJobsBigLogo.jpeg")}
+        />
+        <Text style={[styles.adminText]}> ברוך הבא אדמין</Text>
       </View>
-      <View style={styles.inputContainer}> 
+      <View style={styles.inputContainer}>
         <TextInput
-          placeholder='Email'
+          placeholder="Email"
           placeholderTextColor="#899499"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
         <TextInput
-          placeholder='Password'
+          placeholder="Password"
           placeholderTextColor="#899499"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           style={styles.input}
           secureTextEntry
         />
       </View>
 
       <View style={styles.buttonContainer}>
-        {/* <TouchableOpacity
-          onPress={handleLogin}
-          style={styles.button}
-        >
-            <Text style={styles.buttonText}>Login</Text>
-
-        </TouchableOpacity> */}
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button , styles.buttonOutLine]}
-        >
-            <Text style={styles.buttonOutLineText}>Register</Text>
-
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-
+        {/* <TouchableOpacity
+          onPress={handleSignUp}
+          style={[styles.button, styles.buttonOutLine]}
+        >
+          <Text style={styles.buttonOutLineText}>Register</Text>
+        </TouchableOpacity> */}
       </View>
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
-export default LoginScreen
+export default LoginScreen;
 
 const styles = StyleSheet.create({
-  container:{
-    flex :1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffff',
-
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ffff",
   },
-  inputContainer:{
-    width: '80%',
-    
+  inputContainer: {
+    width: "80%",
   },
   input: {
-    backgroundColor: '#ffff',
+    backgroundColor: "#ffff",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
-    borderColor: '#2885A6',
+    borderColor: "#2885A6",
     borderWidth: 1,
   },
-  buttonContainer:{
-      width:'60%',
-      justifyContent:'center',
-      alignItems: 'center',
-      marginTop: 40,
+  buttonContainer: {
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 40,
   },
   button: {
-    backgroundColor: '#A8D173',
-    width: '100%',
+    backgroundColor: "#A8D173",
+    width: "100%",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
-
+    alignItems: "center",
   },
-  buttonText:{
-    color: 'white',
-    fontWeight: '700',
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
     fontSize: 16,
   },
-  buttonOutLine:{
-    backgroundColor : 'white',
+  buttonOutLine: {
+    backgroundColor: "white",
     marginTop: 10,
-    borderColor: '#2885A6',
+    borderColor: "#2885A6",
     borderWidth: 3,
   },
-  buttonOutLineText:{
-    color: '#2885A6',
-    fontWeight: '700',
+  buttonOutLineText: {
+    color: "#2885A6",
+    fontWeight: "700",
     fontSize: 16,
   },
-  adminText:{
-    padding: '20%',
-    marginTop: '-20%',
+  adminText: {
+    padding: "20%",
+    marginTop: "-20%",
     fontSize: 24,
-    fontWeight: '900',
-    color: '#A8D173',
+    fontWeight: "900",
+    color: "#A8D173",
   },
-  bigLogoStyle:{
-    resizeMode:'contain',
-    width:300,
+  bigLogoStyle: {
+    resizeMode: "contain",
+    width: 300,
     height: 150,
-    padding : 20,
-    
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    padding: 20,
 
-})
-//#0782f9 blue 
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+//#0782f9 blue

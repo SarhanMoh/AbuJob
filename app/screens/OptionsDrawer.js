@@ -26,7 +26,7 @@ const ButtonNav = ({ onPress, label, style }) => {
   );
 };
 
-const CustomDrawer = ({ onPress, animatedValue, navigation }) => {
+const CustomDrawer = ({ onPress, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.menuContainer}>
@@ -48,7 +48,20 @@ const CustomDrawer = ({ onPress, animatedValue, navigation }) => {
                 <ButtonNav
                   label={route}
                   key={route}
-                  onPress={onPress}
+                  onPress={() => {
+                    if (index === 0) {
+                      navigation.navigate("Home");
+                    } else if (index === 1) {
+                      navigation.navigate("BusinessReg");
+                    } else if (index === 2) {
+                      navigation.navigate("SignIn");
+                    } else if (index === 3) {
+                      navigation.navigate("Login");
+                    } else if (index === 4) {
+                      navigation.navigate("Reports");
+                    } else if (index === 5) {
+                    }
+                  }}
                   style={[styles.button, { color: colors[index] }]}
                 />
               );
@@ -60,7 +73,11 @@ const CustomDrawer = ({ onPress, animatedValue, navigation }) => {
                 <ButtonNav
                   label={link}
                   key={link}
-                  onPress={onPress}
+                  onPress={() => {
+                    if (index === 0) {
+                      navigation.navigate("FirstPage");
+                    }
+                  }}
                   style={[
                     styles.buttonSmall,
                     { color: colors[index + routes.length + 1] },
@@ -84,7 +101,10 @@ export default function OptionsDrawer({ navigation }) {
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
       }}
     >
-      <CustomDrawer onPress={() => navigation.navigate("Home")} />
+      <CustomDrawer
+        navigation={navigation}
+        onPress={() => navigation.navigate("Home")}
+      />
     </SafeAreaView>
   );
 }
