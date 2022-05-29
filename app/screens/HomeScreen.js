@@ -15,8 +15,9 @@ import {
   Platform,
   StatusBar,
   Dimensions,
+  ImageBackground,
 } from "react-native";
-import { options, recently } from "../../components/NewComponents";
+import { options, recently } from "../../components/newComponents";
 
 const SPACING = 8,
   cellWidth = 250,
@@ -48,10 +49,11 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        source={require("../assets/blurImg.jpg")}
+      <ImageBackground
+        source={require("../assets/back.png")}
         style={StyleSheet.absoluteFillObject}
-        blurRadius={10}
+        resizeMode="cover"
+        blurRadius={25}
       />
       <View>
         <View style={styles.Topper}>
@@ -93,7 +95,7 @@ export default function HomeScreen({ navigation }) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-                onPress={async() => {
+                onPress={async () => {
                   const label = item.label;
                   const key = item.value;
                   // setCategory(item.value);
@@ -205,12 +207,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   cataIcon: {
-    width: cellWidth * 1,
-    height: cellWidth * 1,
+    width: cellWidth * 0.65,
+    height: cellWidth * 0.65,
     alignSelf: "flex-start",
-    justifyContent: 'center',
-    resizeMode: "contain",
-    position: "absolute",
+    justifyContent: "center",
     top: SPACING * 2,
     left: SPACING * 1,
   },
