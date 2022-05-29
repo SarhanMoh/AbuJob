@@ -31,78 +31,115 @@ export default function App() {
 
       {/* <Stack.Screen options={{headerShown: false}} name="Categories" component={Categories} />  */}
       <AuthContext>
-      <Stack.Navigator
-      screenOptions={{
-          headerStyle: {
-            backgroundColor: 'blue',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          
-        }
-      }
-      initialRouteName={"FirstPage"}
-      >
-      <Stack.Screen 
-        name="CreateComponent" 
-        component={CreateComponent} 
-        options={{ title: 'יצירת חשבון', headerShown: false }}
-      />
-      <Stack.Screen 
-        name="Reports" 
-        component={Reports} 
-        options={{ title: 'דיווחים', headerShown: false }}
-      />
-      <Stack.Screen 
-        name="SignUpp" 
-        component={SignUpp} 
-        options={{ title: 'יצירת חשבון', headerShown: false }}
-      />
-      <Stack.Screen 
-        name="ReadComponent" 
-        component={ReadComponent} 
-        options={{ title: 'List' , headerShown: false}}
-      />
-      <Stack.Screen 
-        name="ReportsRead" 
-        component={ReportsRead} 
-        options={{ title: 'List' , headerShown: false}}
-      />
-      <Stack.Screen 
-        name="BusinessOptions" 
-        component={BusinessOptions} 
-         options={{ title: 'אופציות של המסדים', headerShown: false }}
-      />
-      <Stack.Screen 
-        name="ReportsOptions" 
-        component={ReportsOptions} 
-         options={{ title: 'דיווחים ', headerShown: false }}
-      />
-      <Stack.Screen 
-       name="UpdateComponent" 
-       component={UpdateComponent} 
-       options={{ title: 'Update' , headerShown: false}}
-      />
-      <Stack.Screen 
-       name="RequestsList" 
-       component={RequestsList} 
-       options={{ title: 'ReqList' , headerShown: false}}
-      />
-      
-      <Stack.Screen options={{headerShown: false}} name="BusinessReg" component={BusinessRegister} /> 
-      <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> 
-      <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
-      <Stack.Screen options={{ headerShown: false }} name="Options" component={OptionsDrawer} /> 
-      <Stack.Screen options={{ headerShown: false }} name="Category" component={CategoryPage}/>
-      <Stack.Screen options={{ headerShown: false }} name="BusinessPage" component={BusinessPage}/>
-      <Stack.Screen options={{headerShown: false}} name="AdminHomePage" component={AdminHomePage} /> 
-      <Stack.Screen options={{headerShown: false}} name='FirstPage' component={FirstPage} /> 
-      <Stack.Screen options={{headerShown: false}} name='SignIn' component={SignInPage} />
-      <Stack.Screen options={{headerShown: false}} name='SignUp' component={SignUp} />
-      <Stack.Screen options={{headerShown: false}} name='ForgetPassword' component={ForgetPass} />
-      </Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: "blue",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          initialRouteName={"FirstPage"}
+        >
+          <Stack.Screen
+            name="CreateComponent"
+            component={CreateComponent}
+            options={{ title: "יצירת חשבון", headerShown: false }}
+          />
+          <Stack.Screen
+            name="Reports"
+            component={Reports}
+            options={{ title: "דיווחים", headerShown: false }}
+          />
+          <Stack.Screen
+            name="ReadComponent"
+            component={ReadComponent}
+            options={{ title: "List", headerShown: false }}
+          />
+          <Stack.Screen
+            name="ReportsRead"
+            component={ReportsRead}
+            options={{ title: "List", headerShown: false }}
+          />
+          <Stack.Screen
+            name="BusinessOptions"
+            component={BusinessOptions}
+            options={{ title: "אופציות של המסדים", headerShown: false }}
+          />
+          <Stack.Screen
+            name="ReportsOptions"
+            component={ReportsOptions}
+            options={{ title: "דיווחים ", headerShown: false }}
+          />
+          <Stack.Screen
+            name="UpdateComponent"
+            component={UpdateComponent}
+            options={{ title: "Update", headerShown: false }}
+          />
+          <Stack.Screen
+            name="RequestsList"
+            component={RequestsList}
+            options={{ title: "ReqList", headerShown: false }}
+          />
+
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="BusinessReg"
+            component={BusinessRegister}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Login"
+            component={LoginScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={HomeScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Options"
+            component={OptionsDrawer}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Category"
+            component={CategoryPage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="BusinessPage"
+            component={BusinessPage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="AdminHomePage"
+            component={AdminHomePage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="FirstPage"
+            component={FirstPage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="SignIn"
+            component={SignInPage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="SignUp"
+            component={SignUp}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ForgetPassword"
+            component={ForgetPass}
+          />
+        </Stack.Navigator>
       </AuthContext>
     </NavigationContainer>
   );
