@@ -48,7 +48,7 @@ export default function App() {
           
         }
       }
-      initialRouteName={"Home"}
+      initialRouteName={"FirstPage"}
       >
       <Stack.Screen 
         name="CreateComponent" 
