@@ -9,7 +9,6 @@ const options = [
     color: "#69d2e7",
 
     icon: require("../app/assets/Cars.png"),
-    
   },
 
   {
@@ -19,7 +18,7 @@ const options = [
 
     color: "#a7dbd8",
 
-    icon: require('../app/assets/renovations.png'),
+    icon: require("../app/assets/renovations.png"),
   },
 
   {
@@ -28,7 +27,7 @@ const options = [
     value: "Treatment",
 
     // color: "#c02942",
-    color : "#08f26e",
+    color: "#08f26e",
 
     icon: require("../app/assets/Treatment.png"),
   },
@@ -44,10 +43,11 @@ const options = [
   },
   {
     label: "תיקונים ומלאכות",
-    
+
     value: "Repairs",
-    
-    color: "#efa536",    
+
+    color: "#efa536",
+
     icon: require("../app/assets/Repairs.png"),
   },
   {
@@ -56,16 +56,16 @@ const options = [
     value: "Electricians",
 
     color: "#fe4365",
-    
+
     icon: require("../app/assets/Electricians.png"),
   },
   {
     label: "הוראה",
-    
+
     value: "Teaching",
-    
+
     color: "#fc9d9a",
-    
+
     icon: require("../app/assets/Teaching.png"),
   },
   {
@@ -74,6 +74,7 @@ const options = [
     value: "cosmetics",
 
     color: "#fe4365",
+
     icon: require("../app/assets/cosmetics.png"),
   },
   {
