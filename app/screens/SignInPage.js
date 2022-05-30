@@ -12,14 +12,30 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 // import { useNavigation } from '@react-navigation/native';
 import { dataBase } from "../../firebase";
+import { useAuth } from "../context/AuthContext";
+
+
 
 const SignInPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   //contains user login data
+   const [currentUser, setCurrentUser] = useState(null);
+   //contains user personal data
+   const [dataUser, setdataUser] = useState([]);
+ 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        navigation.navigate("AdminHomePage");
+        // const q = user
+        // ? query(collection(dataBase, "Users"), where("uid", "==", user?.uid))
+        // : "";
+        // const querySnapshot = q ? await getDocs(q) : "";
+        //setdataUser(querySnapshot ? querySnapshot.docs[0]?.data() : []);
+        setCurrentUser(user);
+        const account = user.email;
+        //const data = dataUser;
+        navigation.navigate("Home" , {account});
       }
     });
     return unsubscribe;
@@ -27,18 +43,18 @@ const SignInPage = ({ navigation }) => {
 
   const handleSignIn = () => {
     auth
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log("Registered with:", user.email);
-        addUser(user);
+        console.log("Logged In", user.email);
+        //addUser(user);
       })
       .catch((error) => {
         //alert(error.message)
         switch (error.code) {
-          case "auth/email-already-in-use":
-            alert("מייל כבר קיים", [{ text: "בסדר" }]);
-            break;
+          // case "auth/email-already-in-use":
+          //   alert("מייל כבר קיים", [{ text: "בסדר" }]);
+          //   break;
           case "auth/wrong-password":
             alert("שגוי", "מייל או סיסמה לא נכונים", [{ text: "בסדר" }]);
             break;
@@ -232,6 +248,10 @@ const styles = StyleSheet.create({
   },
   lable: {
     color: "#2885A6",
+    textAlign: 'right',
+    fontSize: 16,
+    fontWeight: "bold",
+
     // padding:3,
     // paddingTop:3,
   },

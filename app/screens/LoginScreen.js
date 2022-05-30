@@ -82,7 +82,7 @@ const LoginScreen = ({ navigation }) => {
       <View>
         <Image
           style={styles.bigLogoStyle}
-          source={require("../assets/AbuJobsBigLogo.jpeg")}
+          source={require("../assets/good.png")}
         />
         <Text style={[styles.adminText]}> ברוך הבא אדמין</Text>
       </View>

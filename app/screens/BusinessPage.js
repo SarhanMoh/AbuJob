@@ -18,6 +18,7 @@ import {
   Linking,
   ImageBackground,
 } from "react-native";
+import { dataBase } from "../../firebase";
 
 const SPACING = 8,
   cellWidth = 250,
@@ -48,8 +49,42 @@ export default function BusinessPage({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
-  const { name, city, pic, category, address, phone, rate, job } = route.params;
-  function checkLogin() {}
+  const [emptyList, setEmptyList] = React.useState([]);
+  const { name, city, pic, category, address, phone, rate, job ,key, account ,id} = route.params;
+  // console.log("accepted3 ",account);
+  // console.log("category" , key);
+  // console.log("key", id);
+  async function checkLogin() {
+    if(account === "undefined"){
+     
+    }
+    else{
+    const ref = dataBase.collection(key);
+    const snapshot = await ref.get();
+    let tmp = [];
+    snapshot.forEach((doc) => {
+      if(doc.data().phone_number===phone){
+      //console.log(doc.id, '=>', doc.data());
+      tmp.push(doc.data().rating);
+      }
+    });
+    //console.log(snapshot);
+    setEmptyList(tmp);
+    console.log(tmp);
+    tmp.forEach((doc)=>{
+      console.log(doc[0].email);
+      if(doc[0].email===account){
+          const email = doc[0].email;
+          navigation.navigate("Rating" ,{email});
+      }
+      else {
+        navigation.navigate("Rating",{account});
+      }
+    
+    }
+    )
+  }
+  }
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground

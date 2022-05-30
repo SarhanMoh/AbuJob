@@ -1,6 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import reactDom from "react-dom";
+import SignInPage from "./SignInPage";
 import {
   View,
   Button,
@@ -24,7 +25,7 @@ const SPACING = 8,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ route ,navigation }) {
   // const [category , setCategory] = useState('')
   // let emptyList = []
   // async function getList(){
@@ -43,6 +44,10 @@ export default function HomeScreen({ navigation }) {
   //   console.log(this.state.emptyList);
 
   // }
+  const {account } = route.params;
+  
+  console.log("accepted ",account);
+  //console.log(data);
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
@@ -101,7 +106,7 @@ export default function HomeScreen({ navigation }) {
                   // setCategory(item.value);
                   // console.log(category);
                   // await getList();
-                  navigation.navigate("Category", { label, key });
+                  navigation.navigate("Category", { label, key, account});
                 }}
                 style={{
                   width: cellWidth,

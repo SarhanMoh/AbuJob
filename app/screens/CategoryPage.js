@@ -32,7 +32,8 @@ export default function CategoryPage({ route, navigation }) {
   const [SearchValue, setSearchValue] = React.useState("");
   const [emptyList, setEmptyList] = React.useState([]);
 
-  const { label, key } = route.params;
+  const { label, key , account} = route.params;
+  console.log("accepted2",account);
   useEffect(() => {
     async function getList() {
       console.log("entered");
@@ -49,7 +50,7 @@ export default function CategoryPage({ route, navigation }) {
 
     getList();
   }, []);
-  console.log(emptyList);
+  //console.log(emptyList);
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -129,6 +130,8 @@ export default function CategoryPage({ route, navigation }) {
                     const phone = item.phone_number;
                     const rate = item.rating;
                     const job = item.job;
+                    const id = item;
+                    //console.log('keykey',id);
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -138,6 +141,9 @@ export default function CategoryPage({ route, navigation }) {
                       phone,
                       rate,
                       job,
+                      account,
+                      key,
+                      id,
                     });
                   }}
                   style={{

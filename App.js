@@ -22,6 +22,7 @@ import CategoryPage from "./app/screens/CategoryPage";
 import BusinessPage from "./app/screens/BusinessPage";
 import AuthContext, { useAuth } from "./app/context/AuthContext";
 import Reports from "./app/screens/Reports";
+import Rating from "./app/screens/Rating";
 const Stack = createNativeStackNavigator();
 //
 export default function App() {
@@ -47,6 +48,11 @@ export default function App() {
             name="CreateComponent"
             component={CreateComponent}
             options={{ title: "יצירת חשבון", headerShown: false }}
+          />
+          <Stack.Screen
+            name="Rating"
+            component={Rating}
+            options={{ title: "דירוג ", headerShown: false }}
           />
           <Stack.Screen
             name="Reports"

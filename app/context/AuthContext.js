@@ -94,42 +94,6 @@ import {
         }
       }
     };
-    //login using google mail service , check if existed if not it will create prifile for him
-    const loginWithGoogle = async () => {
-      try {
-        const res = await signInWithPopup(auth, googleProvider);
-        const user = res.user;
-        const q = query(collection(dataBase, "users"), where("uid", "==", user.uid));
-        const docs = await getDocs(q);
-        if (docs.docs.length === 0) {
-          await setDoc(doc(dataBase, "users", user.uid), {
-            uid: user.uid,
-            name: user.displayName,
-            authProvider: "google",
-            email: user.email,
-          });
-        }
-        //navigate("/");
-      } catch (error) {
-        switch (error.code) {
-          case "auth/email-already-in-use":
-            // NotificationManager.error("الإيميل مستخدم بالفعل", "خطأ", 5000);
-            break;
-          case "auth/wrong-password":
-            //NotificationManager.error("الايميل او كلمة السر خطأ", "خطأ", 5000);
-            break;
-          case "auth/user-not-found":
-            //NotificationManager.error("المستخدم غير مسجل", "خطأ", 5000);
-            break;
-          case "auth/popup-closed-by-user":
-            //NotificationManager.error("المستخدم  اغلق التسجيل", "خطأ", 5000);
-            break;
-          default:
-            //NotificationManager.error("خطأ في الخدمة", "خطأ", 5000);
-            break;
-        }
-      }
-    };
   
     //log out simple and easy
     const logout = async () => {
@@ -178,7 +142,6 @@ import {
       signUp,
       login,
       logout,
-      loginWithGoogle,
       resetPassword,
     };
     return <authContext.Provider {...{ value }}>{children}</authContext.Provider>;

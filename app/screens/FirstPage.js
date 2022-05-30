@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 const FirstPage = () => {
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
+  const guest = "guest";
   return (
     <View style={styles.root}>
       <ImageBackground
@@ -24,7 +25,7 @@ const FirstPage = () => {
       />
       {
         <Image
-          source={require("../assets/AbuJobsLogo.jpeg")}
+          source={require("../assets/good.png")}
           style={[styles.logo, { height: height * 0.1 }]}
         />
       }
@@ -35,7 +36,7 @@ const FirstPage = () => {
       />
       <CustomButton
         text="להיכנס כאורח"
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Home" , {guest})}
         type="PRIMARY"
       />
       <Text style={styles.text}> אין לך חשבון ? להירשם כאן </Text>

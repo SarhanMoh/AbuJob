@@ -35,19 +35,19 @@ function BusinessOptions(props) {
           style={styles.button1}
           onPress={() => navigation.navigate("CreateComponent")}
         >
-          <Text style={styles.text}>הוספת מסד</Text>
+          <Text style={styles.text}>הוספת עסק</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
           onPress={() => navigation.navigate("ReadComponent")}
         >
-          <Text style={styles.text}>רשימת מסדים</Text>
+          <Text style={styles.text}>רשימת עסקים</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button1}
           onPress={() => navigation.navigate("UpdateComponent")}
         >
-          <Text style={styles.text}>מחיקת מסד</Text>
+          <Text style={styles.text}>מחיקת עסק</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
