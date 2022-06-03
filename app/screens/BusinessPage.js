@@ -17,6 +17,7 @@ import {
   Dimensions,
   Linking,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { dataBase } from "../../firebase";
 
@@ -56,7 +57,10 @@ export default function BusinessPage({ route, navigation }) {
   }, [cSection]); 
   async function checkLogin() {
     if(account === undefined){
-     alert("please log in ");
+      Alert.alert("Unable to Rate", "Log in or register to rate", [
+        { text: "Cancel", style: "cancel" },
+        { text: "Log in!", onPress: () => navigation.navigate("FirstPage") },
+      ]);
     }else{
       navigation.navigate("RatingPage",{account,key,phone});
     }
