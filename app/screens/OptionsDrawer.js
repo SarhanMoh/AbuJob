@@ -57,7 +57,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={route}
                   onPress={() => {
                     if (index === 0) {
-                      navigation.navigate("Home");
+                      navigation.goBack();
                     } else if (index === 1) {
                       navigation.navigate("BusinessReg");
                     } else if (index === 2) {

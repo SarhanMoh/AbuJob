@@ -55,7 +55,7 @@ export default function BusinessPage({ route, navigation }) {
     })
   }, [cSection]); 
   async function checkLogin() {
-    if(account === "undefined"){
+    if(account === undefined){
      alert("please log in ");
     }else{
       navigation.navigate("RatingPage",{account,key,phone});
