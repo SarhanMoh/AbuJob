@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Text,
+  ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -26,6 +27,12 @@ function BusinessOptions(props) {
       />
       <View style={styles.screenContainer}>
         <View>
+        <ImageBackground
+        source={require("../assets/back.png")}
+        style={StyleSheet.absoluteFillObject}
+        resizeMode="cover"
+        blurRadius={25}
+      />
           <Image
             style={styles.bigLogoStyle}
             source={require("../assets/AbuJobsBigLogo.jpeg")}

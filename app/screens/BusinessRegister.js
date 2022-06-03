@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button,StatusBar,Image,TouchableOpacity, KeyboardAvoidingView,StyleSheet,SafeAreaView , ScrollView, ActivityIndicator, View, TextInput ,Text,Pressable} from 'react-native';
+import { Button,StatusBar,Image,TouchableOpacity, KeyboardAvoidingView,StyleSheet,SafeAreaView , ScrollView, ActivityIndicator, View, TextInput ,Text,Pressable,ImageBackground} from 'react-native';
 import { dataBase } from '../../firebase';
 
 
@@ -107,6 +107,12 @@ class BusinessRegister extends Component {
           <KeyboardAvoidingView style={styles.container}
         behavior="padding">
           <View>
+          <ImageBackground
+            source={require("../assets/back.png")}
+            style={StyleSheet.absoluteFillObject}
+            resizeMode="cover"
+            blurRadius={25}
+          />
             <Image
               style={styles.bigLogoStyle} 
               source={require('../assets/AbuJobsBigLogo.jpeg')} />

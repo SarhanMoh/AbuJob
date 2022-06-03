@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
@@ -80,6 +81,12 @@ const LoginScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View>
+      <ImageBackground
+            source={require("../assets/back.png")}
+            style={StyleSheet.absoluteFillObject}
+            resizeMode="cover"
+            blurRadius={25}
+          />
         <Image
           style={styles.bigLogoStyle}
           source={require("../assets/good.png")}

@@ -14,6 +14,7 @@ import {
   Platform,
   StatusBar,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import { routes, colors, links } from "./utils";
 const { width, height } = Dimensions.get("screen");
@@ -29,6 +30,12 @@ const ButtonNav = ({ onPress, label, style }) => {
 const CustomDrawer = ({ onPress, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
+      <ImageBackground
+            source={require("../assets/back.png")}
+            style={StyleSheet.absoluteFillObject}
+            resizeMode="cover"
+            blurRadius={25}
+          />
       <View style={styles.menuContainer}>
         <AntDesign
           name="close"

@@ -127,7 +127,7 @@ import {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           const q = user
-            ? query(collection(dataBase, "users"), where("uid", "==", user?.uid))
+            ? query(collection(dataBase, "Uךםsers"), where("uid", "==", user?.uid))
             : "";
           const querySnapshot = q ? await getDocs(q) : "";
           setdataUser(querySnapshot ? querySnapshot.docs[0]?.data() : []);

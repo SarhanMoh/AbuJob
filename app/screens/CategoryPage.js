@@ -128,7 +128,7 @@ export default function CategoryPage({ route, navigation }) {
                     const category = label;
                     const address = item.address;
                     const phone = item.phone_number;
-                    const rate = item.rating;
+                    const rate = item.rate;
                     const job = item.job;
                     const id = item;
                     //console.log('keykey',id);
@@ -164,7 +164,7 @@ export default function CategoryPage({ route, navigation }) {
                 >
                   <Image source={item.profilePic} style={styles.profileIcon} />
                   <AirbnbRating
-                    defaultRating={item.rating}
+                    defaultRating={item.rate}
                     showRating={false}
                     ratingCount={5}
                     size={20}

@@ -2,6 +2,7 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import reactDom from "react-dom";
 import SignInPage from "./SignInPage";
+import { Picker } from "@react-native-picker/picker";
 import {
   View,
   Button,
@@ -51,7 +52,7 @@ export default function HomeScreen({ route ,navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
-
+  const [category , setCategory]= React.useState("");
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -66,6 +67,7 @@ export default function HomeScreen({ route ,navigation }) {
             <TouchableHighlight
               style={styles.searchIcon}
               onPress={() => console.log("Search for " + SearchValue)}
+             
             >
               <Image
                 style={styles.searchImg}
@@ -73,12 +75,31 @@ export default function HomeScreen({ route ,navigation }) {
               />
             </TouchableHighlight>
             <TextInput
-              placeholder="Search..."
+              placeholder="חפש את ..."
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => setSearchValue(SearchValue)}
               style={{ color: "black", marginLeft: 5 }}
             />
+            {/* <Picker
+            selectedValue={category}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({
+                setCategory: itemValue,
+              })
+            }
+          >
+            {options.map((option, itemIndex) => (
+              <Picker.Item
+                key={itemIndex}
+                value={option.value}
+                label={option.label}
+                style={styles.list}
+              ></Picker.Item>
+            ))}
+            {/* <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" /> */}
+          {/* </Picker> */} 
           </View>
           <View style={styles.optButt}>
             <AntDesign
@@ -224,6 +245,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
+  },
+  list:{
+    justifyContent : "center",
+    alignItems : "center"
   },
   searchBar: {
     width: "80%",

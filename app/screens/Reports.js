@@ -14,6 +14,7 @@ import {
   TextInput,
   Text,
   Pressable,
+  ImageBackground,
 } from "react-native";
 import { dataBase } from "../../firebase";
 import { AntDesign } from "@expo/vector-icons";
@@ -110,6 +111,12 @@ class Reports extends Component {
     }
     return (
       <SafeAreaView style={styles.containerBig}>
+         <ImageBackground
+            source={require("../assets/back.png")}
+            style={StyleSheet.absoluteFillObject}
+            resizeMode="cover"
+            blurRadius={25}
+          />
         <AntDesign
           name="back"
           size={34}
@@ -129,9 +136,10 @@ class Reports extends Component {
             <View>
               <Image
                 style={styles.bigLogoStyle}
-                source={require("../assets/AbuJobsBigLogo.jpeg")}
+                source={require("../assets/good.png")}
               />
             </View>
+           
             <View style={styles.inputContainer}>
               <Text style={styles.textInfo}>שם מדווח</Text>
               <TextInput
@@ -215,19 +223,19 @@ class Reports extends Component {
 const styles = StyleSheet.create({
   containerBig: {
     flex: 1,
-    backgroundColor: "#fff",
+   // backgroundColor: "#fff",
     justifyContent: "space-evenly",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight* 1.5 : 0,
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ffff",
+    //backgroundColor: "#ffff",
     flexDirection: "column",
   },
   scrollView: {
-    backgroundColor: "#ffff",
+    //backgroundColor: "#ffff",
     // marginHorizontal: 1,
     paddingBottom: 1,
   },
@@ -327,7 +335,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 150,
     padding: 20,
-
     justifyContent: "center",
     alignItems: "center",
   },

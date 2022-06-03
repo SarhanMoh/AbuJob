@@ -22,7 +22,7 @@ import CategoryPage from "./app/screens/CategoryPage";
 import BusinessPage from "./app/screens/BusinessPage";
 import AuthContext, { useAuth } from "./app/context/AuthContext";
 import Reports from "./app/screens/Reports";
-import Rating from "./app/screens/Rating";
+import Rating from "./app/screens/RatingPage";
 const Stack = createNativeStackNavigator();
 //
 export default function App() {

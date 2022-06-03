@@ -9,6 +9,7 @@ import {
   StatusBar,
   Text,
   SafeAreaView,
+  ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -50,6 +51,12 @@ function ReportsOptions(props) {
           <Text style={styles.text}>דיווחים על מסדים</Text>
         </TouchableOpacity>
       </View>
+      <ImageBackground
+            source={require("../assets/back.png")}
+            style={StyleSheet.absoluteFillObject}
+            resizeMode="cover"
+            blurRadius={25}
+          />
     </SafeAreaView>
   );
 }

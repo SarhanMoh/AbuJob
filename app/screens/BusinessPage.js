@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect } from "react";
 import { AirbnbRating } from "react-native-ratings";
 import {
   View,
@@ -25,15 +25,7 @@ const SPACING = 8,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 
-const cSection = [
-  { Comment: "הערה כאן" },
-  { Comment: "הערה כאן" },
-  { Comment: "הערה כאן" },
-  { Comment: "הערה כאן" },
-  { Comment: "הערה כאן" },
-  { Comment: "הערה כאן" },
-  { Comment: "הערה כאן" },
-];
+const cSection = [];
 
 const dialCall = (number) => {
   let phoneNumber = "";
@@ -46,6 +38,7 @@ const dialCall = (number) => {
 };
 
 export default function BusinessPage({ route, navigation }) {
+  
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
@@ -54,36 +47,20 @@ export default function BusinessPage({ route, navigation }) {
   // console.log("accepted3 ",account);
   // console.log("category" , key);
   // console.log("key", id);
+  useEffect(() => {
+    const ratee = dataBase.collection(key).doc(id).collection("rating");
+    const snapR = ratee.get();
+    snapR.forEach((element)=>{
+      cSection.push(element.comment);
+    })
+  }, [cSection]); 
   async function checkLogin() {
     if(account === "undefined"){
-     
+     alert("please log in ");
+    }else{
+      navigation.navigate("RatingPage",{account,key,phone});
     }
-    else{
-    const ref = dataBase.collection(key);
-    const snapshot = await ref.get();
-    let tmp = [];
-    snapshot.forEach((doc) => {
-      if(doc.data().phone_number===phone){
-      //console.log(doc.id, '=>', doc.data());
-      tmp.push(doc.data().rating);
-      }
-    });
-    //console.log(snapshot);
-    setEmptyList(tmp);
-    console.log(tmp);
-    tmp.forEach((doc)=>{
-      console.log(doc[0].email);
-      if(doc[0].email===account){
-          const email = doc[0].email;
-          navigation.navigate("Rating" ,{email});
-      }
-      else {
-        navigation.navigate("Rating",{account});
-      }
     
-    }
-    )
-  }
   }
   return (
     <SafeAreaView style={styles.container}>

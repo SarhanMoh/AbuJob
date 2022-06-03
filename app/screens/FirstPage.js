@@ -7,16 +7,41 @@ import {
   ImageBackground,
   useWindowDimensions,
   Pressable,
+  Alert,
+  text,
+  TouchableOpacity,
 } from "react-native";
 import CustomButton from "./scr/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 //import Logo from './assets/AbuJobsLogo.jpeg'
 const FirstPage = () => {
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
   const guest = "guest";
+  const pressHandler=()=>{
+    Alert.alert("اللغة/שפה" ,"",[
+      {text:"עברית" , onPress: ()=>console.log("שפה עברית") },
+      {text:"العربية" , onPress: ()=> console.log("اللغة العربية")}
+    ])
+
+  }
   return (
-    <View style={styles.root}>
+    <SafeAreaView style={styles.safeView}>
+    <View style = {styles.container}>
+        <View>
+          <TouchableOpacity
+          onPress={()=>pressHandler()}>
+            {/* <Text style={styles.lanButton} > Ar/He </Text> */}
+            <Image
+            resizeMode="contain"
+            source={require("../assets/lang.png")}
+            style={styles.lanButton}
+            
+            />
+          </TouchableOpacity>
+        </View>
+      <View style={styles.root}>
       <ImageBackground
         source={require("../assets/back.png")}
         style={StyleSheet.absoluteFillObject}
@@ -45,15 +70,24 @@ const FirstPage = () => {
         onPress={() => navigation.navigate("SignUp")}
         type="C"
       />
+      </View>
     </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  safeView:{
+    flex: 1,
+    justifyContent: "space-evenly",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight *0.5 : 0,
+  },
+  container:{
+    flex: 1,
+  },
   root: {
     flex: 1,
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#ffff",
   },
   logo: {
     paddingTop: 200,
@@ -67,5 +101,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "gray",
   },
+  lanButton:{
+    // borderColor :"black",
+    // borderWidth : 2,
+    // fontSize: 16,
+    alignItems: 'flex-start',
+    width: "15%",
+    height: 40,
+    justifyContent:"center",
+    marginLeft:"2%",
+  // backgroundColor: "black"
+    //justifyContent: 'flex-start',
+  }
 });
 export default FirstPage;
