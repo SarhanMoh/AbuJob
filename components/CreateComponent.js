@@ -21,23 +21,25 @@ const listCollection = [];
 
 const options = [
   {
-    label: "רכב",
-
+    label: "שירותי רכב",
+    
     value: "Cars",
   },
+  {
+    label: "קייטרינג",
 
+    value: "Catering",
+  },
   {
     label: "שיפוצים",
 
     value: "Renovations",
   },
-
   {
     label: "טיפול",
 
     value: "Treatment",
   },
-
   {
     label: "אמנות ומלאכת יד",
 
@@ -89,10 +91,84 @@ const options = [
     value: "Various",
   },
   {
-    label: "קייטרינג",
+    label: "المطاعم",
 
-    value: "Catering",
+    value: "CateringAr",
   },
+  {
+    label: "خدمات السيارات",
+
+    value: "CarsAr",
+  },
+
+  {
+    label: "الترميمات وصيانة البيت",
+
+    value: "RenovationsAr",
+  },
+  
+  {
+    label: "علاج",
+
+    value: "TreatmentAr",
+  },
+
+  {
+    label: "الفنون و الحرف اليدوية",
+
+    value: "ArtsAr",
+  },
+  {
+    label: "مستحضرات التجميل",
+
+    value: "cosmeticsAr",
+  },
+  {
+    label: "التصليحات والحرف",
+
+    value: "RepairsAr",
+  },
+  {
+    label: "كهربائيات",
+
+    value: "ElectriciansAr",
+  },
+  {
+    label: "تعليم",
+
+    value: "TeachingAr",
+  },
+  
+  {
+    label: "موسيقى",
+
+    value: "MusicAr",
+  },
+  
+  {
+    label: "خدمات البقالة",
+
+    value: "GroceryAr",
+  },
+  
+  {
+    label: "فنين",
+
+    value: "TechniciansAr",
+  },
+ 
+  {
+    label: "اللياقة البدنية واليوجا",
+
+    value: "FitnessAr",
+  },
+  
+  {
+    label: "مختلف",
+
+    value: "VariousAr",
+  },
+  
 ];
 class CreateComponent extends Component {
   constructor() {
@@ -141,7 +217,7 @@ class CreateComponent extends Component {
     } else if (this.state.phone_number === "") {
       alert("חייב לרשום מספר טלפון ");
     } else if (
-      this.state.phone_number.length > 10 ||
+      this.state.phone_number.length > 11 ||
       this.state.phone_number.length < 9
     ) {
       alert(" חייב לרשום מספר טלפון נכון ");
@@ -211,7 +287,7 @@ class CreateComponent extends Component {
           <View>
             <Image
               style={styles.bigLogoStyle}
-              source={require("../app/assets/AbuJobsBigLogo.jpeg")}
+              source={require("../app/assets/good.png")}
             />
             {/* <Text style ={[styles.adminText,]}>Welcome Admin</Text> */}
           </View>
@@ -220,7 +296,7 @@ class CreateComponent extends Component {
             placeholder={"שם מלא"}
             placeholderTextColor="#899499"
             value={this.state.name}
-            maxLength={30}
+            maxLength={50}
             onChangeText={(val) => this.onValUpdate(val, "name")}
             style={styles.input}
             textAlign="right"
@@ -231,7 +307,7 @@ class CreateComponent extends Component {
             placeholder={"מקצוע/שירות מוצע"}
             placeholderTextColor="#899499"
             value={this.state.job}
-            maxLength={30}
+            maxLength={100}
             onChangeText={(val) => this.onValUpdate(val, "job")}
             style={styles.input}
             textAlign="right"
@@ -242,7 +318,7 @@ class CreateComponent extends Component {
             placeholder={"כתובת"}
             placeholderTextColor="#899499"
             value={this.state.address}
-            maxLength={50}
+            maxLength={100}
             onChangeText={(val) => this.onValUpdate(val, "address")}
             style={styles.input}
             textAlign="right"
@@ -253,7 +329,7 @@ class CreateComponent extends Component {
             placeholder={"שפות"}
             placeholderTextColor="#899499"
             value={this.state.languages}
-            maxLength={30}
+            maxLength={100}
             onChangeText={(val) => this.onValUpdate(val, "languages")}
             style={styles.input}
             textAlign="right"
@@ -267,7 +343,7 @@ class CreateComponent extends Component {
             onChangeText={(val) => this.onValUpdate(val, "phone_number")}
             style={styles.input}
             textAlign="right"
-            maxLength={10}
+            maxLength={11}
           />
           <Text style={styles.textInfo}>תוכן</Text>
           <TextInput
@@ -375,6 +451,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderColor: "#2885A6",
     borderWidth: 1,
+    height: 40,
     //alignSelf:'flex-end'
 
     // flexDirection:'row-reverse'

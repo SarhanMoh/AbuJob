@@ -1,3 +1,5 @@
+
+
 import {
   KeyboardAvoidingView,
   Image,
@@ -14,83 +16,30 @@ import { auth } from "../../firebase";
 // import { useNavigation } from '@react-navigation/native';
 import { dataBase } from "../../firebase";
 
-const SignInPage = ({ navigation }) => {
+const ForgetPass = ({ navigation }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("AdminHomePage");
+  
+  const resetPassword = () => {
+    
+      auth
+      .sendPasswordResetEmail(email)
+      .then(()=>{
+        alert( "נשלח לך הודעה על מייל");
+      })
+     .catch ((error) => {
+      switch (error.code) {
+        case "auth/invalid-email":
+          alert("שגוי", "מייל שגוי", [{ text: "בסדר" }]);
+          break;
+        case "auth/user-not-found":
+          alert("שגוי", "משתמש לא נמצא", [{ text: "בסדר" }]);
+          break;
+        // default:
+        //   alert("3שגיאה", "שגיאה בקליתה", [{ text: "בסדר" }]);
+        //   break;
       }
     });
-    return unsubscribe;
-  });
-
-  const handleSignIn = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Registered with:", user.email);
-        addUser(user);
-      })
-      .catch((error) => {
-        //alert(error.message)
-        switch (error.code) {
-          case "auth/email-already-in-use":
-            alert("מייל כבר קיים", [{ text: "בסדר" }]);
-            break;
-          case "auth/wrong-password":
-            alert("שגוי", "מייל או סיסמה לא נכונים", [{ text: "בסדר" }]);
-            break;
-          case "auth/user-not-found":
-            alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
-            break;
-          default:
-            console.log(error);
-            alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
-            break;
-        }
-      });
   };
-  //  async function addUser(user) {
-  //     let db = dataBase.collection("Users");
-  //       db.add({
-  //         email: user.email,
-  //         uid:user.uid,
-  //         First_name: this.state.name,
-  //         Last_Name: this.state.name,
-  //         address: this.state.address,
-  //         languages: this.state.languages,
-  //         phone_number: this.state.phone_number,
-  //       }).then((res) => {
-  //         this.setState({
-  //           name: '',
-  //           address: '',
-  //           languages:'',
-  //           phone_number:'',
-  //           isLoading: false,
-  //         });
-  //         this.props.navigation.navigate('SignInPage')
-  //       })
-  //       .catch((err) => {
-  //         console.error("Error occured: ", err);
-  //         this.setState({
-  //           isLoading: false,
-  //         });
-  //       });
-
-  //   }
-  //   const handleLogin = ()=>{
-  //     auth
-  //       .signInWithEmailAndPassword(email , password)
-  //       .then(userCredentials => {
-  //         const user = userCredentials.user;
-  //         console.log('Logged in with:', user.email);
-  //         console.log(dataBase.collection('Admins').doc('first').get());
-  //     })
-  //       .catch(error =>alert(error.message))
-  //   }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -103,15 +52,16 @@ const SignInPage = ({ navigation }) => {
       <View>
         <Image
           style={styles.bigLogoStyle}
-          source={require("../assets/AbuJobsBigLogo.jpeg")}
+          source={require("../assets/good.png")}
         />
         <Text style={[styles.adminText]}>ברוכים הבאים לשכונות טובה</Text>
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.text}>הזן כתובת אימייל</Text>
+        <Text style={styles.text1}>הזן כתובת מייל</Text>
         <TextInput
           placeholder="מייל"
           placeholderTextColor="#899499"
+          fontSize= "16"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
@@ -119,22 +69,22 @@ const SignInPage = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
           <Text style={styles.buttonSignIn}>חזרה כדי להיכנס</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={handleSignIn}
+          onPress={resetPassword}
           style={[styles.button, styles.buttonOutLine]}
         >
           <Text
             style={styles.buttonOutLineText}
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate("SignIn")}
           >
             לשלוח
           </Text>
         </TouchableOpacity>
         <Text style={styles.text}>
-          אנו נשלח קישור לכתובת האימייל שלך כדי להיכנס שוב
+       אנו נשלח קישור לכתובת המייל 
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
           <Text style={styles.buttonSignIn}>אין לך חשבון ? להירשם כאן</Text>
@@ -144,7 +94,7 @@ const SignInPage = ({ navigation }) => {
   );
 };
 
-export default SignInPage;
+export default ForgetPass;
 
 const styles = StyleSheet.create({
   container: {
@@ -162,6 +112,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
+    height: 45,
     borderColor: "#2885A6",
     borderWidth: 1,
     textAlign: "right",
@@ -198,7 +149,7 @@ const styles = StyleSheet.create({
   adminText: {
     padding: 10,
     //  marginTop: '-20%',
-    fontSize: 25,
+    fontSize: 28,
     fontWeight: "800",
     color: "#2885A6",
   },
@@ -223,6 +174,7 @@ const styles = StyleSheet.create({
     color: "#2885A6",
     fontWeight: "900",
     marginVertical: 5,
+    textAlign: "right",
   },
   buttonSignIn: {
     color: "gray",
@@ -231,4 +183,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
+  text1:{
+    //padding: 5,
+    paddingTop: 15,
+    fontSize : 16,
+    color: "#2885A6",
+    fontWeight: "900",
+    marginVertical: 5,
+    textAlign: "right",
+  }
 });

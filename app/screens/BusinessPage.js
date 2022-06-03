@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useEffect } from "react";
+import React from "react";
 import { AirbnbRating } from "react-native-ratings";
 import {
   View,
@@ -16,8 +16,8 @@ import {
   StatusBar,
   Dimensions,
   Linking,
-  ImageBackground,
   Alert,
+  ImageBackground,
 } from "react-native";
 import { dataBase } from "../../firebase";
 
@@ -39,7 +39,6 @@ const dialCall = (number) => {
 };
 
 export default function BusinessPage({ route, navigation }) {
-  
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
@@ -48,13 +47,6 @@ export default function BusinessPage({ route, navigation }) {
   // console.log("accepted3 ",account);
   // console.log("category" , key);
   // console.log("key", id);
-  useEffect(() => {
-    const ratee = dataBase.collection(key).doc(id).collection("rating");
-    const snapR = ratee.get();
-    snapR.forEach((element)=>{
-      cSection.push(element.comment);
-    })
-  }, [cSection]); 
   async function checkLogin() {
     if(account === undefined){
       Alert.alert("Unable to Rate", "Log in or register to rate", [
@@ -161,15 +153,15 @@ export default function BusinessPage({ route, navigation }) {
               height: cellHeight * 0.3,
               width: "50%",
               borderWidth: 1,
-              borderColor: "rgba(0, 0, 0, 0.2)",
-              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              borderColor: "rgba(0, 0, 0, 0.5)",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
               borderRadius: 30,
               margin: SPACING * 2,
             }}
           >
             <AirbnbRating
               count={5}
-              reviews={["Very Bad", "Bad", "OK", "Good", "Very Good"]}
+              reviews={["רע מאוד", "רַע", "בסדר", "טוב", "טוב מאוד"]}
               defaultRating={rate}
               size={25}
               isDisabled={true}

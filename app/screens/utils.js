@@ -3,9 +3,9 @@ export const routes = [
   "הצטרפות עסקים",
   "התחברות משתמש",
   "כניסת אדמין",
-  //"Portfolio",
   "להגיש תלונה",
   "צור קשר",
+  "התנתק",
 ];
 export const links = ["התנתק", "Quota", "Awesome link"];
 export const colors = [

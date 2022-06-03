@@ -26,23 +26,25 @@ import { withNavigation } from "react-navigation";
 
 const options = [
   {
-    label: "רכב",
-
+    label: "שירותי רכב",
+    
     value: "Cars",
   },
+  {
+    label: "קייטרינג",
 
+    value: "Catering",
+  },
   {
     label: "שיפוצים",
 
     value: "Renovations",
   },
-
   {
     label: "טיפול",
 
     value: "Treatment",
   },
-
   {
     label: "אמנות ומלאכת יד",
 
@@ -94,12 +96,85 @@ const options = [
     value: "Various",
   },
   {
-    label: "קייטרינג",
+    label: "المطاعم",
 
-    value: "Catering",
+    value: "CateringAr",
   },
-];
+  {
+    label: "خدمات السيارات",
 
+    value: "CarsAr",
+  },
+
+  {
+    label: "الترميمات وصيانة البيت",
+
+    value: "RenovationsAr",
+  },
+  
+  {
+    label: "علاج",
+
+    value: "TreatmentAr",
+  },
+
+  {
+    label: "الفنون و الحرف اليدوية",
+
+    value: "ArtsAr",
+  },
+  {
+    label: "مستحضرات التجميل",
+
+    value: "cosmeticsAr",
+  },
+  {
+    label: "التصليحات والحرف",
+
+    value: "RepairsAr",
+  },
+  {
+    label: "كهربائيات",
+
+    value: "ElectriciansAr",
+  },
+  {
+    label: "تعليم",
+
+    value: "TeachingAr",
+  },
+  
+  {
+    label: "موسيقى",
+
+    value: "MusicAr",
+  },
+  
+  {
+    label: "خدمات البقالة",
+
+    value: "GroceryAr",
+  },
+  
+  {
+    label: "فنين",
+
+    value: "TechniciansAr",
+  },
+ 
+  {
+    label: "اللياقة البدنية واليوجا",
+
+    value: "FitnessAr",
+  },
+  
+  {
+    label: "مختلف",
+
+    value: "VariousAr",
+  },
+  
+];
 class ReadComponent extends Component {
   constructor() {
     super();
@@ -236,6 +311,19 @@ class ReadComponent extends Component {
                   </View>
                   <View style={styles.info}>
                     <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      מקצוע:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.job}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
                       style={{ fontSize: 16, opacity: 0.7, textAlign: "right" }}
                     >
                       כתובת:
@@ -256,6 +344,32 @@ class ReadComponent extends Component {
                     >
                       {" "}
                       {item.languages}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      תוכן:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.description}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                     דירוג:  
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.rating}
                     </Text>
                   </View>
                   <View style={styles.info}>
@@ -299,7 +413,9 @@ const styles = StyleSheet.create({
   },
   info: {
     flexDirection: "row-reverse",
+    padding:4,
     textAlign: "right",
+    width: "98%"
   },
   button: {
     alignItems: "center",

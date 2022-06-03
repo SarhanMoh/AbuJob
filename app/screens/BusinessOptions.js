@@ -18,6 +18,7 @@ function BusinessOptions(props) {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
+      
       <AntDesign
         name="back"
         size={34}
@@ -26,16 +27,17 @@ function BusinessOptions(props) {
         onPress={() => navigation.navigate("AdminHomePage")}
       />
       <View style={styles.screenContainer}>
-        <View>
-        <ImageBackground
+      <ImageBackground
         source={require("../assets/back.png")}
         style={StyleSheet.absoluteFillObject}
         resizeMode="cover"
         blurRadius={25}
       />
+        <View>
+        
           <Image
             style={styles.bigLogoStyle}
-            source={require("../assets/AbuJobsBigLogo.jpeg")}
+            source={require("../assets/good.png")}
           />
         </View>
         <TouchableOpacity

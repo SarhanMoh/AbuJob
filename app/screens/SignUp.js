@@ -26,10 +26,12 @@ const SignUp = ({ navigation }) => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.navigate("Home");
+        const account = user.email;
+        navigation.navigate("SignIn",{account});
       }
     });
     return unsubscribe;
@@ -42,6 +44,8 @@ const SignUp = ({ navigation }) => {
         const user = userCredentials.user;
         console.log("Registered with:", user.email);
         addUser(user);
+      }).then((res)=>{
+     
       })
       .catch((error) => {
         //alert(error.message)
@@ -62,6 +66,23 @@ const SignUp = ({ navigation }) => {
         }
       });
   };
+  validate = (text) => {
+    console.log(text);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(text) === false) {
+      console.log("Email is Not Correct");
+      console.log("email",email);
+      // this.setState({ email: text })
+      setEmail(text)
+      return false;
+    }
+    else {
+      // this.setState({ email: text })
+      setEmail(text)
+      console.log("Email is Correct");
+      console.log("email",email);
+    }
+  }
   async function addUser(user) {
     let db = dataBase.collection("Users");
     db.add({
@@ -114,7 +135,7 @@ const SignUp = ({ navigation }) => {
           <View>
             <Image
               style={styles.bigLogoStyle}
-              source={require("../assets/AbuJobsBigLogo.jpeg")}
+              source={require("../assets/good.png")}
             />
             <Text style={[styles.adminText]}>ברוכים הבאים לשכנות טובה</Text>
           </View>
@@ -140,8 +161,8 @@ const SignUp = ({ navigation }) => {
             <TextInput
               placeholder="מייל"
               placeholderTextColor="#899499"
+              onChangeText={(text) => validate(text)}
               value={email}
-              onChangeText={(text) => setEmail(text)}
               style={styles.input}
             />
             <Text style={styles.lable}>סיסמה:</Text>
@@ -256,12 +277,12 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "#2885A6",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 20,
   },
   adminText: {
     padding: 10,
     //  marginTop: '-20%',
-    fontSize: 25,
+    fontSize: 28,
     fontWeight: "800",
     color: "#2885A6",
   },
@@ -290,6 +311,10 @@ const styles = StyleSheet.create({
   },
   lable: {
     color: "#2885A6",
+    textAlign: "right",
+    fontSize: 16,
+    paddingTop:5,
+    fontWeight :"500"
     // padding:3,
     // paddingTop:3,
   },

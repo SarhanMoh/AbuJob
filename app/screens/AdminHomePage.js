@@ -1,5 +1,6 @@
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { auth, dataBase } from "../../firebase";
 import {
   View,
   Image,
@@ -11,6 +12,7 @@ import {
   Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { signOut } from "firebase/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 function AdminHomePage(props) {
@@ -18,6 +20,7 @@ function AdminHomePage(props) {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
+      
       <AntDesign
         name="back"
         size={34}
@@ -25,19 +28,32 @@ function AdminHomePage(props) {
         style={{ alignSelf: "flex-end", paddingRight: "4%" }}
         onPress={() => navigation.navigate("Home")}
       />
-
+ 
       <View style={styles.screenContainer}>
+      <ImageBackground
+            source={require("../assets/back.png")}
+            style={StyleSheet.absoluteFillObject}
+            resizeMode="cover"
+            blurRadius={25}
+          />
         <View>
-        <ImageBackground
-        source={require("../assets/back.png")}
-        style={StyleSheet.absoluteFillObject}
-        resizeMode="cover"
-        blurRadius={25}
-      />
+        <TouchableOpacity style={styles.button3}
+         
+          onPress={() => {
+          auth.signOut();
+          // logout
+          console.log("logout", auth);
+          navigation.navigate("FirstPage")}
+          }
+          >
+          <Text style={styles.text3}>התנתק</Text>
+          </TouchableOpacity>
           <Image
             style={styles.bigLogoStyle}
-            source={require("../assets/AbuJobsBigLogo.jpeg")}
+            source={require("../assets/good.png")}
           />
+          
+          
         </View>
         {/* <TouchableOpacity style={styles.button1} onPress={onPress}>
             <Text style={styles.text}>משתמשים</Text>
@@ -68,9 +84,8 @@ function AdminHomePage(props) {
 const styles = StyleSheet.create({
   containerSafe: {
     flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "flex-start",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 0.3 : 0,
+    justifyContent: "space-evenly",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight *0.5 : 0,
   },
   screenContainer: {
     flex: 1,
@@ -140,6 +155,26 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 3,
   },
+  text3:{
+    fontSize: 14,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button3:{
+    backgroundColor: "red",
+    width: 50,
+    justifyContent: "center",
+    height: 30,
+    alignItems: "center",
+    //paddingVertical: 12,
+    //paddingHorizontal: 1,
+    borderRadius: 4,
+    elevation: 3,
+  }
 });
 
 export default AdminHomePage;

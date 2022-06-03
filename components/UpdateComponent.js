@@ -24,23 +24,25 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const options = [
   {
-    label: "רכב",
-
+    label: "שירותי רכב",
+    
     value: "Cars",
   },
+  {
+    label: "קייטרינג",
 
+    value: "Catering",
+  },
   {
     label: "שיפוצים",
 
     value: "Renovations",
   },
-
   {
     label: "טיפול",
 
     value: "Treatment",
   },
-
   {
     label: "אמנות ומלאכת יד",
 
@@ -92,10 +94,84 @@ const options = [
     value: "Various",
   },
   {
-    label: "קייטרינג",
+    label: "المطاعم",
 
-    value: "Catering",
+    value: "CateringAr",
   },
+  {
+    label: "خدمات السيارات",
+
+    value: "CarsAr",
+  },
+
+  {
+    label: "الترميمات وصيانة البيت",
+
+    value: "RenovationsAr",
+  },
+  
+  {
+    label: "علاج",
+
+    value: "TreatmentAr",
+  },
+
+  {
+    label: "الفنون و الحرف اليدوية",
+
+    value: "ArtsAr",
+  },
+  {
+    label: "مستحضرات التجميل",
+
+    value: "cosmeticsAr",
+  },
+  {
+    label: "التصليحات والحرف",
+
+    value: "RepairsAr",
+  },
+  {
+    label: "كهربائيات",
+
+    value: "ElectriciansAr",
+  },
+  {
+    label: "تعليم",
+
+    value: "TeachingAr",
+  },
+  
+  {
+    label: "موسيقى",
+
+    value: "MusicAr",
+  },
+  
+  {
+    label: "خدمات البقالة",
+
+    value: "GroceryAr",
+  },
+  
+  {
+    label: "فنين",
+
+    value: "TechniciansAr",
+  },
+ 
+  {
+    label: "اللياقة البدنية واليوجا",
+
+    value: "FitnessAr",
+  },
+  
+  {
+    label: "مختلف",
+
+    value: "VariousAr",
+  },
+  
 ];
 class UpdateComponent extends Component {
   constructor({ navigation }) {
@@ -187,9 +263,13 @@ class UpdateComponent extends Component {
                 <View key={index} style={styles.list}>
                   <View style={styles.dataList}>
                     <Text>שם :{item.name} </Text>
+                    <Text>מקצוע :{item.job} </Text>
                     <Text>כתובת:{item.address} </Text>
                     <Text>שפות:{item.languages}</Text>
                     <Text>טלפון :{item.phone_number}</Text>
+                    <Text>תוכן :{item.description}</Text>
+                    <Text>דירוג :{item.rating}</Text>
+
                   </View>
 
                   <View>

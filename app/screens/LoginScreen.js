@@ -58,7 +58,7 @@ const LoginScreen = ({ navigation }) => {
           phone_number: "",
           isLoading: false,
         });
-        this.props.navigation.navigate("Home");
+        navigation.navigate("AdminHomePage");
       })
       .catch((err) => {
         console.error("Error occured: ", err);
@@ -80,13 +80,13 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View>
       <ImageBackground
             source={require("../assets/back.png")}
             style={StyleSheet.absoluteFillObject}
             resizeMode="cover"
             blurRadius={25}
           />
+      <View>
         <Image
           style={styles.bigLogoStyle}
           source={require("../assets/good.png")}
@@ -94,15 +94,17 @@ const LoginScreen = ({ navigation }) => {
         <Text style={[styles.adminText]}> ברוך הבא אדמין</Text>
       </View>
       <View style={styles.inputContainer}>
+      <Text style = {styles.text}>מייל:</Text>
         <TextInput
-          placeholder="Email"
+          placeholder="מייל"
           placeholderTextColor="#899499"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
+        <Text style ={styles.text}>סיסמה:</Text>
         <TextInput
-          placeholder="Password"
+          placeholder="סיסמה"
           placeholderTextColor="#899499"
           value={password}
           onChangeText={(text) => setPassword(text)}
@@ -112,8 +114,10 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={handleLogin} style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity onPress={()=>{
+          handleLogin 
+          navigation.navigate("AdminHomePage")} }style={styles.button}>
+          <Text style={styles.buttonText}>להתחבר</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity
           onPress={handleSignUp}
@@ -140,18 +144,20 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#ffff",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
     borderRadius: 10,
     marginTop: 5,
     borderColor: "#2885A6",
     borderWidth: 1,
+    textAlign: "right",
   },
   buttonContainer: {
     width: "60%",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
+  
   },
   button: {
     backgroundColor: "#A8D173",
@@ -179,9 +185,10 @@ const styles = StyleSheet.create({
   adminText: {
     padding: "20%",
     marginTop: "-20%",
-    fontSize: 24,
+    marginBottom: "-10%",
+    fontSize: 28,
     fontWeight: "900",
-    color: "#A8D173",
+    color: "#2885A6",
   },
   bigLogoStyle: {
     resizeMode: "contain",
@@ -192,5 +199,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  text:{
+  color: "#2885A6",
+    textAlign: 'right',
+    fontSize: 16,
+    fontWeight: "bold",
+  }
 });
 //#0782f9 blue

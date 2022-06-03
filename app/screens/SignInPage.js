@@ -118,7 +118,7 @@ const SignInPage = ({ navigation }) => {
       <View>
         <Image
           style={styles.bigLogoStyle}
-          source={require("../assets/AbuJobsBigLogo.jpeg")}
+          source={require("../assets/good.png")}
         />
         <Text style={[styles.adminText]}>ברוכים הבאים לשכונות טובה</Text>
       </View>
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500",
     padding: 20,
+    textAlign:"right",
   },
   lable: {
     color: "#2885A6",

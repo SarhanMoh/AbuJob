@@ -28,6 +28,12 @@ const FirstPage = () => {
   }
   return (
     <SafeAreaView style={styles.safeView}>
+      <ImageBackground
+        source={require("../assets/back.png")}
+        style={StyleSheet.absoluteFillObject}
+        resizeMode="cover"
+        blurRadius={25}
+      />
     <View style = {styles.container}>
         <View>
           <TouchableOpacity
@@ -42,12 +48,7 @@ const FirstPage = () => {
           </TouchableOpacity>
         </View>
       <View style={styles.root}>
-      <ImageBackground
-        source={require("../assets/back.png")}
-        style={StyleSheet.absoluteFillObject}
-        resizeMode="cover"
-        blurRadius={25}
-      />
+      
       {
         <Image
           source={require("../assets/good.png")}
@@ -92,9 +93,9 @@ const styles = StyleSheet.create({
   logo: {
     paddingTop: 200,
     resizeMode: "contain",
-    width: "70%",
-    maxWidth: 500,
-    maxHeight: 400,
+    width: "100%",
+    maxWidth: 600,
+    maxHeight: 600,
   },
   text: {
     paddingTop: 30,
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
     // borderColor :"black",
     // borderWidth : 2,
     // fontSize: 16,
+    marginTop:20,
     alignItems: 'flex-start',
     width: "15%",
     height: 40,

@@ -106,7 +106,7 @@ export default function HomeScreen({ route ,navigation }) {
               name="menufold"
               size={34}
               color="#222"
-              onPress={() => navigation.navigate("Options")}
+              onPress={() => navigation.navigate("Options" ,{account})}
             />
           </View>
         </View>

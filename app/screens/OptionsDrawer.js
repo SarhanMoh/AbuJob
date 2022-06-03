@@ -1,6 +1,8 @@
 import { AntDesign } from "@expo/vector-icons";
+import { connectStorageEmulator } from "firebase/storage";
 import React from "react";
 import reactDom from "react-dom";
+import { auth, dataBase } from "../../firebase";
 import {
   View,
   Image,
@@ -14,8 +16,8 @@ import {
   Platform,
   StatusBar,
   Dimensions,
-  ImageBackground,
 } from "react-native";
+import { signOut } from "firebase/auth";
 import { routes, colors, links } from "./utils";
 const { width, height } = Dimensions.get("screen");
 
@@ -26,16 +28,14 @@ const ButtonNav = ({ onPress, label, style }) => {
     </TouchableOpacity>
   );
 };
-
+const logout = async () => {
+  await signOut(auth);
+  setCurrentUser(null);
+  setdataUser([]);
+  };
 const CustomDrawer = ({ onPress, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
-      <ImageBackground
-            source={require("../assets/back.png")}
-            style={StyleSheet.absoluteFillObject}
-            resizeMode="cover"
-            blurRadius={25}
-          />
       <View style={styles.menuContainer}>
         <AntDesign
           name="close"
@@ -57,16 +57,23 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={route}
                   onPress={() => {
                     if (index === 0) {
-                      navigation.goBack();
+                      //navigation.navigate("Home");
                     } else if (index === 1) {
                       navigation.navigate("BusinessReg");
                     } else if (index === 2) {
                       navigation.navigate("SignIn");
                     } else if (index === 3) {
+                      auth.signOut();
                       navigation.navigate("Login");
                     } else if (index === 4) {
                       navigation.navigate("Reports");
                     } else if (index === 5) {
+                    }
+                    else if(index === 6)
+                    {
+                      auth.signOut();
+                      console.log("logout", auth);
+                      navigation.navigate("FirstPage");
                     }
                   }}
                   style={[styles.button, { color: colors[index] }]}
@@ -99,7 +106,8 @@ const CustomDrawer = ({ onPress, navigation }) => {
   );
 };
 
-export default function OptionsDrawer({ navigation }) {
+export default function OptionsDrawer({ navigation , route }) {
+  const {account } = route.params;
   return (
     <SafeAreaView
       style={{
@@ -110,7 +118,7 @@ export default function OptionsDrawer({ navigation }) {
     >
       <CustomDrawer
         navigation={navigation}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Home" , {account})}
       />
     </SafeAreaView>
   );

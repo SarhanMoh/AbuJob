@@ -13,6 +13,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
@@ -104,57 +105,84 @@ export default function RatingPage({route,navigation}) {
   }
  return (
   <SafeAreaView style={styles.containerBig}>
-    <View>
-  <Text>Efficiency</Text>
+     <ImageBackground
+            source={require("../assets/back.png")}
+            style={StyleSheet.absoluteFillObject}
+            resizeMode="cover"
+            blurRadius={25}
+          />
+    <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={{
+            paddingBottom: 0,
+            padding: 20,
+            paddingTop: StatusBar.currentHeight || 42,
+          }}
+        >
+    <View style = {styles.container}>
+  <Text style={styles.text}>Efficiency</Text>
   <AirbnbRating
     count={5}
-    reviews={["Very Bad", "Bad", "OK", "Good", "Very Good"]}
+    reviews={["רע מאוד", "רַע", "בסדר", "טוב", "טוב מאוד"]}
     defaultRating={0}
     onFinishRating={ratingCompletedE}
+    style = {styles.rateButton}
   />
-  <Text>Reachability</Text>
+  <Text style={styles.text}>Reachability</Text>
   <AirbnbRating
     count={5}
-    reviews={["Very Bad", "Bad", "OK", "Good", "Very Good"]}
+    reviews={["רע מאוד", "רַע", "בסדר", "טוֹב", "טוב מאוד"]}
     defaultRating={0}
     onFinishRating={ratingCompletedR}
+    style = {styles.rateButton}
   />
-  <Text>speed</Text>
+  <Text style={styles.text}>speed</Text>
   <AirbnbRating
     count={5}
-    reviews={["Very Bad", "Bad", "OK", "Good", "Very Good"]}
+    reviews={["רע מאוד", "רַע", "בסדר", "טוב", "טוב מאוד"]}
     defaultRating={0}
     onFinishRating={ratingCompletedS}
+    style = {styles.rateButton}
   />
-  <Text>pricing</Text>
+  <Text style={styles.text}>pricing</Text>
   <AirbnbRating
     count={5}
-    reviews={["Very Bad", "Bad", "OK", "Good", "Very Good"]}
+    reviews={["רע מאוד", "רַע", "בסדר", "טוב", "טוב מאוד"]}
     defaultRating={0}
     onFinishRating={ratingCompletedP}
+    style = {styles.rateButton}
   />
-  <Text>fluency</Text>
+  <Text style={styles.text}>fluency</Text>
   <AirbnbRating
     count={5}
-    reviews={["Very Bad", "Bad", "OK", "Good", "Very Good"]}
+    reviews={["רע מאוד", "רַע", "בסדר", "טוב", "טוב מאוד"]}
     defaultRating={0}
     onFinishRating={ratingCompletedF}
+    style = {styles.rateButton}
   />
+  <View style = {styles.commentCon}>
    <TextInput
     placeholderTextColor="#899499"
     multiline={true}
     maxLength={200}
     numberOfLines={5}
     textAlign="right"
-    defaultValue="Add a comment... (Optional)"
+    style={styles.commentF}
+    fontSize="18"
+    defaultValue="הוסף תגובה... (אופציונלי)"
     onChangeText={(val)=>{comment(val)}}
   />
+  </View>
+  <View style={styles.buttonContainer}>
   <TouchableOpacity
   onPress={submit}
+  style={styles.button}
   >
-    <Text>submit</Text>
+    <Text style={styles.buttonText}>submit</Text>
   </TouchableOpacity>
   </View>
+  </View>
+  </ScrollView>
   </SafeAreaView>
  )
 };
@@ -165,8 +193,56 @@ const styles = StyleSheet.create({
   containerBig: {
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "space-evenly",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
+    justifyContent: "space-around",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 0.5 : 0,
   },
+  container:{
+    //justifyContent:"space-around"
+  },
+  rateButton:{
+    alignSelf:"flex-end",
+    paddingVertical:100,
+
+  },
+  commentF:{
+    borderWidth:2,
+    width:"100%",
+    marginTop: "10%",
+    paddingHorizontal: "5%",
+    alignSelf:"flex-end",
+    height:80,
+    fontSize:18,
+  },
+  commentCon:{
+    paddingHorizontal:"5%"
+  },
+  text:{
+    fontSize:18,
+    borderWidth:2,
+    //width : "30%",
+    marginVertical:10,
+    justifyContent:"center",
+    alignSelf:"center",
+    
+  },
+  buttonContainer: {
+    width: "60%",
+    justifyContent: "center",
+    alignSelf: "center",
+    marginTop: 40,
+  
+  },
+  button: {
+    backgroundColor: "#A8D173",
+    width: "100%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  }
 });
 //#0782f9 blue
