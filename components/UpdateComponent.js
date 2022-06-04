@@ -29,6 +29,17 @@ const options = [
     
     value: "Cars",
   },
+  
+  {
+    label: "כולם בעברית",
+    
+    value: "AllHe",
+  },
+  {
+    label: "الجميع بالعربي",
+    
+    value: "All",
+  },
   {
     label: "קייטרינג",
 
@@ -171,6 +182,16 @@ const options = [
     label: "مختلف",
 
     value: "VariousAr",
+  },
+  {
+    label: "כולם בעברית",
+    
+    value: "AllHe",
+  },
+  {
+    label: "الجميع بالعربي",
+    
+    value: "All",
   },
   
 ];

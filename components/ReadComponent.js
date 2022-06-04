@@ -173,6 +173,16 @@ const options = [
 
     value: "VariousAr",
   },
+  {
+    label: "כולם בעברית",
+    
+    value: "AllHe",
+  },
+  {
+    label: "الجميع بالعربي",
+    
+    value: "All",
+  },
   
 ];
 class ReadComponent extends Component {

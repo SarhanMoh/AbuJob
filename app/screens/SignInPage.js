@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
@@ -19,7 +20,7 @@ import { useAuth } from "../context/AuthContext";
 const SignInPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [check, setCheck] = useState("");
+  const [check , setCheck] = useState("");
    //contains user login data
    const [emptyList, setEmptyList] = React.useState([]);
    const [currentUser, setCurrentUser] = useState(null);
@@ -49,21 +50,35 @@ const SignInPage = ({ navigation }) => {
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
-      if(doc.data().email == emailCheck)
+      console.log("emailDatab",doc.data().email);
+
+      if(doc.data().email === emailCheck){
+      console.log("emailData",doc.data().email);
       //console.log(doc.id, '=>', doc.data());
-      tmp.push(doc.data());
-      setCheck("true")
-      return tmp
+      tmp.push(doc.data().email);
+      console.log("tmp:",tmp);
+      setEmptyList(tmp);
+      // handleSignIn();
+      setCheck("true");
+      console.log("check" ,check);
+      handleSignIn();
+      // if(check ==="true"){
+        
+      // }
+      //return true
+      }
+      // else {
+      //   setCheck("false");
+      //   // noHandler(check);
+      // }
     });
-    setEmptyList(tmp);
-    console.log("list",emptyList);
-    return emptyList;
+    // setEmptyList(tmp);
+    // console.log("list",emptyList);
+    // return emptyList;
   }
+
   const handleSignIn = () => {
-    getList(email);
-    console.log("check", check);
-    try{
-    if(check === 'true'){
+    console.log("empty",emptyList);
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
@@ -73,28 +88,32 @@ const SignInPage = ({ navigation }) => {
         setEmail("")
         //addUser(user);
       })
-    }
-  }
-      catch(error)  {
+      .catch((error) => {
         //alert(error.message)
         switch (error.code) {
           // case "auth/email-already-in-use":
           //   alert("מייל כבר קיים", [{ text: "בסדר" }]);
           //   break;
           case "auth/wrong-password":
-            alert("שגוי", "מייל או סיסמה לא נכונים", [{ text: "בסדר" }]);
+            Alert.alert("שגוי", "מייל או סיסמה לא נכונים", [{ text: "בסדר" }]);
             break;
           case "auth/user-not-found":
-            alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
+            Alert.alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
             break;
+          case "auth/too-many-requests":
+              Alert.alert(
+                "שגוי",
+                "הגישה לחשבון זה הושבתה זמנית עקב ניסיונות התחברות רבים כושלים. אתה יכול לשחזר אותו מיד על ידי איפוס הסיסמה שלך או שאתה יכול לנסות שוב מאוחר יותר",
+                [{ text: "בסדר" }]
+              );
+              break;
           default:
             console.log(error);
-            alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
+            Alert.alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
             break;
         }
-      };
-  
-};
+      });
+  };
   //  async function addUser(user) {
   //     let db = dataBase.collection("Users");
   //       db.add({
@@ -178,12 +197,14 @@ const SignInPage = ({ navigation }) => {
 
         </TouchableOpacity> */}
         <TouchableOpacity
-          onPress={handleSignIn}
           style={[styles.button, styles.buttonOutLine]}
+          onPress={()=>getList(email)}
         >
           <Text
             style={styles.buttonOutLineText}
-            onPress={() => navigation.navigate("Home")}
+            
+
+           // onPress={() => navigation.navigate("Home")}
           >
             להתחבר
           </Text>

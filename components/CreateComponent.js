@@ -185,6 +185,7 @@ class CreateComponent extends Component {
       rating: 0,
       isLoading: false,
       categoryAll: "",
+      date : new Date().toLocaleString()
     };
   }
 
@@ -207,8 +208,14 @@ class CreateComponent extends Component {
   //   }
   // }
   addBusiness() {
+   //console.log(date);
+   const time = new Date().toLocaleString();
+    console.log(this.state.category);
+    const cat = this.state.category;
+    console.log("catt",cat);
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
+    let dbAllHe = dataBase.collection("AllHe");
     if (this.state.name === "") {
       alert("חייב  לרשום שם ");
     } else if (this.state.job === "") {
@@ -224,7 +231,60 @@ class CreateComponent extends Component {
       this.state.phone_number.length < 9
     ) {
       alert(" חייב לרשום מספר טלפון נכון ");
-    } else {
+    } else if (cat ==="VariousAr" || cat ==="FitnessAr" || cat ==="TechniciansAr"
+    || cat ==="GroceryAr" || cat ==="MusicAr" || cat ==="TeachingAr"
+    || cat ==="ElectriciansAr" || cat ==="RepairsAr" || cat ==="cosmeticsAr"
+    || cat ==="ArtsAr" || cat ==="TreatmentAr"|| cat ==="RenovationsAr"
+    || cat ==="CarsAr"|| cat ==="CateringAr") {
+      this.setState({
+        isLoading: true,
+      });
+      db.add({
+        name: this.state.name,
+        job: this.state.job,
+        address: this.state.address,
+        languages: this.state.languages,
+        phone_number: this.state.phone_number,
+        description: this.state.description,
+        city: this.state.city,
+        rating: this.state.rating,
+        
+      })
+      dbAll.add({
+        name: this.state.name,
+        job: this.state.job,
+        phone_number: this.state.phone_number,
+        city: this.state.city,
+        categoryAll: this.state.category,
+        date : time,
+      })
+        .then((res) => {
+          this.setState({
+            name: "",
+            job: "",
+            address: "",
+            languages: "",
+            phone_number: "",
+            description: "",
+            rating: 0,
+            city : "",
+            date:"",
+            isLoading: false,
+          });
+          this.props.navigation.navigate("CreateComponent");
+        })
+        .catch((err) => {
+          console.error("Error occured: ", err);
+          this.setState({
+            isLoading: false,
+          });
+        });
+    }
+    else if(cat ==="Various" || cat ==="Fitness" || cat ==="Technicians"
+    || cat ==="Grocery" || cat ==="Music" || cat ==="Teaching"
+    || cat ==="Electricians" || cat ==="Repairs" || cat ==="cosmetics"
+    || cat ==="Arts" || cat ==="Treatment"|| cat ==="Renovations"
+    || cat ==="Cars"|| cat ==="Catering") {
       this.setState({
         isLoading: true,
       });
@@ -238,12 +298,13 @@ class CreateComponent extends Component {
         city: this.state.city,
         rating: this.state.rating,
       })
-      dbAll.add({
+      dbAllHe.add({
         name: this.state.name,
         job: this.state.job,
         phone_number: this.state.phone_number,
         city: this.state.city,
         categoryAll: this.state.category,
+        date : time,
       })
         .then((res) => {
           this.setState({
@@ -255,6 +316,7 @@ class CreateComponent extends Component {
             description: "",
             rating: 0,
             city : "",
+            date:"",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponent");
