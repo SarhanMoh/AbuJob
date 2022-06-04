@@ -104,6 +104,33 @@ const options = [
 
     icon: require("../app/assets/Technicians.png"),
   },
+  {
+    label: "קייטרינג",
+
+    value: "Catering",
+
+    color: "#ecd078",
+
+    icon: require("../app/assets/catring.jpg"),
+  },
+  {
+    label: "כושר ואימון פיזי",
+
+    value: "Fitness",
+
+    color: "#d95b43",
+
+    icon: require("../app/assets/fitness.jpg"),
+  },
+  {
+    label: "שונות",
+
+    value: "Various",
+
+    color: "#c02942",
+
+    icon: require("../app/assets/others.jpg"),
+  },
 ];
 const recently = [
   {

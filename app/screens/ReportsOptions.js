@@ -18,6 +18,12 @@ function ReportsOptions(props) {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
+      <ImageBackground
+        source={require("../assets/back.png")}
+        style={StyleSheet.absoluteFillObject}
+        resizeMode="cover"
+        blurRadius={25}
+      />
       <AntDesign
         name="back"
         size={34}
@@ -51,12 +57,6 @@ function ReportsOptions(props) {
           <Text style={styles.text}>דיווחים על מסדים</Text>
         </TouchableOpacity>
       </View>
-      <ImageBackground
-            source={require("../assets/back.png")}
-            style={StyleSheet.absoluteFillObject}
-            resizeMode="cover"
-            blurRadius={25}
-          />
     </SafeAreaView>
   );
 }
@@ -78,8 +78,6 @@ const styles = StyleSheet.create({
     //marginTop: '20%',
     color: "white",
     paddingBottom: "20%",
-
-    backgroundColor: "#fff",
   },
   button2: {
     backgroundColor: "#2885A6",

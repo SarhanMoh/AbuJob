@@ -1,8 +1,9 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useState } from "react";
-import reactDom from "react-dom";
+import React, { useEffect, useState } from "react";
 import SignInPage from "./SignInPage";
-import { Picker } from "@react-native-picker/picker";
+import { dataBase } from "../../firebase";
+import SelectDropdown from "react-native-select-dropdown";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {
   View,
   Button,
@@ -26,7 +27,7 @@ const SPACING = 8,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 
-export default function HomeScreen({ route ,navigation }) {
+export default function HomeScreen({ route, navigation }) {
   // const [category , setCategory] = useState('')
   // let emptyList = []
   // async function getList(){
@@ -45,14 +46,26 @@ export default function HomeScreen({ route ,navigation }) {
   //   console.log(this.state.emptyList);
 
   // }
-  const {account } = route.params;
-  
-  console.log("accepted ",account);
+  const { account } = route.params;
+
+  //console.log("accepted ", account);
   //console.log(data);
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
-  const [category , setCategory]= React.useState("");
+
+  let searchCategory;
+  async function getSearchValue(SearchValue) {
+    const ref = dataBase.collection(searchCategory);
+    const snapshot = await ref.get();
+    let tmp = [];
+    snapshot.forEach((doc) => {
+      if (doc.data().name == SearchValue) {
+        tmp.push(doc.data());
+      }
+      setSearchQuery(tmp);
+    });
+  }
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -66,8 +79,10 @@ export default function HomeScreen({ route ,navigation }) {
           <View style={styles.searchBar}>
             <TouchableHighlight
               style={styles.searchIcon}
-              onPress={() => console.log("Search for " + SearchValue)}
-             
+              onPress={() => {
+                getSearchValue(SearchValue);
+                console.log(searchQuery);
+              }}
             >
               <Image
                 style={styles.searchImg}
@@ -79,34 +94,55 @@ export default function HomeScreen({ route ,navigation }) {
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => setSearchValue(SearchValue)}
-              style={{ color: "black", marginLeft: 5 }}
+              style={{
+                color: "black",
+                fontSize: 16,
+                marginRight: 5,
+                width: "55%",
+                textAlign: "right",
+              }}
             />
-            {/* <Picker
-            selectedValue={category}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({
-                setCategory: itemValue,
-              })
-            }
-          >
-            {options.map((option, itemIndex) => (
-              <Picker.Item
-                key={itemIndex}
-                value={option.value}
-                label={option.label}
-                style={styles.list}
-              ></Picker.Item>
-            ))}
-            {/* <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" /> */}
-          {/* </Picker> */} 
+            <SelectDropdown
+              data={options}
+              onSelect={(selectedItem) => {
+                searchCategory = selectedItem.value;
+              }}
+              defaultValueByIndex={0}
+              buttonTextStyle={{ color: "white" }}
+              buttonStyle={{
+                backgroundColor: "rgba(64, 64, 64, 0.8)",
+                borderRadius: 30,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+                borderWidth: 0.5,
+                width: "30%",
+                height: "100%",
+              }}
+              buttonTextAfterSelection={(selectedItem) => {
+                return selectedItem.label;
+              }}
+              dropdownStyle={{ width: "40%" }}
+              renderDropdownIcon={(isOpened) => {
+                return (
+                  <FontAwesome
+                    name={isOpened ? "chevron-up" : "chevron-down"}
+                    color={"white"}
+                    size={18}
+                  />
+                );
+              }}
+              dropdownIconPosition={"left"}
+              rowTextForSelection={(item, index) => {
+                return item.label;
+              }}
+            />
           </View>
           <View style={styles.optButt}>
             <AntDesign
               name="menufold"
               size={34}
               color="#222"
-              onPress={() => navigation.navigate("Options" ,{account})}
+              onPress={() => navigation.navigate("Options", { account })}
             />
           </View>
         </View>
@@ -124,10 +160,13 @@ export default function HomeScreen({ route ,navigation }) {
                 onPress={async () => {
                   const label = item.label;
                   const key = item.value;
-                  // setCategory(item.value);
-                  // console.log(category);
-                  // await getList();
-                  navigation.navigate("Category", { label, key, account});
+                  const iconPic = item.icon;
+                  navigation.navigate("Category", {
+                    label,
+                    key,
+                    account,
+                    iconPic,
+                  });
                 }}
                 style={{
                   width: cellWidth,
@@ -182,13 +221,11 @@ export default function HomeScreen({ route ,navigation }) {
                   margin: SPACING,
                   backgroundColor: "rgba(255,255,255,0.8)",
                   borderRadius: 16,
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 10,
-                  },
-                  shadowOpacity: 0,
-                  shadowRadius: 20,
+                  shadowColor: "black",
+                  shadowOpacity: 0.15,
+                  shadowOffset: { width: 2, height: 2 },
+                  elevation: 50,
+                  shadowRadius: 10,
                 }}
               >
                 <Image source={item.profilePic} style={styles.profileIcon} />
@@ -246,13 +283,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
   },
-  list:{
-    justifyContent : "center",
-    alignItems : "center"
+  list: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   searchBar: {
     width: "80%",
-    height: 30,
+    height: 40,
     flexDirection: "row",
     backgroundColor: "#81daf5",
     borderRadius: 30,
@@ -266,7 +303,7 @@ const styles = StyleSheet.create({
     borderColor: "#81daf5",
     borderRadius: 50,
     alignSelf: "flex-start",
-    marginTop: -10,
+    marginTop: -5,
   },
   searchImg: {
     width: 47,
