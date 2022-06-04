@@ -19,7 +19,9 @@ import { useAuth } from "../context/AuthContext";
 const SignInPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [check, setCheck] = useState("");
    //contains user login data
+   const [emptyList, setEmptyList] = React.useState([]);
    const [currentUser, setCurrentUser] = useState(null);
    //contains user personal data
    const [dataUser, setdataUser] = useState([]);
@@ -40,8 +42,28 @@ const SignInPage = ({ navigation }) => {
     });
     return unsubscribe;
   });
-
+  async function getList(emailCheck) {
+    console.log("checklmail",emailCheck);
+    //console.log("entered");
+    const ref = dataBase.collection("Users");
+    const snapshot = await ref.get();
+    let tmp = [];
+    snapshot.forEach((doc) => {
+      if(doc.data().email == emailCheck)
+      //console.log(doc.id, '=>', doc.data());
+      tmp.push(doc.data());
+      setCheck("true")
+      return tmp
+    });
+    setEmptyList(tmp);
+    console.log("list",emptyList);
+    return emptyList;
+  }
   const handleSignIn = () => {
+    getList(email);
+    console.log("check", check);
+    try{
+    if(check === 'true'){
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
@@ -51,7 +73,9 @@ const SignInPage = ({ navigation }) => {
         setEmail("")
         //addUser(user);
       })
-      .catch((error) => {
+    }
+  }
+      catch(error)  {
         //alert(error.message)
         switch (error.code) {
           // case "auth/email-already-in-use":
@@ -68,8 +92,9 @@ const SignInPage = ({ navigation }) => {
             alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
             break;
         }
-      });
-  };
+      };
+  
+};
   //  async function addUser(user) {
   //     let db = dataBase.collection("Users");
   //       db.add({

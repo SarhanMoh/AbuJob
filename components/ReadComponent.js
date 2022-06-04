@@ -191,6 +191,7 @@ class ReadComponent extends Component {
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
+      
       //console.log(doc.id, '=>', doc.data());
       tmp.push(doc.data());
     });
