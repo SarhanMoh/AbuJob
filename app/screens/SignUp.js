@@ -21,8 +21,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFS] = useState("");
-  const [lastname, setLS] = useState("");
+  const [fullName, setFN] = useState("");
+ // const [lastname, setLS] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -31,7 +31,7 @@ const SignUp = ({ navigation }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const account = user.email;
-        navigation.navigate("SignIn",{account});
+        navigation.navigate("Home",{account});
       }
     });
     return unsubscribe;
@@ -40,12 +40,36 @@ const SignUp = ({ navigation }) => {
   const handleSignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
+      
       .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Registered with:", user.email);
-        addUser(user);
+        // addUser()
+        // const user = userCredentials.user;
+        // console.log("Registered with:", user.email);
+        let db = dataBase.collection("Users");
+        db.add({
+          email:email,
+          address: address,
+          fullName: fullName,
+          phone:phone,
+        })
+          .then((res) => {
+            setEmail("")
+            setAddress("")
+            setFN("")
+            // setLS("")
+            setPassword("")
+            setPhone("")
+            
+           navigation.navigate("Home",{account});
+          })
+          .catch((err) => {
+            console.error("Error occured: ", err);
+           
+            isLoading: false
+           
+          });
+        
       }).then((res)=>{
-     
       })
       .catch((error) => {
         //alert(error.message)
@@ -83,34 +107,6 @@ const SignUp = ({ navigation }) => {
       console.log("email",email);
     }
   }
-  async function addUser(user) {
-    let db = dataBase.collection("Users");
-    db.add({
-      email: user.email,
-      uid: user.uid,
-      First_name: this.state.name,
-      Last_Name: this.state.name,
-      address: this.state.address,
-      languages: this.state.languages,
-      phone_number: this.state.phone_number,
-    })
-      .then((res) => {
-        this.setState({
-          name: "",
-          address: "",
-          languages: "",
-          phone_number: "",
-          isLoading: false,
-        });
-        this.props.navigation.navigate("SignInPage");
-      })
-      .catch((err) => {
-        console.error("Error occured: ", err);
-        this.setState({
-          isLoading: false,
-        });
-      });
-  }
   //   const handleLogin = ()=>{
   //     auth
   //       .signInWithEmailAndPassword(email , password)
@@ -140,23 +136,23 @@ const SignUp = ({ navigation }) => {
             <Text style={[styles.adminText]}>ברוכים הבאים לשכנות טובה</Text>
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.lable}>שם פרטי:</Text>
+            <Text style={styles.lable}>שם מלא:</Text>
             <TextInput
-              placeholder="שם פרטי"
+              placeholder="שם מלא"
               placeholderTextColor="#899499"
-              value={firstname}
+              value={fullName}
               label="Email"
-              onChangeText={(text) => setFS(text)}
+              onChangeText={(text) => setFN(text)}
               style={styles.input}
             />
-            <Text style={styles.lable}>שם משפחה:</Text>
+            {/* <Text style={styles.lable}>שם משפחה:</Text>
             <TextInput
               placeholder="שם משפחה"
               placeholderTextColor="#899499"
               value={lastname}
               onChangeText={(text) => setLS(text)}
               style={styles.input}
-            />
+            /> */}
             <Text style={styles.lable}>מייל:</Text>
             <TextInput
               placeholder="מייל"

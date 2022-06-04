@@ -189,6 +189,8 @@ class Reports extends Component {
           <Text style={styles.textInfo2}>סוג דוח</Text>
           <Picker
             selectedValue={this.state.category}
+            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
+            itemStyle={{height:150}}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,

@@ -228,8 +228,11 @@ class UpdateComponent extends Component {
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
             onPress={() => this.props.navigation.navigate("BusinessOptions")}
           />
+          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>בחר קטוגוריה</Text>
           <Picker
             selectedValue={this.state.category}
+            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
+            itemStyle={{height:150}}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -261,13 +264,13 @@ class UpdateComponent extends Component {
               return (
                 <View key={index} style={styles.list}>
                   <View style={styles.dataList}>
-                    <Text>שם :{item.name} </Text>
-                    <Text>מקצוע :{item.job} </Text>
-                    <Text>כתובת:{item.address} </Text>
-                    <Text>שפות:{item.languages}</Text>
-                    <Text>טלפון :{item.phone_number}</Text>
-                    <Text>תוכן :{item.description}</Text>
-                    <Text>דירוג :{item.rating}</Text>
+                    <Text style={styles.keys}>שם :{item.name} </Text>
+                    <Text style={styles.keys}>מקצוע :{item.job} </Text>
+                    <Text style={styles.keys}>כתובת:{item.address} </Text>
+                    <Text style={styles.keys}>שפות:{item.languages}</Text>
+                    <Text style={styles.keys}>טלפון :{item.phone_number}</Text>
+                    <Text style={styles.keys} >תוכן :{item.description}</Text>
+                    <Text style={styles.keys}>דירוג :{item.rating}</Text>
 
                   </View>
 
@@ -299,7 +302,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-    textAlign: "right",
+    //textAlign: "right",
   },
   button: {
     flex: 1,
@@ -312,11 +315,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    alignContent:"center",
+    //alignSelf:"center",
     backgroundColor: "red",
     color: "black",
     width: "100%",
     borderColor: "red",
     borderWidth: 2,
+    paddingLeft:30,
+    marginLeft:30,
+    borderRadius:4,
   },
   button2: {
     alignItems: "center",
@@ -352,24 +360,31 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    textAlign: "right",
+    // textAlign: "center",
+    // justifyContent:"center",
+    // alignSelf:"center",
+    
+    
   },
   list: {
     flex: 1,
     //backgroundColor: '#ffff',
     padding: 25,
-
     marginVertical: 5,
+    //marginLeft:10,
     marginHorizontal: 5,
     //paddingBottom: 50,
     flexDirection: "row-reverse",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     borderColor: "black",
     borderWidth: 1,
+    //textAlign: "right",
   },
   dataList: {
     textAlign: "right",
     flexDirection: "column",
+    marginRight:"10%",
+
   },
   delete: {
     width: 45,
@@ -390,5 +405,12 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: "10%",
   },
+  keys:{
+    textAlign:"right",
+    alignItems:"flex-end",
+    paddingLeft: "30%",
+    fontSize:16,
+    paddingVertical:5,
+  }
 });
 export default UpdateComponent;

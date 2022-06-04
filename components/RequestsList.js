@@ -62,6 +62,7 @@ class RequestsList extends Component {
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
             onPress={() => this.props.navigation.navigate("AdminHomePage")}
           />
+
           <FlatList
             // const scrollY = React.useRef(new Animated.value(0)).current;
             data={this.state.emptyList}
@@ -73,6 +74,8 @@ class RequestsList extends Component {
             }}
             ListHeaderComponent={
               <View style={styles.container}>
+          <Text style={{alignSelf:"center"  , paddingTop:"1%" ,marginBottom:"5%", fontSize:28,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>בקשות הצטרפות</Text>
+
                 <Pressable
                   style={styles.button}
                   onPress={() => this.getList()}

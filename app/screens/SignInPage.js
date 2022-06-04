@@ -47,6 +47,8 @@ const SignInPage = ({ navigation }) => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged In", user.email);
+        setPassword("")
+        setEmail("")
         //addUser(user);
       })
       .catch((error) => {

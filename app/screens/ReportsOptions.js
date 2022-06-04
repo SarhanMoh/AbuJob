@@ -35,7 +35,7 @@ function ReportsOptions(props) {
         <View>
           <Image
             style={styles.bigLogoStyle}
-            source={require("../assets/AbuJobsBigLogo.jpeg")}
+            source={require("../assets/good.png")}
           />
         </View>
         <TouchableOpacity
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 150,
     padding: 50,
+    marginTop:"-12%",
     //paddingTop:50,
     justifyContent: "space-between",
     //alignItems: 'flex-end',

@@ -221,9 +221,12 @@ class ReadComponent extends Component {
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
             onPress={() => this.props.navigation.navigate("BusinessOptions")}
           />
+          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>בחר קטוגוריה</Text>
 
           <Picker
             selectedValue={this.state.category}
+            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
+            itemStyle={{height:150}}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -413,7 +416,8 @@ const styles = StyleSheet.create({
   },
   info: {
     flexDirection: "row-reverse",
-    padding:4,
+    padding:1,
+    paddingLeft:"10%",
     textAlign: "right",
     width: "98%"
   },

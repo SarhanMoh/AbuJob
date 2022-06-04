@@ -184,6 +184,7 @@ class CreateComponent extends Component {
       description: "",
       rating: 0,
       isLoading: false,
+      categoryAll: "",
     };
   }
 
@@ -207,6 +208,7 @@ class CreateComponent extends Component {
   // }
   addBusiness() {
     let db = dataBase.collection(this.state.category);
+    let dbAll = dataBase.collection("All");
     if (this.state.name === "") {
       alert("חייב  לרשום שם ");
     } else if (this.state.job === "") {
@@ -235,6 +237,13 @@ class CreateComponent extends Component {
         description: this.state.description,
         city: this.state.city,
         rating: this.state.rating,
+      })
+      dbAll.add({
+        name: this.state.name,
+        job: this.state.job,
+        phone_number: this.state.phone_number,
+        city: this.state.city,
+        categoryAll: this.state.category,
       })
         .then((res) => {
           this.setState({
@@ -380,9 +389,12 @@ class CreateComponent extends Component {
             style={styles.input}
             textAlign="right"
           />
+          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>בחר קטוגוריה</Text>
 
           <Picker
             selectedValue={this.state.category}
+            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
+            itemStyle={{height:150}}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -437,8 +449,8 @@ const styles = StyleSheet.create({
   },
   textInfo: {
     alignContent: "flex-end",
-    paddingTop: 2,
-    paddingBottom: 2,
+    paddingTop: 15,
+    paddingBottom: 1,
     alignSelf: "flex-end",
     fontSize: 16,
 

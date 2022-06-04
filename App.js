@@ -43,7 +43,7 @@ export default function App() {
               fontWeight: "bold",
             },
           }}
-          initialRouteName={"UpdateComponent"}
+          initialRouteName={"SignIn"}
         >
           <Stack.Screen
             name="CreateComponent"
