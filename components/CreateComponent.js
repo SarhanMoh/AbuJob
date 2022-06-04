@@ -178,6 +178,7 @@ class CreateComponent extends Component {
       category: "Cars",
       name: "",
       address: "",
+      city:"",
       languages: "",
       phone_number: "",
       description: "",
@@ -232,6 +233,7 @@ class CreateComponent extends Component {
         languages: this.state.languages,
         phone_number: this.state.phone_number,
         description: this.state.description,
+        city: this.state.city,
         rating: this.state.rating,
       })
         .then((res) => {
@@ -243,6 +245,7 @@ class CreateComponent extends Component {
             phone_number: "",
             description: "",
             rating: 0,
+            city : "",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponent");
@@ -276,7 +279,7 @@ class CreateComponent extends Component {
           name="back"
           size={34}
           color="#222"
-          style={{ alignSelf: "flex-end" }}
+          style={{ alignSelf: "flex-end" , paddingRight: "4%"}}
           onPress={() => this.props.navigation.navigate("BusinessOptions")}
         />
 
@@ -313,6 +316,16 @@ class CreateComponent extends Component {
             textAlign="right"
           />
 
+          <Text style={styles.textInfo}>עיר</Text>
+          <TextInput
+            placeholder={"עיר"}
+            placeholderTextColor="#899499"
+            value={this.state.city}
+            maxLength={100}
+            onChangeText={(val) => this.onValUpdate(val, "city")}
+            style={styles.input}
+            textAlign="right"
+          />
           <Text style={styles.textInfo}>כתובת</Text>
           <TextInput
             placeholder={"כתובת"}
@@ -354,7 +367,7 @@ class CreateComponent extends Component {
             maxLength={200}
             numberOfLines={5}
             onChangeText={(val) => this.onValUpdate(val, "description")}
-            style={styles.input}
+            style={styles.input2}
             textAlign="right"
           />
           <Text style={styles.textInfo}>דירוג</Text>
@@ -451,7 +464,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderColor: "#2885A6",
     borderWidth: 1,
-    height: 40,
+    height: 45,
     //alignSelf:'flex-end'
 
     // flexDirection:'row-reverse'
@@ -506,6 +519,17 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 3,
   },
+  input2:{
+    backgroundColor: "#ffff",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+    borderColor: "#2885A6",
+    borderWidth: 1,
+    height: 100,
+  }
+  
 });
 
 export default CreateComponent;

@@ -23,6 +23,7 @@ import BusinessPage from "./app/screens/BusinessPage";
 import AuthContext, { useAuth } from "./app/context/AuthContext";
 import Reports from "./app/screens/Reports";
 import RatingPage from "./app/screens/RatingPage";
+import BusinessList from "./app/screens/BusinessList";
 const Stack = createNativeStackNavigator();
 //
 export default function App() {
@@ -42,11 +43,16 @@ export default function App() {
               fontWeight: "bold",
             },
           }}
-          initialRouteName={"SignUp"}
+          initialRouteName={"UpdateComponent"}
         >
           <Stack.Screen
             name="CreateComponent"
             component={CreateComponent}
+            options={{ title: "יצירת חשבון", headerShown: false }}
+          />
+          <Stack.Screen
+            name="BusinessList"
+            component={BusinessList}
             options={{ title: "יצירת חשבון", headerShown: false }}
           />
           <Stack.Screen

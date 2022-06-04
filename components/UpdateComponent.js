@@ -13,6 +13,7 @@ import {
   StatusBar,
   TextInput,
   Text,
+  Alert,
 } from "react-native";
 import { dataBase } from "../firebase";
 import { Picker } from "@react-native-picker/picker";
@@ -183,7 +184,12 @@ class UpdateComponent extends Component {
       emptyList: [],
     };
   }
-
+  handlerPress(item){
+    Alert.alert("מחיקת עסק" , "האם את/ה בטוח שרוצה למוחק את העסק",[
+      {text : "כן" , onPress: ()=> this.deleteItem(item)},
+      {text: "בטל" , style:"בטל"},
+    ])
+  }
   async getList() {
     const ref = dataBase.collection(this.state.category);
     const snapshot = await ref.get();
@@ -199,6 +205,7 @@ class UpdateComponent extends Component {
   }
   async deleteItem(item) {
     var docRef = dataBase.collection(this.state.category).doc(item.id);
+    
     await docRef
       .delete()
       .then(() => this.getList())
@@ -250,14 +257,6 @@ class UpdateComponent extends Component {
             data={this.state.emptyList}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{}}
-            //   ListEmptyComponent={({ item, index }) => {
-            //     return (
-            //         <View key={index} style={styles.list}>
-            //                 <Text style={styles.text2}>"אין תוצאות ..." </Text>
-
-            //             </View>
-            // )
-            //   }}
             renderItem={({ item, index }) => {
               return (
                 <View key={index} style={styles.list}>
@@ -273,14 +272,9 @@ class UpdateComponent extends Component {
                   </View>
 
                   <View>
-                    {/* <Button
-                          title='מחיקה'
-                          onPress={() =>this.deleteItem(item)} 
-                          color="red"
-                      /> */}
                     <Pressable
                       style={styles.button3}
-                      onPress={() => this.deleteItem(item)}
+                      onPress={() => this.handlerPress(item)}
                       title="מחיקה"
                     >
                       <Text style={styles.text3}>מחיקה</Text>
