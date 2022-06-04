@@ -5,7 +5,6 @@ export const routes = [
   "כניסת אדמין",
   "להגיש תלונה",
   "צור קשר",
-  "התנתק",
 ];
 export const links = ["התנתק", "Quota", "Awesome link"];
 export const colors = [

@@ -111,12 +111,12 @@ class Reports extends Component {
     }
     return (
       <SafeAreaView style={styles.containerBig}>
-         <ImageBackground
-            source={require("../assets/back.png")}
-            style={StyleSheet.absoluteFillObject}
-            resizeMode="cover"
-            blurRadius={25}
-          />
+        <ImageBackground
+          source={require("../assets/back.png")}
+          style={StyleSheet.absoluteFillObject}
+          resizeMode="cover"
+          blurRadius={25}
+        />
         <AntDesign
           name="back"
           size={34}
@@ -139,7 +139,7 @@ class Reports extends Component {
                 source={require("../assets/good.png")}
               />
             </View>
-           
+
             <View style={styles.inputContainer}>
               <Text style={styles.textInfo}>שם מדווח</Text>
               <TextInput
@@ -223,9 +223,9 @@ class Reports extends Component {
 const styles = StyleSheet.create({
   containerBig: {
     flex: 1,
-   // backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     justifyContent: "space-evenly",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight* 1.5 : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   container: {
     flex: 1,

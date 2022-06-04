@@ -20,40 +20,37 @@ function AdminHomePage(props) {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
-      
+      <ImageBackground
+        source={require("../assets/back.png")}
+        style={StyleSheet.absoluteFillObject}
+        resizeMode="cover"
+        blurRadius={25}
+      />
       <AntDesign
         name="back"
         size={34}
         color="#222"
         style={{ alignSelf: "flex-end", paddingRight: "4%" }}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.goBack()}
       />
- 
+
       <View style={styles.screenContainer}>
-      <ImageBackground
-            source={require("../assets/back.png")}
-            style={StyleSheet.absoluteFillObject}
-            resizeMode="cover"
-            blurRadius={25}
-          />
         <View>
-        <TouchableOpacity style={styles.button3}
-         
-          onPress={() => {
-          auth.signOut();
-          // logout
-          console.log("logout", auth);
-          navigation.navigate("FirstPage")}
-          }
+          <TouchableOpacity
+            style={styles.button3}
+            onPress={() => {
+              auth.signOut();
+              // logout
+              console.log("logout", auth);
+              navigation.navigate("FirstPage");
+            }}
           >
-          <Text style={styles.text3}>התנתק</Text>
+            <Text style={styles.text3}>התנתק</Text>
           </TouchableOpacity>
           <Image
             style={styles.bigLogoStyle}
             source={require("../assets/good.png")}
           />
-          
-          
         </View>
         {/* <TouchableOpacity style={styles.button1} onPress={onPress}>
             <Text style={styles.text}>משתמשים</Text>
@@ -85,7 +82,7 @@ const styles = StyleSheet.create({
   containerSafe: {
     flex: 1,
     justifyContent: "space-evenly",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight *0.5 : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 0.5 : 0,
   },
   screenContainer: {
     flex: 1,
@@ -97,8 +94,6 @@ const styles = StyleSheet.create({
     //marginTop: '20%',
     color: "white",
     paddingBottom: "20%",
-
-    backgroundColor: "#fff",
   },
   bigLogoStyle: {
     resizeMode: "contain",
@@ -155,7 +150,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 3,
   },
-  text3:{
+  text3: {
     fontSize: 14,
     lineHeight: 21,
     fontWeight: "bold",
@@ -164,7 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  button3:{
+  button3: {
     backgroundColor: "red",
     width: 50,
     justifyContent: "center",
@@ -174,7 +169,7 @@ const styles = StyleSheet.create({
     //paddingHorizontal: 1,
     borderRadius: 4,
     elevation: 3,
-  }
+  },
 });
 
 export default AdminHomePage;

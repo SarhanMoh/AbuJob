@@ -2,7 +2,8 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { AirbnbRating } from "react-native-ratings";
 import { dataBase } from "../../firebase";
-
+import SelectDropdown from "react-native-select-dropdown";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {
   View,
   Image,
@@ -32,22 +33,32 @@ export default function CategoryPage({ route, navigation }) {
   const [SearchValue, setSearchValue] = React.useState("");
   const [emptyList, setEmptyList] = React.useState([]);
 
-  const { label, key , account} = route.params;
-  console.log("accepted2",account);
-  useEffect(() => {
-    async function getList() {
-      console.log("entered");
-      const ref = dataBase.collection(key);
-      const snapshot = await ref.get();
-      let tmp = [];
-      snapshot.forEach((doc) => {
-        //console.log(doc.id, '=>', doc.data());
-        tmp.push(doc.data());
-      });
-      setEmptyList(tmp);
-      //console.log(tmp);
-    }
+  const { label, key, account, iconPic } = route.params;
+  console.log("accepted2", account);
 
+  async function getList(sorting = "alphabet") {
+    //console.log("entered");
+    const ref = dataBase.collection(key);
+    const snapshot = await ref.get();
+    let tmp = [];
+    snapshot.forEach((doc) => {
+      //console.log(doc.id, '=>', doc.data());
+      tmp.push(doc.data());
+    });
+    setEmptyList(
+      tmp.sort(function (a, b) {
+        if (sorting === "alphabet") {
+          return a.name.localeCompare(b.name);
+        } else if (sorting === "rating") {
+          return b.rate - a.rate;
+        } else {
+          return b.rate - a.rate;
+        }
+      })
+    );
+    //console.log(tmp);
+  }
+  useEffect(() => {
     getList();
   }, []);
   //console.log(emptyList);
@@ -72,11 +83,17 @@ export default function CategoryPage({ route, navigation }) {
               />
             </TouchableHighlight>
             <TextInput
-              placeholder="Search..."
+              placeholder="חפש את ..."
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => setSearchValue(SearchValue)}
-              style={{ color: "black", marginLeft: 5 }}
+              style={{
+                color: "black",
+                marginLeft: 5,
+                fontSize: 16,
+                width: "80%",
+                textAlign: "right",
+              }}
             />
           </View>
           <View style={styles.optButt}>
@@ -88,7 +105,7 @@ export default function CategoryPage({ route, navigation }) {
             />
           </View>
         </View>
-        <View style={{ height: 5 }} />
+        <View style={{ height: 10 }} />
         <View
           style={{
             flex: 1,
@@ -97,10 +114,38 @@ export default function CategoryPage({ route, navigation }) {
           <View
             style={{ flexDirection: "row", justifyContent: "space-evenly" }}
           >
+            <SelectDropdown
+              data={["א'ב", "דרוג"]}
+              onSelect={(selectedItem) => {
+                if (selectedItem == "א'ב") {
+                  getList("alphabet");
+                } else if (selectedItem == "דרוג") {
+                  getList("rating");
+                }
+              }}
+              defaultValueByIndex={0}
+              buttonStyle={{
+                backgroundColor: "rgba(0, 0, 0, 0.2)",
+                borderRadius: 30,
+                borderWidth: 0.5,
+                width: "30%",
+                height: "98%",
+              }}
+              renderDropdownIcon={(isOpened) => {
+                return (
+                  <FontAwesome
+                    name={isOpened ? "chevron-up" : "chevron-down"}
+                    color={"#444"}
+                    size={18}
+                  />
+                );
+              }}
+              dropdownIconPosition={"left"}
+            />
             <View></View>
             <Text
               style={{
-                fontSize: 22,
+                fontSize: 19,
                 fontWeight: "700",
               }}
             >
@@ -162,7 +207,7 @@ export default function CategoryPage({ route, navigation }) {
                     shadowRadius: 20,
                   }}
                 >
-                  <Image source={item.profilePic} style={styles.profileIcon} />
+                  <Image source={iconPic} style={styles.profileIcon} />
                   <AirbnbRating
                     defaultRating={item.rate}
                     showRating={false}
@@ -217,7 +262,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     width: "80%",
-    height: 30,
+    height: 40,
     flexDirection: "row",
     backgroundColor: "#81daf5",
     borderRadius: 30,
@@ -231,7 +276,7 @@ const styles = StyleSheet.create({
     borderColor: "#81daf5",
     borderRadius: 50,
     alignSelf: "flex-start",
-    marginTop: -10,
+    marginTop: -5,
   },
   searchImg: {
     width: 47,
@@ -255,6 +300,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: "gray",
     borderWidth: 2,
+    backgroundColor: "white",
     margin: 10,
   },
   mainName: {

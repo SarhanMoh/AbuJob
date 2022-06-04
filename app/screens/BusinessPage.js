@@ -43,20 +43,31 @@ export default function BusinessPage({ route, navigation }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [emptyList, setEmptyList] = React.useState([]);
-  const { name, city, pic, category, address, phone, rate, job ,key, account ,id} = route.params;
+  const {
+    name,
+    city,
+    pic,
+    category,
+    address,
+    phone,
+    rate,
+    job,
+    key,
+    account,
+    id,
+  } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
   // console.log("key", id);
   async function checkLogin() {
-    if(account === undefined){
+    if (account === undefined) {
       Alert.alert("Unable to Rate", "Log in or register to rate", [
         { text: "Cancel", style: "cancel" },
         { text: "Log in!", onPress: () => navigation.navigate("FirstPage") },
       ]);
-    }else{
-      navigation.navigate("RatingPage",{account,key,phone});
+    } else {
+      navigation.navigate("RatingPage", { account, key, phone });
     }
-    
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -124,17 +135,32 @@ export default function BusinessPage({ route, navigation }) {
             <Text style={styles.mainName}>{name}</Text>
             <View
               style={{
-                justifyContent: "center",
+                justifyContent: "flex-start",
+                alignItems: "flex-end",
               }}
             >
-              <Text style={styles.subName}> עיר: {city}</Text>
-              <Text style={styles.subName}> קטוגוריה: {category}</Text>
-              <Text style={styles.subName}> כתובת: {address}</Text>
+              <View style={{ flexDirection: "row-reverse" }}>
+                <Text style={styles.subName}> עיר: </Text>
+                <Text style={{ fontSize: 15 }}>{city}</Text>
+              </View>
+              <View style={{ flexDirection: "row-reverse" }}>
+                <Text style={styles.subName}> קטוגוריה: </Text>
+                <Text style={{ fontSize: 15 }}>{category}</Text>
+              </View>
+              <View style={{ flexDirection: "row-reverse" }}>
+                <Text style={styles.subName}> כתובת: </Text>
+                <Text style={{ fontSize: 15 }}>{address}</Text>
+              </View>
               <TouchableOpacity
-                style={{ borderColor: "black", borderBottomWidth: 1 }}
+                style={{
+                  borderColor: "black",
+                  borderBottomWidth: 0.5,
+                  flexDirection: "row-reverse",
+                }}
                 onPress={() => dialCall(phone)}
               >
-                <Text style={styles.subName}> תלפון: {phone}</Text>
+                <Text style={styles.subName}> תלפון:</Text>
+                <Text style={{ fontSize: 15 }}> {phone}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -162,7 +188,7 @@ export default function BusinessPage({ route, navigation }) {
             <AirbnbRating
               count={5}
               reviews={["רע מאוד", "רַע", "בסדר", "טוב", "טוב מאוד"]}
-              defaultRating={rate}
+              defaultRating={Math.floor(rate)}
               size={25}
               isDisabled={true}
             />
@@ -364,6 +390,7 @@ const styles = StyleSheet.create({
 
   subName: {
     fontSize: 18,
+    fontWeight: "600",
     color: "white",
     alignSelf: "flex-end",
   },

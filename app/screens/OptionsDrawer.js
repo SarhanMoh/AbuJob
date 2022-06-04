@@ -13,7 +13,9 @@ import {
   TextInput,
   SafeAreaView,
   FlatList,
+  Alert,
   Platform,
+  Linking,
   StatusBar,
   Dimensions,
 } from "react-native";
@@ -32,7 +34,7 @@ const logout = async () => {
   await signOut(auth);
   setCurrentUser(null);
   setdataUser([]);
-  };
+};
 const CustomDrawer = ({ onPress, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
@@ -57,7 +59,16 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={route}
                   onPress={() => {
                     if (index === 0) {
-                      //navigation.navigate("Home");
+                      Alert.alert("Visit our Page", "", [
+                        { text: "Cancel", style: "cancel" },
+                        {
+                          text: "Open!",
+                          onPress: () =>
+                            Linking.openURL(
+                              "https://www.facebook.com/goodneighborsabutor/"
+                            ),
+                        },
+                      ]);
                     } else if (index === 1) {
                       navigation.navigate("BusinessReg");
                     } else if (index === 2) {
@@ -68,12 +79,6 @@ const CustomDrawer = ({ onPress, navigation }) => {
                     } else if (index === 4) {
                       navigation.navigate("Reports");
                     } else if (index === 5) {
-                    }
-                    else if(index === 6)
-                    {
-                      auth.signOut();
-                      console.log("logout", auth);
-                      navigation.navigate("FirstPage");
                     }
                   }}
                   style={[styles.button, { color: colors[index] }]}
@@ -89,6 +94,8 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={link}
                   onPress={() => {
                     if (index === 0) {
+                      auth.signOut();
+                      console.log("logout", auth);
                       navigation.navigate("FirstPage");
                     }
                   }}
@@ -106,8 +113,8 @@ const CustomDrawer = ({ onPress, navigation }) => {
   );
 };
 
-export default function OptionsDrawer({ navigation , route }) {
-  const {account } = route.params;
+export default function OptionsDrawer({ navigation, route }) {
+  const { account } = route.params;
   return (
     <SafeAreaView
       style={{
@@ -118,7 +125,7 @@ export default function OptionsDrawer({ navigation , route }) {
     >
       <CustomDrawer
         navigation={navigation}
-        onPress={() => navigation.navigate("Home" , {account})}
+        onPress={() => navigation.goBack()}
       />
     </SafeAreaView>
   );
