@@ -206,11 +206,12 @@ class CreateComponent extends Component {
   //     console.log("Email is Correct");
   //   }
   // }
-  addBusiness() {
+  addBusiness(label) {
     //console.log(date);
     const time = new Date().toLocaleString();
     console.log(this.state.category);
     const cat = this.state.category;
+    const cateLabel = label;
     console.log("catt", cat);
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
@@ -265,7 +266,7 @@ class CreateComponent extends Component {
           job: this.state.job,
           phone_number: this.state.phone_number,
           city: this.state.city,
-          categoryAll: this.state.category,
+          categoryAll: cateLabel,
           date: time,
         })
         .then((res) => {
@@ -324,7 +325,7 @@ class CreateComponent extends Component {
           job: this.state.job,
           phone_number: this.state.phone_number,
           city: this.state.city,
-          categoryAll: this.state.category,
+          categoryAll: cateLabel,
           date: time,
         })
         .then((res) => {
@@ -517,7 +518,7 @@ class CreateComponent extends Component {
           <View style={styles.containerB}>
             <Pressable
               style={styles.button}
-              onPress={() => this.addBusiness()}
+              onPress={() => this.addBusiness(label)}
               // color="#000"
               // backgroundColor='#000'
               // borderColor= "#000"
