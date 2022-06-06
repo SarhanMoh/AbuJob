@@ -60,7 +60,7 @@ export default function BusinessPage({ route, navigation }) {
   // console.log("category" , key);
   // console.log("key", id);
   async function checkLogin() {
-    if (account === "undefined") {
+    if (account === undefined) {
       Alert.alert("Unable to Rate", "Log in or register to rate", [
         { text: "Cancel", style: "cancel" },
         { text: "Log in!", onPress: () => navigation.navigate("FirstPage") },
