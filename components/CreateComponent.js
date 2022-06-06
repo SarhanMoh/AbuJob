@@ -22,7 +22,7 @@ const listCollection = [];
 const options = [
   {
     label: "שירותי רכב",
-    
+
     value: "Cars",
   },
   {
@@ -106,7 +106,7 @@ const options = [
 
     value: "RenovationsAr",
   },
-  
+
   {
     label: "علاج",
 
@@ -138,37 +138,36 @@ const options = [
 
     value: "TeachingAr",
   },
-  
+
   {
     label: "موسيقى",
 
     value: "MusicAr",
   },
-  
+
   {
     label: "خدمات البقالة",
 
     value: "GroceryAr",
   },
-  
+
   {
     label: "فنين",
 
     value: "TechniciansAr",
   },
- 
+
   {
     label: "اللياقة البدنية واليوجا",
 
     value: "FitnessAr",
   },
-  
+
   {
     label: "مختلف",
 
     value: "VariousAr",
   },
-  
 ];
 class CreateComponent extends Component {
   constructor() {
@@ -178,14 +177,14 @@ class CreateComponent extends Component {
       category: "Cars",
       name: "",
       address: "",
-      city:"",
+      city: "",
       languages: "",
       phone_number: "",
       description: "",
-      rating: 0,
+      rate: 0,
       isLoading: false,
       categoryAll: "",
-      date : new Date().toLocaleString()
+      date: new Date().toLocaleString(),
     };
   }
 
@@ -208,11 +207,11 @@ class CreateComponent extends Component {
   //   }
   // }
   addBusiness() {
-   //console.log(date);
-   const time = new Date().toLocaleString();
+    //console.log(date);
+    const time = new Date().toLocaleString();
     console.log(this.state.category);
     const cat = this.state.category;
-    console.log("catt",cat);
+    console.log("catt", cat);
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
     let dbAllHe = dataBase.collection("AllHe");
@@ -231,11 +230,22 @@ class CreateComponent extends Component {
       this.state.phone_number.length < 9
     ) {
       alert(" חייב לרשום מספר טלפון נכון ");
-    } else if (cat ==="VariousAr" || cat ==="FitnessAr" || cat ==="TechniciansAr"
-    || cat ==="GroceryAr" || cat ==="MusicAr" || cat ==="TeachingAr"
-    || cat ==="ElectriciansAr" || cat ==="RepairsAr" || cat ==="cosmeticsAr"
-    || cat ==="ArtsAr" || cat ==="TreatmentAr"|| cat ==="RenovationsAr"
-    || cat ==="CarsAr"|| cat ==="CateringAr") {
+    } else if (
+      cat === "VariousAr" ||
+      cat === "FitnessAr" ||
+      cat === "TechniciansAr" ||
+      cat === "GroceryAr" ||
+      cat === "MusicAr" ||
+      cat === "TeachingAr" ||
+      cat === "ElectriciansAr" ||
+      cat === "RepairsAr" ||
+      cat === "cosmeticsAr" ||
+      cat === "ArtsAr" ||
+      cat === "TreatmentAr" ||
+      cat === "RenovationsAr" ||
+      cat === "CarsAr" ||
+      cat === "CateringAr"
+    ) {
       this.setState({
         isLoading: true,
       });
@@ -247,17 +257,17 @@ class CreateComponent extends Component {
         phone_number: this.state.phone_number,
         description: this.state.description,
         city: this.state.city,
-        rating: this.state.rating,
-        
-      })
-      dbAll.add({
-        name: this.state.name,
-        job: this.state.job,
-        phone_number: this.state.phone_number,
-        city: this.state.city,
-        categoryAll: this.state.category,
-        date : time,
-      })
+        rate: this.state.rate,
+      });
+      dbAll
+        .add({
+          name: this.state.name,
+          job: this.state.job,
+          phone_number: this.state.phone_number,
+          city: this.state.city,
+          categoryAll: this.state.category,
+          date: time,
+        })
         .then((res) => {
           this.setState({
             name: "",
@@ -266,9 +276,9 @@ class CreateComponent extends Component {
             languages: "",
             phone_number: "",
             description: "",
-            rating: 0,
-            city : "",
-            date:"",
+            rate: 0,
+            city: "",
+            date: "",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponent");
@@ -279,12 +289,22 @@ class CreateComponent extends Component {
             isLoading: false,
           });
         });
-    }
-    else if(cat ==="Various" || cat ==="Fitness" || cat ==="Technicians"
-    || cat ==="Grocery" || cat ==="Music" || cat ==="Teaching"
-    || cat ==="Electricians" || cat ==="Repairs" || cat ==="cosmetics"
-    || cat ==="Arts" || cat ==="Treatment"|| cat ==="Renovations"
-    || cat ==="Cars"|| cat ==="Catering") {
+    } else if (
+      cat === "Various" ||
+      cat === "Fitness" ||
+      cat === "Technicians" ||
+      cat === "Grocery" ||
+      cat === "Music" ||
+      cat === "Teaching" ||
+      cat === "Electricians" ||
+      cat === "Repairs" ||
+      cat === "cosmetics" ||
+      cat === "Arts" ||
+      cat === "Treatment" ||
+      cat === "Renovations" ||
+      cat === "Cars" ||
+      cat === "Catering"
+    ) {
       this.setState({
         isLoading: true,
       });
@@ -296,16 +316,17 @@ class CreateComponent extends Component {
         phone_number: this.state.phone_number,
         description: this.state.description,
         city: this.state.city,
-        rating: this.state.rating,
-      })
-      dbAllHe.add({
-        name: this.state.name,
-        job: this.state.job,
-        phone_number: this.state.phone_number,
-        city: this.state.city,
-        categoryAll: this.state.category,
-        date : time,
-      })
+        rate: this.state.rate,
+      });
+      dbAllHe
+        .add({
+          name: this.state.name,
+          job: this.state.job,
+          phone_number: this.state.phone_number,
+          city: this.state.city,
+          categoryAll: this.state.category,
+          date: time,
+        })
         .then((res) => {
           this.setState({
             name: "",
@@ -314,9 +335,9 @@ class CreateComponent extends Component {
             languages: "",
             phone_number: "",
             description: "",
-            rating: 0,
-            city : "",
-            date:"",
+            rate: 0,
+            city: "",
+            date: "",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponent");
@@ -350,7 +371,7 @@ class CreateComponent extends Component {
           name="back"
           size={34}
           color="#222"
-          style={{ alignSelf: "flex-end" , paddingRight: "4%"}}
+          style={{ alignSelf: "flex-end", paddingRight: "4%" }}
           onPress={() => this.props.navigation.navigate("BusinessOptions")}
         />
 
@@ -451,12 +472,31 @@ class CreateComponent extends Component {
             style={styles.input}
             textAlign="right"
           />
-          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>בחר קטוגוריה</Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              marginBottom: "-15%",
+              paddingTop: "5%",
+              fontSize: 24,
+              fontWeight: "600",
+              textDecorationColor: "black",
+              textDecorationStyle: "solid",
+              textDecorationLine: "underline",
+            }}
+          >
+            בחר קטוגוריה
+          </Text>
 
           <Picker
             selectedValue={this.state.category}
-            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
-            itemStyle={{height:150}}
+            style={{
+              width: 300,
+              height: 150,
+              alignContent: "center",
+              alignSelf: "center",
+              marginTop: "20%",
+            }}
+            itemStyle={{ height: 150 }}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -593,7 +633,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 3,
   },
-  input2:{
+  input2: {
     backgroundColor: "#ffff",
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -602,8 +642,7 @@ const styles = StyleSheet.create({
     borderColor: "#2885A6",
     borderWidth: 1,
     height: 100,
-  }
-  
+  },
 });
 
 export default CreateComponent;

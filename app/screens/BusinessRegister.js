@@ -117,7 +117,7 @@ class BusinessRegister extends Component {
           <AntDesign
             name="close"
             size={34}
-            color="Black"
+            color="black"
             onPress={() => this.props.navigation.goBack()}
             style={{
               position: "absolute",

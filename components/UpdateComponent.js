@@ -26,18 +26,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const options = [
   {
     label: "שירותי רכב",
-    
+
     value: "Cars",
   },
-  
+
   {
     label: "כולם בעברית",
-    
+
     value: "AllHe",
   },
   {
     label: "الجميع بالعربي",
-    
+
     value: "All",
   },
   {
@@ -121,7 +121,7 @@ const options = [
 
     value: "RenovationsAr",
   },
-  
+
   {
     label: "علاج",
 
@@ -153,31 +153,31 @@ const options = [
 
     value: "TeachingAr",
   },
-  
+
   {
     label: "موسيقى",
 
     value: "MusicAr",
   },
-  
+
   {
     label: "خدمات البقالة",
 
     value: "GroceryAr",
   },
-  
+
   {
     label: "فنين",
 
     value: "TechniciansAr",
   },
- 
+
   {
     label: "اللياقة البدنية واليوجا",
 
     value: "FitnessAr",
   },
-  
+
   {
     label: "مختلف",
 
@@ -185,15 +185,14 @@ const options = [
   },
   {
     label: "כולם בעברית",
-    
+
     value: "AllHe",
   },
   {
     label: "الجميع بالعربي",
-    
+
     value: "All",
   },
-  
 ];
 class UpdateComponent extends Component {
   constructor({ navigation }) {
@@ -205,11 +204,11 @@ class UpdateComponent extends Component {
       emptyList: [],
     };
   }
-  handlerPress(item){
-    Alert.alert("מחיקת עסק" , "האם את/ה בטוח שרוצה למוחק את העסק",[
-      {text : "כן" , onPress: ()=> this.deleteItem(item)},
-      {text: "בטל" , style:"בטל"},
-    ])
+  handlerPress(item) {
+    Alert.alert("מחיקת עסק", "האם את/ה בטוח שרוצה למוחק את העסק", [
+      { text: "כן", onPress: () => this.deleteItem(item) },
+      { text: "בטל", style: "בטל" },
+    ]);
   }
   async getList() {
     const ref = dataBase.collection(this.state.category);
@@ -226,7 +225,7 @@ class UpdateComponent extends Component {
   }
   async deleteItem(item) {
     var docRef = dataBase.collection(this.state.category).doc(item.id);
-    
+
     await docRef
       .delete()
       .then(() => this.getList())
@@ -249,11 +248,30 @@ class UpdateComponent extends Component {
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
             onPress={() => this.props.navigation.navigate("BusinessOptions")}
           />
-          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>בחר קטוגוריה</Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              marginBottom: "-15%",
+              paddingTop: "5%",
+              fontSize: 24,
+              fontWeight: "600",
+              textDecorationColor: "black",
+              textDecorationStyle: "solid",
+              textDecorationLine: "underline",
+            }}
+          >
+            בחר קטוגוריה
+          </Text>
           <Picker
             selectedValue={this.state.category}
-            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
-            itemStyle={{height:150}}
+            style={{
+              width: 300,
+              height: 150,
+              alignContent: "center",
+              alignSelf: "center",
+              marginTop: "20%",
+            }}
+            itemStyle={{ height: 150 }}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -290,9 +308,8 @@ class UpdateComponent extends Component {
                     <Text style={styles.keys}>כתובת:{item.address} </Text>
                     <Text style={styles.keys}>שפות:{item.languages}</Text>
                     <Text style={styles.keys}>טלפון :{item.phone_number}</Text>
-                    <Text style={styles.keys} >תוכן :{item.description}</Text>
+                    <Text style={styles.keys}>תוכן :{item.description}</Text>
                     <Text style={styles.keys}>דירוג :{item.rating}</Text>
-
                   </View>
 
                   <View>
@@ -336,16 +353,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    alignContent:"center",
-    //alignSelf:"center",
     backgroundColor: "red",
     color: "black",
     width: "100%",
     borderColor: "red",
     borderWidth: 2,
-    paddingLeft:30,
-    marginLeft:30,
-    borderRadius:4,
+    //paddingLeft: 30,
+    marginLeft: 25,
+    marginRight: 25,
+    borderRadius: 4,
   },
   button2: {
     alignItems: "center",
@@ -381,11 +397,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    // textAlign: "center",
-    // justifyContent:"center",
-    // alignSelf:"center",
-    
-    
+    textAlign: "center",
   },
   list: {
     flex: 1,
@@ -404,8 +416,7 @@ const styles = StyleSheet.create({
   dataList: {
     textAlign: "right",
     flexDirection: "column",
-    marginRight:"10%",
-
+    marginRight: "10%",
   },
   delete: {
     width: 45,
@@ -426,12 +437,12 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: "10%",
   },
-  keys:{
-    textAlign:"right",
-    alignItems:"flex-end",
+  keys: {
+    textAlign: "right",
+    alignItems: "flex-end",
     paddingLeft: "30%",
-    fontSize:16,
-    paddingVertical:5,
-  }
+    fontSize: 16,
+    paddingVertical: 5,
+  },
 });
 export default UpdateComponent;
