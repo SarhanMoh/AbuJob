@@ -6,7 +6,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {
   View,
-  Button,
+  ActivityIndicator,
   Image,
   StyleSheet,
   TouchableOpacity,
@@ -53,6 +53,7 @@ export default function HomeScreen({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
+  const [RecentlyList, setRecentlyList] = React.useState([]);
 
   let searchCategory;
   async function getSearchValue(SearchValue) {
@@ -66,6 +67,29 @@ export default function HomeScreen({ route, navigation }) {
       setSearchQuery(tmp);
     });
   }
+
+  //--------------------------Recently code---------------------------------
+  async function getList(sorting = "alphabet") {
+    //console.log("entered");
+    const ref = dataBase.collection("All");
+    const snapshot = await ref.get();
+    let tmp = [];
+    let counter = 0;
+    snapshot.forEach((doc) => {
+      //console.log(doc.id, '=>', doc.data());
+      if (counter < 13) {
+        tmp.push(doc.data());
+        counter++;
+      }
+    });
+    setRecentlyList(tmp);
+    //console.log(tmp);
+  }
+  useEffect(() => {
+    getList();
+  }, []);
+
+  //------------------------------------------------------------------------
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -110,7 +134,7 @@ export default function HomeScreen({ route, navigation }) {
               defaultValueByIndex={0}
               buttonTextStyle={{ color: "white" }}
               buttonStyle={{
-                backgroundColor: "rgba(64, 64, 64, 0.8)",
+                backgroundColor: "rgba(64, 64, 64, 1)",
                 borderRadius: 30,
                 borderTopLeftRadius: 0,
                 borderBottomLeftRadius: 0,
@@ -189,13 +213,29 @@ export default function HomeScreen({ route, navigation }) {
             );
           }}
         />
-        <View style={{ height: 7 }}></View>
+        <View style={{ height: 40, alignItems: "center" }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AllCategoryPage", { account })}
+            style={{
+              backgroundColor: "rgba(220,220,220, 0.9)",
+              width: "95%",
+              height: "80%",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontWeight: "800", color: "black" }}>
+              הראה את כל הקטגוריות
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={{ flex: 1 }}>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: "700",
             alignSelf: "center",
             borderRadius: 15,
@@ -205,50 +245,63 @@ export default function HomeScreen({ route, navigation }) {
         >
           הצטרפו לאחרונה
         </Text>
-        <FlatList
-          data={recently}
-          keyExtractor={(item) => item.key}
-          contentContainerStyle={{
-            padding: SPACING,
-          }}
-          renderItem={({ item }) => {
-            return (
-              <View
-                style={{
-                  height: 100,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  margin: SPACING,
-                  backgroundColor: "rgba(255,255,255,0.8)",
-                  borderRadius: 16,
-                  shadowColor: "black",
-                  shadowOpacity: 0.15,
-                  shadowOffset: { width: 2, height: 2 },
-                  elevation: 50,
-                  shadowRadius: 10,
-                }}
-              >
-                <Image source={item.profilePic} style={styles.profileIcon} />
-                <View style={{ flex: 1, right: SPACING, top: SPACING }}>
-                  <Text style={styles.mainName}>{item.name}</Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-around",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={styles.subName}>
-                      {" "}
-                      קטוגוריה: {item.catagory}
-                    </Text>
-                    <Text style={styles.subName}> עיר: {item.city}</Text>
+        {RecentlyList.length > 0 ? (
+          <FlatList
+            data={RecentlyList}
+            keyExtractor={(item) => `${item.phone_number}`}
+            contentContainerStyle={{
+              padding: SPACING,
+            }}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    height: 100,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    margin: SPACING,
+                    backgroundColor: "rgba(255,255,255,0.8)",
+                    borderRadius: 16,
+                    shadowColor: "black",
+                    shadowOpacity: 0.15,
+                    shadowOffset: { width: 2, height: 2 },
+                    elevation: 50,
+                    shadowRadius: 10,
+                  }}
+                >
+                  <Image
+                    source={require("../assets/profileIcon.png")}
+                    style={styles.profileIcon}
+                  />
+                  <View style={{ flex: 1, right: SPACING, top: SPACING }}>
+                    <Text style={styles.mainName}>{item.name}</Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text style={styles.subName}>
+                        {" "}
+                        קטוגוריה: {item.categoryAll}
+                      </Text>
+                      <Text style={styles.subName}> עיר: {item.city}</Text>
+                    </View>
+                    <View style={{ height: "10%" }}></View>
+                    <View style={{ alignItems: "center", maxWidth: "80%" }}>
+                      <Text style={styles.subName}>עבודה: {item.job}</Text>
+                    </View>
                   </View>
-                </View>
-              </View>
-            );
-          }}
-        />
+                </TouchableOpacity>
+              );
+            }}
+          />
+        ) : (
+          <View style={{ alignItems: "center" }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
