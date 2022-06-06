@@ -24,6 +24,7 @@ import AuthContext, { useAuth } from "./app/context/AuthContext";
 import Reports from "./app/screens/Reports";
 import RatingPage from "./app/screens/RatingPage";
 import BusinessList from "./app/screens/BusinessList";
+import AllCategoryPage from "./app/screens/AllCategoryPage";
 const Stack = createNativeStackNavigator();
 //
 export default function App() {
@@ -43,7 +44,7 @@ export default function App() {
               fontWeight: "bold",
             },
           }}
-          initialRouteName={"CreateComponent"}
+          initialRouteName={"FirstPage"}
         >
           <Stack.Screen
             name="CreateComponent"
@@ -110,6 +111,11 @@ export default function App() {
             options={{ headerShown: false }}
             name="Home"
             component={HomeScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="AllCategoryPage"
+            component={AllCategoryPage}
           />
           <Stack.Screen
             options={{ headerShown: false }}
