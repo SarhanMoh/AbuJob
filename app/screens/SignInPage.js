@@ -65,6 +65,7 @@ const SignInPage = ({ navigation }) => {
           //   // noHandler(check);
           // }
         });
+        setEmptyList(tmp);
         console.log("emailCheck" , emailCheck);
         tmp.forEach((element)=>{
           console.log(element);
@@ -77,7 +78,7 @@ const SignInPage = ({ navigation }) => {
           }
         })
 
-        setEmptyList(tmp);
+        
         console.log("tmp:",tmp);
         // setEmptyList(tmp);
         // console.log("list",emptyList);
