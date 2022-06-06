@@ -4,6 +4,7 @@ import SignInPage from "./SignInPage";
 import { dataBase } from "../../firebase";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { FlashMessage, showMessage } from "react-native-flash-message";
 import {
   View,
   ActivityIndicator,
@@ -19,13 +20,17 @@ import {
   StatusBar,
   Dimensions,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { options, recently } from "../../components/newComponents";
+import { render } from "react-dom";
 
 const SPACING = 8,
   cellWidth = 250,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
+let messageHasShown = false;
+let searchCategory;
 
 export default function HomeScreen({ route, navigation }) {
   // const [category , setCategory] = useState('')
@@ -55,8 +60,8 @@ export default function HomeScreen({ route, navigation }) {
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
 
-  let searchCategory;
   async function getSearchValue(SearchValue) {
+    messageHasShown = false;
     const ref = dataBase.collection(searchCategory);
     const snapshot = await ref.get();
     let tmp = [];
@@ -117,7 +122,19 @@ export default function HomeScreen({ route, navigation }) {
               placeholder="חפש את ..."
               placeholderTextColor={"black"}
               value={SearchValue}
-              onChangeText={(SearchValue) => setSearchValue(SearchValue)}
+              onChangeText={(SearchValue) => {
+                setSearchValue(SearchValue);
+                if (messageHasShown === false) {
+                  showMessage({
+                    position: "center",
+                    duration: 3000,
+                    message: "בבקשה לבחר קטגוריה לפני לחפש!",
+                    type: "defualt",
+                    titleStyle: { fontWeight: "800", fontSize: 20 },
+                  });
+                  messageHasShown = true;
+                }
+              }}
               style={{
                 color: "black",
                 fontSize: 16,

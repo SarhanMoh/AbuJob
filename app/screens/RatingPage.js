@@ -152,7 +152,7 @@ export default function RatingPage({ route, navigation }) {
               backgroundColor: "rgba(255, 255, 255, 0.3)",
             }}
           >
-            <Text style={styles.text}>Efficiency</Text>
+            <Text style={styles.text}>יעילות</Text>
             <AirbnbRating
               count={5}
               showRating={false}
@@ -160,7 +160,7 @@ export default function RatingPage({ route, navigation }) {
               onFinishRating={ratingCompletedE}
               style={styles.rateButton}
             />
-            <Text style={styles.text}>Reachability</Text>
+            <Text style={styles.text}>נגישות</Text>
             <AirbnbRating
               count={5}
               showRating={false}
@@ -168,7 +168,7 @@ export default function RatingPage({ route, navigation }) {
               onFinishRating={ratingCompletedR}
               style={styles.rateButton}
             />
-            <Text style={styles.text}>speed</Text>
+            <Text style={styles.text}>מהירות</Text>
             <AirbnbRating
               count={5}
               showRating={false}
@@ -176,7 +176,7 @@ export default function RatingPage({ route, navigation }) {
               onFinishRating={ratingCompletedS}
               style={styles.rateButton}
             />
-            <Text style={styles.text}>pricing</Text>
+            <Text style={styles.text}>מחיר</Text>
             <AirbnbRating
               count={5}
               showRating={false}
@@ -184,7 +184,7 @@ export default function RatingPage({ route, navigation }) {
               onFinishRating={ratingCompletedP}
               style={styles.rateButton}
             />
-            <Text style={styles.text}>fluency</Text>
+            <Text style={styles.text}>אחריות</Text>
             <AirbnbRating
               count={5}
               showRating={false}
@@ -210,7 +210,7 @@ export default function RatingPage({ route, navigation }) {
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={submit} style={styles.button}>
-              <Text style={styles.buttonText}>submit</Text>
+              <Text style={styles.buttonText}>להגיש</Text>
             </TouchableOpacity>
           </View>
           <View style={{ height: 20 }}></View>
@@ -248,8 +248,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    borderWidth: 2,
-    //width : "30%",
+    borderBottomWidth: 1,
+    fontWeight: "700",
     marginVertical: 10,
     justifyContent: "center",
     alignSelf: "center",
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: "#A8D173",
+    backgroundColor: "#2885A6",
     width: "100%",
     padding: 15,
     borderRadius: 10,
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 18,
   },
 });
 //#0782f9 blue

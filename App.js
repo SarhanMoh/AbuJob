@@ -25,6 +25,7 @@ import Reports from "./app/screens/Reports";
 import RatingPage from "./app/screens/RatingPage";
 import BusinessList from "./app/screens/BusinessList";
 import AllCategoryPage from "./app/screens/AllCategoryPage";
+import FlashMessage from "react-native-flash-message";
 const Stack = createNativeStackNavigator();
 //
 export default function App() {
@@ -159,6 +160,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </AuthContext>
+      <FlashMessage position="top" />
     </NavigationContainer>
   );
 }
