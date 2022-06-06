@@ -56,13 +56,13 @@ export default function HomeScreen({ route, navigation }) {
 
   let searchCategory;
   async function getSearchValue(SearchValue) {
-    const ref = dataBase.collection(searchCategory);
+    console.log(SearchValue);
+    const ref = dataBase.collection(SearchValue);
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
-      if (doc.data().name == SearchValue) {
-        tmp.push(doc.data());
-      }
+      tmp.push(doc.data());
+      console.log(tmp);
       setSearchQuery(tmp);
     });
   }
@@ -106,6 +106,7 @@ export default function HomeScreen({ route, navigation }) {
               data={options}
               onSelect={(selectedItem) => {
                 searchCategory = selectedItem.value;
+                getSearchValue(searchCategory);
               }}
               defaultValueByIndex={0}
               buttonTextStyle={{ color: "white" }}

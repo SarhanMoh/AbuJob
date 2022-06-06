@@ -50,30 +50,37 @@ const SignInPage = ({ navigation }) => {
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
-      console.log("emailDatab",doc.data().email);
-
-      if(doc.data().email === emailCheck){
-      console.log("emailData",doc.data().email);
+      // console.log("emailDatab",doc.data().email);
+      // console.log("emailData",doc.data().email);
       //console.log(doc.id, '=>', doc.data());
       tmp.push(doc.data().email);
-      console.log("tmp:",tmp);
-      setEmptyList(tmp);
       // handleSignIn();
-      setCheck("true");
-      console.log("check" ,check);
-      handleSignIn();
       // if(check ==="true"){
         
-      // }
-      //return true
-      }
-      // else {
-      //   setCheck("false");
-      //   // noHandler(check);
-      // }
-    });
-    // setEmptyList(tmp);
-    // console.log("list",emptyList);
+        // }
+        //return true
+        
+        // else {
+          //   setCheck("false");
+          //   // noHandler(check);
+          // }
+        });
+        console.log("emailCheck" , emailCheck);
+        tmp.forEach((element)=>{
+          console.log(element);
+          if(emailCheck.localeCompare(element)==0){
+            console.log("found");
+            handleSignIn();
+          }
+          else {
+            console.log("Searching");
+          }
+        })
+
+        setEmptyList(tmp);
+        console.log("tmp:",tmp);
+        // setEmptyList(tmp);
+        // console.log("list",emptyList);
     // return emptyList;
   }
 
