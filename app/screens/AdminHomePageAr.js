@@ -1,19 +1,21 @@
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { auth, dataBase } from "../../firebase";
 import {
   View,
-  Button,
   Image,
+  Button,
   StyleSheet,
-  TouchableOpacity,
   StatusBar,
-  Text,
-  SafeAreaView,
+  TouchableOpacity,
   ImageBackground,
+  Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { signOut } from "firebase/auth";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-function ReportsOptions(props) {
+function AdminHomePageAr(props) {
   const { onPress, title = "Save" } = props;
   const navigation = useNavigation();
   return (
@@ -29,32 +31,47 @@ function ReportsOptions(props) {
         size={34}
         color="#222"
         style={{ alignSelf: "flex-end", paddingRight: "4%" }}
-        onPress={() => navigation.navigate("AdminHomePage")}
+        onPress={() => navigation.goBack()}
       />
+
       <View style={styles.screenContainer}>
         <View>
+          <TouchableOpacity
+            style={styles.button3}
+            onPress={() => {
+              auth.signOut();
+              // logout
+              console.log("logout", auth);
+              navigation.navigate("FirstPageAr");
+            }}
+          >
+            <Text style={styles.text3}>تسجيل الخروج</Text>
+          </TouchableOpacity>
           <Image
             style={styles.bigLogoStyle}
             source={require("../assets/good.png")}
           />
         </View>
+        {/* <TouchableOpacity style={styles.button1} onPress={onPress}>
+            <Text style={styles.text}>משתמשים</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          style={styles.button2}
+          onPress={() => navigation.navigate("BusinessOptionsAr")}
+        >
+          <Text style={styles.text}>الأعمال</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.button1}
-          onPress={() => navigation.navigate("ReportsRead")}
+          onPress={() => navigation.navigate("RequestsListAr")}
         >
-          <Text style={styles.text}>דיווחים כללים</Text>
+          <Text style={styles.text}>الطلبات</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate("ReportsRead")}
+          onPress={() => navigation.navigate("ReportsOptionsAr")}
         >
-          <Text style={styles.text}>דיווחים טכנים </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button1}
-          onPress={() => navigation.navigate("ReportsRead")}
-        >
-          <Text style={styles.text}>דיווחים על עסקים</Text>
+          <Text style={styles.text}>التقارير</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -64,13 +81,12 @@ function ReportsOptions(props) {
 const styles = StyleSheet.create({
   containerSafe: {
     flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "flex-start",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
+    justifyContent: "space-evenly",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 0.5 : 0,
   },
   screenContainer: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     alignItems: "center",
     flexDirection: "column",
     // padding: 16,
@@ -79,6 +95,16 @@ const styles = StyleSheet.create({
     color: "white",
     paddingBottom: "20%",
   },
+  bigLogoStyle: {
+    resizeMode: "contain",
+    width: 300,
+    height: 150,
+    padding: 50,
+    //paddingTop:50,
+    justifyContent: "space-evenly",
+    //alignItems: 'flex-end',
+  },
+
   button2: {
     backgroundColor: "#2885A6",
     width: "70%",
@@ -110,7 +136,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   backButton: {
     width: 10,
     height: 40,
@@ -125,16 +150,26 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 3,
   },
-  bigLogoStyle: {
-    resizeMode: "contain",
-    width: 300,
-    height: 150,
-    padding: 50,
-    marginTop:"-12%",
-    //paddingTop:50,
-    justifyContent: "space-between",
-    //alignItems: 'flex-end',
+  text3: {
+    fontSize: 14,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button3: {
+    backgroundColor: "red",
+    width: 100,
+    justifyContent: "center",
+    height: 30,
+    alignItems: "center",
+    //paddingVertical: 12,
+    //paddingHorizontal: 1,
+    borderRadius: 4,
+    elevation: 3,
   },
 });
 
-export default ReportsOptions;
+export default AdminHomePageAr;

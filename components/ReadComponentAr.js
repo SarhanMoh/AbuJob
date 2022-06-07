@@ -4,8 +4,8 @@ import {
   StatusBar,
   Animated,
   Button,
-  Image,
   ImageBackground,
+  Image,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -13,6 +13,7 @@ import {
   Easing,
   ActivityIndicator,
   View,
+  SafeAreaView,
   TextInput,
   Text,
   Pressable,
@@ -22,33 +23,174 @@ import { Picker } from "@react-native-picker/picker";
 import { collection } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { withNavigation } from "react-navigation";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const options = [
   {
-    label: "דוח כללי",
+    label: "خدمات السيارات",
 
-    value: "Report",
-  },
-  {
-    label: "דוח טכני",
-
-    value: "technicalReport",
+    value: "CarsAr",
   },
 
   {
-    label: "דוח על מסד",
+    label: "الترميمات وصيانة البيت",
 
-    value: "businessReport",
+    value: "RenovationsAr",
   },
+  
+  {
+    label: "علاج",
+
+    value: "TreatmentAr",
+  },
+
+  {
+    label: "الفنون و الحرف اليدوية",
+
+    value: "ArtsAr",
+  },
+  {
+    label: "مستحضرات التجميل",
+
+    value: "cosmeticsAr",
+  },
+  {
+    label: "التصليحات والحرف",
+
+    value: "RepairsAr",
+  },
+  {
+    label: "كهربائيات",
+
+    value: "ElectriciansAr",
+  },
+  {
+    label: "تعليم",
+
+    value: "TeachingAr",
+  },
+  
+  {
+    label: "موسيقى",
+
+    value: "MusicAr",
+  },
+  
+  {
+    label: "خدمات البقالة",
+
+    value: "GroceryAr",
+  },
+  
+  {
+    label: "فنين",
+
+    value: "TechniciansAr",
+  },
+ 
+  {
+    label: "اللياقة البدنية واليوجا",
+
+    value: "FitnessAr",
+  },
+  
+  {
+    label: "مختلف",
+
+    value: "VariousAr",
+  },
+  {
+    label: "שירותי רכב",
+    
+    value: "Cars",
+  },
+  {
+    label: "קייטרינג",
+
+    value: "Catering",
+  },
+  {
+    label: "שיפוצים",
+
+    value: "Renovations",
+  },
+  {
+    label: "טיפול",
+
+    value: "Treatment",
+  },
+  {
+    label: "אמנות ומלאכת יד",
+
+    value: "Arts",
+  },
+  {
+    label: "קוסמטיקה",
+
+    value: "cosmetics",
+  },
+  {
+    label: "תיקונים ומלאכות",
+
+    value: "Repairs",
+  },
+  {
+    label: "חשמלאות",
+
+    value: "Electricians",
+  },
+  {
+    label: "הוראה",
+
+    value: "Teaching",
+  },
+  {
+    label: "מוסיקה",
+
+    value: "Music",
+  },
+  {
+    label: "שירותי מכלות",
+
+    value: "Grocery",
+  },
+  {
+    label: "טכנאים",
+
+    value: "Technicians",
+  },
+  {
+    label: "כושר ואימון פיזי",
+
+    value: "Fitness",
+  },
+  {
+    label: "שונות",
+
+    value: "Various",
+  },
+  {
+    label: "المطاعم",
+
+    value: "CateringAr",
+  },
+  {
+    label: "כולם בעברית",
+    
+    value: "AllHe",
+  },
+  {
+    label: "الجميع بالعربي",
+    
+    value: "All",
+  },
+  
 ];
-
-class ReportsRead extends Component {
+class ReadComponentAr extends Component {
   constructor() {
     super();
     //this.ref = dataBase.collection();
     this.state = {
-      category: "Report",
+      category: "CarsAr",
       isLoading: false,
       emptyList: [],
     };
@@ -59,6 +201,7 @@ class ReportsRead extends Component {
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
+      
       //console.log(doc.id, '=>', doc.data());
       tmp.push(doc.data());
     });
@@ -87,24 +230,14 @@ class ReportsRead extends Component {
             size={34}
             color="#222"
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
-            onPress={() => this.props.navigation.navigate("ReportsOptions")}
+            onPress={() => this.props.navigation.navigate("BusinessOptionsAr")}
           />
- <Text
-            style={{
-              alignSelf: "center",
-              marginBottom: "-15%",
-              paddingTop: "5%",
-              fontSize: 24,
-              fontWeight: "600",
-              textDecorationColor: "black",
-              textDecorationStyle: "solid",
-              textDecorationLine: "underline",
-            }}
-          >
-            בחר קטוגוריה
-          </Text>
+          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>اختر فئة</Text>
+
           <Picker
             selectedValue={this.state.category}
+            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
+            itemStyle={{height:150}}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -126,9 +259,9 @@ class ReportsRead extends Component {
               // color="#000"
               // backgroundColor='#000'
               // borderColor= "#000"
-              title="הצג רשימה"
+              title="عرض القائمة"
             >
-              <Text style={styles.text}>הצג רשימה</Text>
+              <Text style={styles.text}>عرض القائمة</Text>
             </Pressable>
           </View>
           {/* <ImageBackground
@@ -157,6 +290,7 @@ class ReportsRead extends Component {
                 //:כתובת
                 //:שפות
                 //:טלפון
+
                 <View
                   key={index}
                   style={{
@@ -182,7 +316,7 @@ class ReportsRead extends Component {
                         textAlign: "right",
                       }}
                     >
-                      שם:
+                      الاسم:
                     </Text>
                     <Text style={{ fontSize: 22, fontWeight: "700" }}>
                       {" "}
@@ -191,9 +325,22 @@ class ReportsRead extends Component {
                   </View>
                   <View style={styles.info}>
                     <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      العمل:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.job}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
                       style={{ fontSize: 16, opacity: 0.7, textAlign: "right" }}
                     >
-                      כתובת:
+                      العنوان:
                     </Text>
                     <Text style={{ fontSize: 18, opacity: 0.7 }}>
                       {" "}
@@ -204,7 +351,7 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      שפות:
+                      اللغات:
                     </Text>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
@@ -217,7 +364,33 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      מספר טלפון:
+                      المحتوى:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.description}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                     التقييم:  
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.rating}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      رقم الهاتف:
                     </Text>
                     <Text
                       style={{
@@ -244,8 +417,8 @@ const styles = StyleSheet.create({
   containerSafe: {
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "flex-start",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 0.5 : 0,
+    justifyContent: "space-evenly",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   container: {
     alignItems: "center",
@@ -254,7 +427,11 @@ const styles = StyleSheet.create({
   },
   info: {
     flexDirection: "row-reverse",
+    padding:1,
+    paddingLeft:"10%",
+    marginLeft:"10%",
     textAlign: "right",
+    width: "98%"
   },
   button: {
     alignItems: "center",
@@ -278,6 +455,7 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
+    paddingLeft:"15%",
     backgroundColor: "#ffff",
     padding: 20,
     flexDirection: "column",
@@ -312,4 +490,4 @@ const styles = StyleSheet.create({
     marginTop: "10%",
   },
 });
-export default ReportsRead;
+export default ReadComponentAr;

@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { AntDesign } from "@expo/vector-icons";
 import {
   StatusBar,
   Animated,
   Button,
   Image,
-  ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground,
   ScrollView,
   FlatList,
   Easing,
@@ -16,65 +15,40 @@ import {
   TextInput,
   Text,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 import { dataBase } from "../firebase";
-import { Picker } from "@react-native-picker/picker";
+import { AntDesign } from "@expo/vector-icons";
 import { collection } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
-import { withNavigation } from "react-navigation";
-import { SafeAreaView } from "react-native-safe-area-context";
+//import RequestsListAr from "../../../ArPages/components/RequestsListAr";
 
-const options = [
-  {
-    label: "דוח כללי",
-
-    value: "Report",
-  },
-  {
-    label: "דוח טכני",
-
-    value: "technicalReport",
-  },
-
-  {
-    label: "דוח על מסד",
-
-    value: "businessReport",
-  },
-];
-
-class ReportsRead extends Component {
+class RequestsListAr extends Component {
   constructor() {
     super();
     //this.ref = dataBase.collection();
     this.state = {
-      category: "Report",
+      category: "Requests",
       isLoading: false,
       emptyList: [],
     };
   }
 
   async getList() {
-    const ref = dataBase.collection(this.state.category);
+    const ref = dataBase.collection("Requests");
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
-      //console.log(doc.id, '=>', doc.data());
       tmp.push(doc.data());
+      console.log(doc.data());
     });
     this.setState({
       emptyList: tmp,
     });
     console.log(this.state.emptyList);
   }
-  // componentDidMount(){
-  //   const scrollY= React.useRef(new Animated.Value(0)).current;
-  // }
   render() {
-    // const scrollY= React.useRef(new Animated.Value(0)).current;
-
     return (
-      <SafeAreaView style={styles.containerSafe}>
+      <SafeAreaView style={styles.allContainer}>
         <ImageBackground
           source={require("../app/assets/back.png")}
           style={StyleSheet.absoluteFillObject}
@@ -87,57 +61,10 @@ class ReportsRead extends Component {
             size={34}
             color="#222"
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
-            onPress={() => this.props.navigation.navigate("ReportsOptions")}
+            onPress={() => this.props.navigation.navigate("AdminHomePageAr")}
           />
- <Text
-            style={{
-              alignSelf: "center",
-              marginBottom: "-15%",
-              paddingTop: "5%",
-              fontSize: 24,
-              fontWeight: "600",
-              textDecorationColor: "black",
-              textDecorationStyle: "solid",
-              textDecorationLine: "underline",
-            }}
-          >
-            בחר קטוגוריה
-          </Text>
-          <Picker
-            selectedValue={this.state.category}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({
-                category: itemValue,
-              })
-            }
-          >
-            {options.map((option, itemIndex) => (
-              <Picker.Item
-                key={itemIndex}
-                value={option.value}
-                label={option.label}
-              ></Picker.Item>
-            ))}
-          </Picker>
-          <View style={styles.container}>
-            <Pressable
-              style={styles.button}
-              onPress={() => this.getList()}
-              // color="#000"
-              // backgroundColor='#000'
-              // borderColor= "#000"
-              title="הצג רשימה"
-            >
-              <Text style={styles.text}>הצג רשימה</Text>
-            </Pressable>
-          </View>
-          {/* <ImageBackground
-            source={{uri: IMG}}
-            resizeMode="cover"
-            style={{StyleSheet.absoluteFillObject}}
-          /> */}
 
-          <Animated.FlatList
+          <FlatList
             // const scrollY = React.useRef(new Animated.value(0)).current;
             data={this.state.emptyList}
             showsVerticalScrollIndicator={false}
@@ -146,6 +73,22 @@ class ReportsRead extends Component {
               padding: 20,
               paddingTop: StatusBar.currentHeight || 42,
             }}
+            ListHeaderComponent={
+              <View style={styles.container}>
+          <Text style={{alignSelf:"center"  , paddingTop:"1%" ,marginBottom:"5%", fontSize:28,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>طلبات الانضمام</Text>
+
+                <Pressable
+                  style={styles.button}
+                  onPress={() => this.getList()}
+                  // color="#000"
+                  // backgroundColor='#000'
+                  // borderColor= "#000"
+                  title="عرض القائمة"
+                >
+                  <Text style={styles.text}>عرض القائمة</Text>
+                </Pressable>
+              </View>
+            }
             // onScroll ={Animated.event (
             //   [{ nativeEvent : {contentOffset:{y:''}}}],
             //   {useNativeDriver:true}
@@ -157,6 +100,7 @@ class ReportsRead extends Component {
                 //:כתובת
                 //:שפות
                 //:טלפון
+
                 <View
                   key={index}
                   style={{
@@ -182,29 +126,50 @@ class ReportsRead extends Component {
                         textAlign: "right",
                       }}
                     >
-                      שם:
+                      الاسم:
                     </Text>
-                    <Text style={{ fontSize: 22, fontWeight: "700" }}>
+                    <Text
+                      style={{
+                        fontSize: 22,
+                        fontWeight: "700",
+                        textAlign: "right",
+                      }}
+                    >
                       {" "}
                       {item.name}{" "}
                     </Text>
                   </View>
                   <View style={styles.info}>
                     <Text
-                      style={{ fontSize: 16, opacity: 0.7, textAlign: "right" }}
+                      style={{ fontSize: 18, opacity: 0.7, textAlign: "right" }}
                     >
-                      כתובת:
+                    رقم العمل المعتمد:{" "}
                     </Text>
-                    <Text style={{ fontSize: 18, opacity: 0.7 }}>
+                    <Text
+                      style={{ fontSize: 18, opacity: 0.7, textAlign: "right" }}
+                    >
                       {" "}
-                      {item.address}{" "}
+                      {item.businessNumber}{" "}
                     </Text>
                   </View>
                   <View style={styles.info}>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      שפות:
+                       اسم صاحب العمل:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.ownerName}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      اللغات:
                     </Text>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
@@ -217,7 +182,46 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      מספר טלפון:
+                      البريد الالكتروني:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.email}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      العنوان:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.address}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      المدينة:
+                    </Text>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                      {" "}
+                      {item.city}
+                    </Text>
+                  </View>
+                  <View style={styles.info}>
+                    <Text
+                      style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
+                    >
+                       رقم الهاتف:
                     </Text>
                     <Text
                       style={{
@@ -241,24 +245,24 @@ class ReportsRead extends Component {
   }
 }
 const styles = StyleSheet.create({
-  containerSafe: {
+  allContainer: {
     flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "flex-start",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 0.5 : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   container: {
     alignItems: "center",
     justifyContent: "center",
-    textAlign: "right",
   },
   info: {
     flexDirection: "row-reverse",
     textAlign: "right",
+    padding: 3,
   },
   button: {
+    //marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 20,
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 4,
@@ -266,7 +270,6 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     width: "60%",
     padding: 10,
-    color: "black",
   },
   text: {
     fontSize: 16,
@@ -274,27 +277,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    textAlign: "right",
-  },
-  list: {
-    flex: 1,
-    backgroundColor: "#ffff",
-    padding: 20,
-    flexDirection: "column",
-    textAlign: "right",
-    marginBottom: 20,
-    backgroundColor: "ffff",
-    borderRadius: 12,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    // borderRadius:70,
-    // width: 70,
-    // height:70,
   },
   backButton: {
     width: 10,
@@ -311,5 +293,25 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: "10%",
   },
+  list: {
+    flex: 1,
+    backgroundColor: "#ffff",
+    padding: 20,
+    flexDirection: "column",
+    paddingTop: 20,
+    marginBottom: 20,
+    backgroundColor: "ffff",
+    borderRadius: 12,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    // borderRadius:70,
+    // width: 70,
+    // height:70,
+  },
 });
-export default ReportsRead;
+export default RequestsListAr;

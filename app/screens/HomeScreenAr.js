@@ -5,6 +5,7 @@ import { dataBase } from "../../firebase";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { FlashMessage, showMessage } from "react-native-flash-message";
+
 import {
   View,
   ActivityIndicator,
@@ -20,18 +21,15 @@ import {
   StatusBar,
   Dimensions,
   ImageBackground,
-  Alert,
 } from "react-native";
-import { options, recently } from "../../components/newComponents";
-import { render } from "react-dom";
+import { options, recently } from "../../components/newComponentsAr";
 
 const SPACING = 8,
   cellWidth = 250,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 let messageHasShown = false;
-
-export default function HomeScreen({ route, navigation }) {
+export default function HomeScreenAr({ route, navigation }) {
   // const [category , setCategory] = useState('')
   // let emptyList = []
   // async function getList(){
@@ -119,37 +117,35 @@ export default function HomeScreen({ route, navigation }) {
               />
             </TouchableHighlight>
             <TextInput
-              placeholder="חפש את ..."
+              placeholder="البحث عن ..."
               placeholderTextColor={"black"}
               value={SearchValue}
-              onChangeText={(SearchValue) => {
-              let tmp = searchCategory.filter((a)=>a.name.includes(SearchValue));
-                setSearchValue(SearchValue);
-                if (messageHasShown === false) {
-                  showMessage({
-                    position: "center",
-                    duration: 3000,
-                    message: "בבקשה לבחר קטגוריה לפני לחפש!",
-                    type: "defualt",
-                    titleStyle: { fontWeight: "800", fontSize: 20 },
-                  });
-                  messageHasShown = true;
-                }
-              }}
-              style={{
-                color: "black",
-                fontSize: 16,
-                marginRight: 5,
-                width: "55%",
-                textAlign: "right",
-              }}
+              onChangeText={(SearchValue)=>{
+                let tmp = searchCategory.filter((a)=>a.name.includes(SearchValue));
+                  setSearchValue(SearchValue);
+                  if (messageHasShown === false) {
+                    showMessage({
+                      position: "center",
+                      duration: 3000,
+                      message: "الرجاء تحديد فئة قبل البحث!",
+                      type: "defualt",
+                      titleStyle: { fontWeight: "800", fontSize: 16 },
+                    });
+                    messageHasShown = true;
+                  }
+                }}
+                style={{
+                  color: "black",
+                  fontSize: 16,
+                  marginRight: 5,
+                  width: "55%",
+                  textAlign: "right",
+                }}
             />
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
-                getSearchValue(searchCategory);
-                setSearchCategory(selectedItem.value);
-
+                searchCategory = selectedItem.value;
               }}
               defaultValueByIndex={0}
               buttonTextStyle={{ color: "white" }}
@@ -186,7 +182,7 @@ export default function HomeScreen({ route, navigation }) {
               name="menufold"
               size={34}
               color="#222"
-              onPress={() => navigation.navigate("Options", { account })}
+              onPress={() => navigation.navigate("OptionsAr", { account })}
             />
           </View>
         </View>
@@ -205,7 +201,7 @@ export default function HomeScreen({ route, navigation }) {
                   const label = item.label;
                   const key = item.value;
                   const iconPic = item.icon;
-                  navigation.navigate("Category", {
+                  navigation.navigate("CategoryAr", {
                     label,
                     key,
                     account,
@@ -235,7 +231,7 @@ export default function HomeScreen({ route, navigation }) {
         />
         <View style={{ height: 40, alignItems: "center" }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("AllCategoryPage", { account })}
+            onPress={() => navigation.navigate("AllCategoryPageAr", { account })}
             style={{
               backgroundColor: "rgba(220,220,220, 0.9)",
               width: "95%",
@@ -246,7 +242,7 @@ export default function HomeScreen({ route, navigation }) {
             }}
           >
             <Text style={{ fontWeight: "800", color: "black" }}>
-              הראה את כל הקטגוריות
+            عرض كل الفئات
             </Text>
           </TouchableOpacity>
         </View>
@@ -263,7 +259,7 @@ export default function HomeScreen({ route, navigation }) {
             padding: SPACING,
           }}
         >
-          הצטרפו לאחרונה
+          انضم مؤخرًا
         </Text>
         {RecentlyList.length > 0 ? (
           <FlatList
@@ -304,13 +300,13 @@ export default function HomeScreen({ route, navigation }) {
                     >
                       <Text style={styles.subName}>
                         {" "}
-                        קטוגוריה: {item.categoryAll}
+                        الفئة: {item.categoryAll}
                       </Text>
-                      <Text style={styles.subName}> עיר: {item.city}</Text>
+                      <Text style={styles.subName}> المدينة: {item.city}</Text>
                     </View>
                     <View style={{ height: "10%" }}></View>
                     <View style={{ alignItems: "center", maxWidth: "80%" }}>
-                      <Text style={styles.subName}>עבודה: {item.job}</Text>
+                      <Text style={styles.subName}>العمل: {item.job}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>

@@ -10,34 +10,25 @@ import {
   StatusBar,
   Alert,
   text,
-  TouchableOpacity,
   Modal,
+  TouchableOpacity,
 } from "react-native";
 import CustomButton from "./scr/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
-
-
 //import Logo from './assets/AbuJobsLogo.jpeg'
-
-const FirstPage = () => {
-  let show=false;
+const FirstPageAr = () => {
   const [modalOpen , setModalOpen] = useState(false);
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
   const guest = "guest";
-  const pressHandler = (show) => {
-    // Alert.alert("اللغة/שפה", "", [
-    //   { text: "עברית", onPress: () => console.log("שפה עברית") },
-    //   { text: "العربية", onPress: () => console.log("اللغة العربية") },
-    // ]);
-    
-    show = true;
-    console.log("hu",show);
-    return show
+  const pressHandler = () => {
+    Alert.alert("اللغة/שפה", "", [
+      { text: "עברית", onPress: () => console.log("שפה עברית") },
+      { text: "العربية", onPress: () => console.log("اللغة العربية") },
+    ]);
   };
-  console.log("show",show);
   return (
     <SafeAreaView style={styles.safeView}>
       <ImageBackground
@@ -46,18 +37,14 @@ const FirstPage = () => {
         resizeMode="cover"
         blurRadius={25}
       />
-      
       <View style={styles.container}>
         <View>
-          
-          <TouchableOpacity onPress={()=> setModalOpen(true)}>
+          <TouchableOpacity onPress={() =>setModalOpen(true)}>
             {/* <Text style={styles.lanButton} > Ar/He </Text> */}
-            
             <Image
               resizeMode="contain"
               source={require("../assets/lang.png")}
               style={styles.lanButton}
-              
             />
             <Modal
             transparent={true}
@@ -102,19 +89,19 @@ const FirstPage = () => {
             />
           }
           <CustomButton
-            text="להתחבר"
-            onPress={() => navigation.navigate("SignIn")}
+            text="تسجيل دخول"
+            onPress={() => navigation.navigate("SignInAr")}
             type="PRIMARY"
           />
           <CustomButton
-            text="להיכנס כאורח"
-            onPress={() => navigation.navigate("Home", { guest })}
+            text="الدخول كضيف"
+            onPress={() => navigation.navigate("HomeAr", { guest })}
             type="PRIMARY"
           />
-          <Text style={styles.text}> אין לך חשבון ? להירשם כאן </Text>
+          <Text style={styles.text}> لا يوجد لديك حساب ؟ انضم الأن </Text>
           <CustomButton
-            text="הירשם"
-            onPress={() => navigation.navigate("SignUp")}
+            text="التسجيل"
+            onPress={() => navigation.navigate("SignUpAr")}
             type="C"
           />
         </View>
@@ -131,27 +118,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  modalContainer:{
-    alignSelf:"center",
-    
-  },
-  tranText:{
-    fontSize:24,
-    fontWeight:"600",
-  },
   root: {
     flex: 1,
     alignItems: "center",
     padding: 20,
-  },
-  textlan:{
-    color:"white",
-    fontSize:16,
-    fontWeight:"600",
-    alignItems:"center",
-    alignContent:"center",
-    alignSelf:"center",
-    justifyContent:"center",
   },
   logo: {
     paddingTop: 200,
@@ -169,18 +139,9 @@ const styles = StyleSheet.create({
     backgroundColor:"red",
     color:"white",
   },
-  buttonLan2:{
-    padding:10,
-    borderRadius:5,
-    borderWidth:1,
-    marginTop:"10%",
-    backgroundColor:"blue",
+  modalContainer:{
+    alignSelf:"center",
     
-  },
-  text: {
-    paddingTop: 30,
-    fontWeight: "bold",
-    color: "gray",
   },
   buttonsCont:{
     flexDirection:"row",
@@ -199,6 +160,32 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
   },
+  buttonLan2:{
+    padding:10,
+    borderRadius:5,
+    borderWidth:1,
+    marginTop:"10%",
+    backgroundColor:"blue",
+    
+  },
+  text: {
+    paddingTop: 30,
+    fontWeight: "bold",
+    color: "gray",
+  },
+  tranText:{
+    fontSize:24,
+    fontWeight:"600",
+  },
+  textlan:{
+    color:"white",
+    fontSize:16,
+    fontWeight:"600",
+    alignItems:"center",
+    alignContent:"center",
+    alignSelf:"center",
+    justifyContent:"center",
+  },
   lanButton: {
     // borderColor :"black",
     // borderWidth : 2,
@@ -213,4 +200,4 @@ const styles = StyleSheet.create({
     //justifyContent: 'flex-start',
   },
 });
-export default FirstPage;
+export default FirstPageAr;

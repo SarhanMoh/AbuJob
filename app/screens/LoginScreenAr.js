@@ -28,7 +28,7 @@ const LoginScreen = ({ navigation }) => {
     setCheck("false");
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.navigate("AdminHomePage");
+        navigation.navigate("AdminHomePageAr");
       }
     });
     return unsubscribe;
@@ -58,7 +58,7 @@ const LoginScreen = ({ navigation }) => {
           }
         })
         if(found=== false){
-          Alert.alert("שגוי", "כניסה מאושרת רק לאדמין", [{ text: "בסדר" }]);
+          Alert.alert("غير صحيح", "الدخول مسموح فقط للمسؤولين", [{ text: "صحيح" }]);
         }
 
   }
@@ -81,21 +81,21 @@ const LoginScreen = ({ navigation }) => {
           //   alert("מייל כבר קיים", [{ text: "בסדר" }]);
           //   break;
           case "auth/wrong-password":
-            Alert.alert("שגוי", "מייל או סיסמה לא נכונים", [{ text: "בסדר" }]);
+            Alert.alert("غير صحيح", "بريد إلكتروني أو كلمة مرور غير صحيحة", [{ text: "صحيح" }]);
             break;
           case "auth/user-not-found":
-            Alert.alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
+            Alert.alert("غير صحيح", "الحساب غير موجود", [{ text: "صحيح" }]);
             break;
           case "auth/too-many-requests":
               Alert.alert(
-                "שגוי",
-                "הגישה לחשבון זה הושבתה זמנית עקב ניסיונות התחברות רבים כושלים. אתה יכול לשחזר אותו מיד על ידי איפוס הסיסמה שלך או שאתה יכול לנסות שוב מאוחר יותר",
-                [{ text: "בסדר" }]
+                "غير صحيح",
+                "تم تعطيل الوصول إلى هذا الحساب مؤقتًا بسبب العديد من محاولات تسجيل الدخول الفاشلة. يمكنك استعادتها على الفور عن طريق إعادة تعيين كلمة مرورك أو يمكنك المحاولة مرة أخرى لاحقًا",
+                [{ text: "صحيح" }]
               );
               break;
           default:
             console.log(error);
-            Alert.alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
+            Alert.alert("غير صحيح", "خطأ في الاتصال", [{ text: "صحيح" }]);
             break;
         }
       });
@@ -114,20 +114,20 @@ const LoginScreen = ({ navigation }) => {
           style={styles.bigLogoStyle}
           source={require("../assets/good.png")}
         />
-        <Text style={[styles.adminText]}> ברוך הבא אדמין</Text>
+        <Text style={[styles.adminText]}>مرحبًا بالمسؤول</Text>
       </View>
       <View style={styles.inputContainer}>
-      <Text style = {styles.text}>מייל:</Text>
+      <Text style = {styles.text}>البريد الالكتروني:</Text>
         <TextInput
-          placeholder="מייל"
+          placeholder="البريد الالكتروني"
           placeholderTextColor="#899499"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
-        <Text style ={styles.text}>סיסמה:</Text>
+        <Text style ={styles.text}>كلمة المرور:</Text>
         <TextInput
-          placeholder="סיסמה"
+          placeholder="كلمة المرور"
           placeholderTextColor="#899499"
           value={password}
           onChangeText={(text) => setPassword(text)}
@@ -139,7 +139,7 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
          onPress={()=>getList(email) }style={styles.button}>
-          <Text style={styles.buttonText}>להתחבר</Text>
+          <Text style={styles.buttonText}>تسجيل الدخول</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

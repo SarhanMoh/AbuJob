@@ -23,27 +23,28 @@ import { collection } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { withNavigation } from "react-navigation";
 import { SafeAreaView } from "react-native-safe-area-context";
+//import ReportsReadAr from "../../../ArPages/components/ReportsReadAr";
 
 const options = [
   {
-    label: "דוח כללי",
+    label: "تقرير عام",
 
     value: "Report",
   },
   {
-    label: "דוח טכני",
+    label: "تقرير تقني",
 
     value: "technicalReport",
   },
 
   {
-    label: "דוח על מסד",
+    label: "تقرير الأعمال",
 
     value: "businessReport",
   },
 ];
 
-class ReportsRead extends Component {
+class ReportsReadAr extends Component {
   constructor() {
     super();
     //this.ref = dataBase.collection();
@@ -87,7 +88,7 @@ class ReportsRead extends Component {
             size={34}
             color="#222"
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
-            onPress={() => this.props.navigation.navigate("ReportsOptions")}
+            onPress={() => this.props.navigation.navigate("ReportsOptionsAr")}
           />
  <Text
             style={{
@@ -101,7 +102,7 @@ class ReportsRead extends Component {
               textDecorationLine: "underline",
             }}
           >
-            בחר קטוגוריה
+            اختر فئة
           </Text>
           <Picker
             selectedValue={this.state.category}
@@ -126,9 +127,9 @@ class ReportsRead extends Component {
               // color="#000"
               // backgroundColor='#000'
               // borderColor= "#000"
-              title="הצג רשימה"
+              title="عرض القائمة"
             >
-              <Text style={styles.text}>הצג רשימה</Text>
+              <Text style={styles.text}>عرض القائمة</Text>
             </Pressable>
           </View>
           {/* <ImageBackground
@@ -153,7 +154,7 @@ class ReportsRead extends Component {
             //   )}
             renderItem={({ item, index }) => {
               return (
-                //:שם
+                //:الاسم
                 //:כתובת
                 //:שפות
                 //:טלפון
@@ -182,7 +183,7 @@ class ReportsRead extends Component {
                         textAlign: "right",
                       }}
                     >
-                      שם:
+                      الاسم:
                     </Text>
                     <Text style={{ fontSize: 22, fontWeight: "700" }}>
                       {" "}
@@ -193,7 +194,7 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.7, textAlign: "right" }}
                     >
-                      כתובת:
+                      العنوان:
                     </Text>
                     <Text style={{ fontSize: 18, opacity: 0.7 }}>
                       {" "}
@@ -204,7 +205,7 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      שפות:
+                      اللغات:
                     </Text>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
@@ -217,7 +218,7 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      מספר טלפון:
+                      رقم الهاتف:
                     </Text>
                     <Text
                       style={{
@@ -312,4 +313,4 @@ const styles = StyleSheet.create({
     marginTop: "10%",
   },
 });
-export default ReportsRead;
+export default ReportsReadAr;

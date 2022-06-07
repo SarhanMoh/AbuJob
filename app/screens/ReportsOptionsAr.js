@@ -12,8 +12,9 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+// import ReportsOptionsAr from "../../../../ArPages/Screens/ReportsOptionsAr";
 
-function ReportsOptions(props) {
+function ReportsOptionsAr(props) {
   const { onPress, title = "Save" } = props;
   const navigation = useNavigation();
   return (
@@ -29,7 +30,7 @@ function ReportsOptions(props) {
         size={34}
         color="#222"
         style={{ alignSelf: "flex-end", paddingRight: "4%" }}
-        onPress={() => navigation.navigate("AdminHomePage")}
+        onPress={() => navigation.navigate("AdminHomePageAr")}
       />
       <View style={styles.screenContainer}>
         <View>
@@ -40,21 +41,21 @@ function ReportsOptions(props) {
         </View>
         <TouchableOpacity
           style={styles.button1}
-          onPress={() => navigation.navigate("ReportsRead")}
+          onPress={() => navigation.navigate("ReportsReadAr")}
         >
-          <Text style={styles.text}>דיווחים כללים</Text>
+          <Text style={styles.text}>التقارير العامة</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate("ReportsRead")}
+          onPress={() => navigation.navigate("ReportsReadAr")}
         >
-          <Text style={styles.text}>דיווחים טכנים </Text>
+          <Text style={styles.text}>التقارير الفنية</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button1}
-          onPress={() => navigation.navigate("ReportsRead")}
+          onPress={() => navigation.navigate("ReportsReadAr")}
         >
-          <Text style={styles.text}>דיווחים על עסקים</Text>
+          <Text style={styles.text}>تقارير الأعمال</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -137,4 +138,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReportsOptions;
+export default ReportsOptionsAr;

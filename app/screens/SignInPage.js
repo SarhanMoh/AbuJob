@@ -44,42 +44,32 @@ const SignInPage = ({ navigation }) => {
     return unsubscribe;
   });
   async function getList(emailCheck) {
+    let found =false;
     console.log("checklmail",emailCheck);
     //console.log("entered");
     const ref = dataBase.collection("Users");
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
-      // console.log("emailDatab",doc.data().email);
-      // console.log("emailData",doc.data().email);
-      //console.log(doc.id, '=>', doc.data());
       tmp.push(doc.data().email);
-      // handleSignIn();
-      // if(check ==="true"){
-        
-        // }
-        //return true
-        
-        // else {
-          //   setCheck("false");
-          //   // noHandler(check);
-          // }
         });
+        console.log(found);
         setEmptyList(tmp);
         console.log("emailCheck" , emailCheck);
         tmp.forEach((element)=>{
           console.log(element);
           if(emailCheck.localeCompare(element)==0){
-            console.log("found");
+            found = true;
+            console.log(found);
             handleSignIn();
           }
           else {
             console.log("Searching");
           }
         })
-
-        
-        console.log("tmp:",tmp);
+        if(found=== false){
+          Alert.alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
+        }
         // setEmptyList(tmp);
         // console.log("list",emptyList);
     // return emptyList;

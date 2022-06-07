@@ -27,6 +27,31 @@ import BusinessList from "./app/screens/BusinessList";
 import AllCategoryPage from "./app/screens/AllCategoryPage";
 import FlashMessage from "react-native-flash-message";
 const Stack = createNativeStackNavigator();
+import FirstPageAr from "./app/screens/FirstPageAr";
+import SignInPageAr from "./app/screens/SignInPageAr";
+import SignUpAr from "./app/screens/SignUpAr";
+import AdminHomePageAr from "./app/screens/AdminHomePageAr";
+import BusinessOptionsAr from "./app/screens/BusinessOptionsAr";
+import BusinessPageAr from "./app/screens/BusinessPageAr";
+import BusinessRegisterAr from "./app/screens/BusinessRegisterAr";
+import CategoryPageAr from "./app/screens/CategoryPageAr";
+import ForgetPassAr from "./app/screens/ForgetPassAr";
+import HomeScreenAr from "./app/screens/HomeScreenAr";
+import LoginScreenAr from "./app/screens/LoginScreenAr";
+import OptionsDrawerAr from "./app/screens/OptionsDrawerAr";
+import ReportsAr from "./app/screens/ReportsAr";
+import ReportsOptionsAr from "./app/screens/ReportsOptionsAr";
+import CreateComponentAr from "./components/CreateComponentAr";
+//import newComponentAr from "./components/newComponentAr";
+import ReadComponentAr from "./components/ReadComponentAr";
+import ReportsReadAr from "./components/ReportsReadAr";
+import RequestsListAr from "./components/RequestsListAr";
+//import SaveAr from "./components/SaveAr";
+//import newsaveAr from  "./components/newsaveAr";
+import RatingPageAr from "./app/screens/RatingPageAr";
+import UpdateComponentAr from "./components/UpdateComponentAr";
+import AllCategoryPageAr from "./app/screens/AllCategoryPageAr";
+
 //
 export default function App() {
   return (
@@ -53,6 +78,11 @@ export default function App() {
             options={{ title: "יצירת חשבון", headerShown: false }}
           />
           <Stack.Screen
+            name="CreateComponentAr"
+            component={CreateComponentAr}
+            options={{ title: "יצירת חשבון", headerShown: false }}
+          />
+          <Stack.Screen
             name="BusinessList"
             component={BusinessList}
             options={{ title: "יצירת חשבון", headerShown: false }}
@@ -63,8 +93,18 @@ export default function App() {
             options={{ title: "דירוג ", headerShown: false }}
           />
           <Stack.Screen
+            name="RatingPageAr"
+            component={RatingPageAr}
+            options={{ title: "דירוג ", headerShown: false }}
+          />
+          <Stack.Screen
             name="Reports"
             component={Reports}
+            options={{ title: "דיווחים", headerShown: false }}
+          />
+          <Stack.Screen
+            name="ReportsAr"
+            component={ReportsAr}
             options={{ title: "דיווחים", headerShown: false }}
           />
           <Stack.Screen
@@ -73,8 +113,18 @@ export default function App() {
             options={{ title: "List", headerShown: false }}
           />
           <Stack.Screen
+            name="ReadComponentAr"
+            component={ReadComponentAr}
+            options={{ title: "List", headerShown: false }}
+          />
+          <Stack.Screen
             name="ReportsRead"
             component={ReportsRead}
+            options={{ title: "List", headerShown: false }}
+          />
+          <Stack.Screen
+            name="ReportsReadAr"
+            component={ReportsReadAr}
             options={{ title: "List", headerShown: false }}
           />
           <Stack.Screen
@@ -83,8 +133,18 @@ export default function App() {
             options={{ title: "אופציות של המסדים", headerShown: false }}
           />
           <Stack.Screen
+            name="BusinessOptionsAr"
+            component={BusinessOptionsAr}
+            options={{ title: "אופציות של המסדים", headerShown: false }}
+          />
+          <Stack.Screen
             name="ReportsOptions"
             component={ReportsOptions}
+            options={{ title: "דיווחים ", headerShown: false }}
+          />
+          <Stack.Screen
+            name="ReportsOptionsAr"
+            component={ReportsOptionsAr}
             options={{ title: "דיווחים ", headerShown: false }}
           />
           <Stack.Screen
@@ -93,8 +153,18 @@ export default function App() {
             options={{ title: "Update", headerShown: false }}
           />
           <Stack.Screen
+            name="UpdateComponentAr"
+            component={UpdateComponentAr}
+            options={{ title: "Update", headerShown: false }}
+          />
+          <Stack.Screen
             name="RequestsList"
             component={RequestsList}
+            options={{ title: "ReqList", headerShown: false }}
+          />
+          <Stack.Screen
+            name="RequestsListAr"
+            component={RequestsListAr}
             options={{ title: "ReqList", headerShown: false }}
           />
 
@@ -105,8 +175,18 @@ export default function App() {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="BusinessRegAr"
+            component={BusinessRegisterAr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="Login"
             component={LoginScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="LoginAr"
+            component={LoginScreenAr}
           />
           <Stack.Screen
             options={{ headerShown: false }}
@@ -115,8 +195,18 @@ export default function App() {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="HomeAr"
+            component={HomeScreenAr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="AllCategoryPage"
             component={AllCategoryPage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="AllCategoryPageAr"
+            component={AllCategoryPageAr}
           />
           <Stack.Screen
             options={{ headerShown: false }}
@@ -125,8 +215,18 @@ export default function App() {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="OptionsAr"
+            component={OptionsDrawerAr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="Category"
             component={CategoryPage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="CategoryAr"
+            component={CategoryPageAr}
           />
           <Stack.Screen
             options={{ headerShown: false }}
@@ -135,8 +235,18 @@ export default function App() {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="BusinessPageAr"
+            component={BusinessPageAr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="AdminHomePage"
             component={AdminHomePage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="AdminHomePageAr"
+            component={AdminHomePageAr}
           />
           <Stack.Screen
             options={{ headerShown: false }}
@@ -145,8 +255,18 @@ export default function App() {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="FirstPageAr"
+            component={FirstPageAr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="SignIn"
             component={SignInPage}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="SignInAr"
+            component={SignInPageAr}
           />
           <Stack.Screen
             options={{ headerShown: false }}
@@ -155,8 +275,18 @@ export default function App() {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="SignUpAr"
+            component={SignUpAr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="ForgetPassword"
             component={ForgetPass}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ForgetPasswordAr"
+            component={ForgetPassAr}
           />
         </Stack.Navigator>
       </AuthContext>
