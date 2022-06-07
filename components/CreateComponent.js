@@ -184,7 +184,7 @@ class CreateComponent extends Component {
       rate: 0,
       isLoading: false,
       categoryAll: "",
-      date: new Date().toLocaleString(),
+      date:"",
     };
   }
 
@@ -208,7 +208,7 @@ class CreateComponent extends Component {
   // }
   addBusiness(label) {
     //console.log(date);
-    const time = new Date().toLocaleString();
+    const time = new Date();
     console.log(this.state.category);
     const cat = this.state.category;
     const cateLabel = label;
@@ -259,6 +259,7 @@ class CreateComponent extends Component {
         description: this.state.description,
         city: this.state.city,
         rate: this.state.rate,
+        date: this.state.time,
       });
       dbAll
         .add({
@@ -267,8 +268,8 @@ class CreateComponent extends Component {
           phone_number: this.state.phone_number,
           city: this.state.city,
           categoryAll: cateLabel,
-          date: time,
-        })
+          date: this.state.time,
+                })
         .then((res) => {
           this.setState({
             name: "",
@@ -318,6 +319,7 @@ class CreateComponent extends Component {
         description: this.state.description,
         city: this.state.city,
         rate: this.state.rate,
+        date: this.state.time,
       });
       dbAllHe
         .add({
@@ -326,7 +328,7 @@ class CreateComponent extends Component {
           phone_number: this.state.phone_number,
           city: this.state.city,
           categoryAll: cateLabel,
-          date: time,
+          date: this.state.time,
         })
         .then((res) => {
           this.setState({
@@ -467,7 +469,7 @@ class CreateComponent extends Component {
           <TextInput
             placeholder={"דירוג"}
             placeholderTextColor="#899499"
-            value={this.state.rating.toString()}
+            value={this.state.rate.toString()}
             keyboardType="numeric"
             onChangeText={(val) => this.onValUpdate(val, "rating")}
             style={styles.input}
@@ -490,6 +492,7 @@ class CreateComponent extends Component {
 
           <Picker
             selectedValue={this.state.category}
+            
             style={{
               width: 300,
               height: 150,
@@ -518,7 +521,8 @@ class CreateComponent extends Component {
           <View style={styles.containerB}>
             <Pressable
               style={styles.button}
-              onPress={() => this.addBusiness(label)}
+              
+              onPress={() => this.addBusiness()}
               // color="#000"
               // backgroundColor='#000'
               // borderColor= "#000"

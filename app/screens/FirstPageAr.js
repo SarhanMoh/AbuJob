@@ -17,6 +17,8 @@ import CustomButton from "./scr/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
+import { auth, dataBase } from "../../firebase";
+
 //import Logo from './assets/AbuJobsLogo.jpeg'
 const FirstPageAr = () => {
   const [modalOpen , setModalOpen] = useState(false);
@@ -64,13 +66,13 @@ const FirstPageAr = () => {
                 <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
                 <View style={styles.buttonsCont}>
                 <TouchableOpacity style={styles.buttonLan}
-                onPress={()=> {navigation.navigate("FirstPageAr"), setModalOpen(false)}}>
+                onPress={()=> {navigation.navigate("FirstPageAr"), setModalOpen(false),auth.signOut();}}>
                 <Text style={styles.textlan}>اللغة العربية</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.buttonLan2}
                  onPress={()=> {navigation.navigate("FirstPage")
-                 ,setModalOpen(false)}}>
+                 ,setModalOpen(false) ,auth.signOut();}}>
                 <Text style={styles.textlan}>שפה עברית</Text>
                 </TouchableOpacity>
                 </View>

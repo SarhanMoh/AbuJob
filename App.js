@@ -51,7 +51,7 @@ import RequestsListAr from "./components/RequestsListAr";
 import RatingPageAr from "./app/screens/RatingPageAr";
 import UpdateComponentAr from "./components/UpdateComponentAr";
 import AllCategoryPageAr from "./app/screens/AllCategoryPageAr";
-
+import SearchList from "./app/screens/SearchList";
 //
 export default function App() {
   return (
@@ -75,6 +75,11 @@ export default function App() {
           <Stack.Screen
             name="CreateComponent"
             component={CreateComponent}
+            options={{ title: "יצירת חשבון", headerShown: false }}
+          />
+          <Stack.Screen
+            name="SearchList"
+            component={SearchList}
             options={{ title: "יצירת חשבון", headerShown: false }}
           />
           <Stack.Screen

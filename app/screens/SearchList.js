@@ -27,40 +27,41 @@ const SPACING = 8,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 
-export default function CategoryPage({ route, navigation }) {
+export default function SearchList({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [emptyList, setEmptyList] = React.useState([]);
 
-  const { label, key, account, iconPic } = route.params;
+  const { listData, account,} = route.params;
   console.log("accepted2", account);
+  console.log("list",listData);
 
-  async function getList(sorting = "alphabet") {
-    //console.log("entered");
-    const ref = dataBase.collection(key);
-    const snapshot = await ref.get();
-    let tmp = [];
-    snapshot.forEach((doc) => {
-      //console.log(doc.id, '=>', doc.data());
-      tmp.push({id_id: doc.id, ...doc.data()});
-    });
-    setEmptyList(
-      tmp.sort(function (a, b) {
-        if (sorting === "alphabet") {
-          return a.name.localeCompare(b.name);
-        } else if (sorting === "rating") {
-          return b.rate - a.rate;
-        } else {
-          return b.rate - a.rate;
-        }
-      })
-    );
-    //console.log(tmp);
-  }
-  useEffect(() => {
-    getList();
-  }, []);
+//   async function getList(sorting = "alphabet") {
+//     //console.log("entered");
+//     const ref = dataBase.collection(key);
+//     const snapshot = await ref.get();
+//     let tmp = [];
+//     snapshot.forEach((doc) => {
+//       //console.log(doc.id, '=>', doc.data());
+//       tmp.push({id_id: doc.id, ...doc.data()});
+//     });
+//     setEmptyList(
+//       tmp.sort(function (a, b) {
+//         if (sorting === "alphabet") {
+//           return a.name.localeCompare(b.name);
+//         } else if (sorting === "rating") {
+//           return b.rate - a.rate;
+//         } else {
+//           return b.rate - a.rate;
+//         }
+//       })
+//     );
+//     //console.log(tmp);
+//   }
+//   useEffect(() => {
+//     getList();
+//   }, []);
   //console.log(emptyList);
   return (
     <SafeAreaView style={styles.container}>
@@ -72,7 +73,7 @@ export default function CategoryPage({ route, navigation }) {
       />
       <View style={styles.Header}>
         <View style={styles.Topper}>
-          <View style={styles.searchBar}>
+          {/* <View style={styles.searchBar}>
             <TouchableHighlight
               style={styles.searchIcon}
               onPress={() => console.log("Search for " + SearchValue)}
@@ -95,7 +96,7 @@ export default function CategoryPage({ route, navigation }) {
                 textAlign: "right",
               }}
             />
-          </View>
+          </View> */}
           <View style={styles.optButt}>
             <AntDesign
               name="back"
@@ -149,7 +150,7 @@ export default function CategoryPage({ route, navigation }) {
                 fontWeight: "700",
               }}
             >
-              קטוגוריה: {label}
+              {/* קטוגוריה: {label} */}
             </Text>
           </View>
           <View style={{ height: 1, backgroundColor: "#81daf5" }}></View>
@@ -170,7 +171,7 @@ export default function CategoryPage({ route, navigation }) {
                     const name = item.name;
                     const city = item.city;
                     const pic = item.profilePic;
-                    const category = label;
+                    // const category = label;
                     const address = item.address;
                     const phone = item.phone_number;
                     const rate = item.rate;
@@ -189,7 +190,7 @@ export default function CategoryPage({ route, navigation }) {
                       rate,
                       job,
                       account,
-                      key,
+                    //   ,key
                       id,
                       id_pure,
                     });

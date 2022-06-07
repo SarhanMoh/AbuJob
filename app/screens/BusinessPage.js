@@ -21,6 +21,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { dataBase } from "../../firebase";
+import { doc } from "../../firebase";
 
 const SPACING = 8,
   cellWidth = 250,
@@ -57,10 +58,11 @@ export default function BusinessPage({ route, navigation }) {
     key,
     account,
     id,
+    id_pure,
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
-  console.log("key", id);
+  // console.log("key", id);
   async function checkLogin() {
     if (account === undefined) {
       Alert.alert("Unable to Rate", "Log in or register to rate", [
@@ -74,17 +76,17 @@ export default function BusinessPage({ route, navigation }) {
 
   //-------------------------CommentList----------------------------------
   async function getList() {
-    const ref = dataBase.collection(key).doc(id).collection("rating");
+    console.log(id_pure);
+    // const ref = dataBase.collection(key).doc(id).collection("rating");
+    const ref = dataBase.collection(key).doc(id_pure).collection("rating");
     //const ref2 = ref.doc(id);
     //
     const snapshot = await ref.get();
     let tmp = [];
-    let tmpArr = [];
     snapshot.forEach((doc) => {
       //console.log(doc.id, '=>', doc.data());
-      tmpArr = doc.data();
-      tmp.push(tmpArr.comment);
-      console.log(tmp);
+      tmp.push(doc.data());
+      //console.log(tmp);
     });
   }
   useEffect(() => {
