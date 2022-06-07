@@ -174,7 +174,6 @@ export default function CategoryPage({ route, navigation }) {
                     const address = item.address;
                     const phone = item.phone_number;
                     const rate = item.rate;
-                    console.log(item.rate);
                     const job = item.job;
                     const id = item;
                     //console.log('keykey',id);

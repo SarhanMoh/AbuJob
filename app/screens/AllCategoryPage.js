@@ -120,11 +120,14 @@ const styles = StyleSheet.create({
   },
   catagoryTitle: {
     fontWeight: "800",
-    fontSize: 24,
+    fontSize: 26,
     maxWidth: "90%",
     color: "white",
+    textAlign: "right",
     bottom: SPACING * 2,
     right: SPACING * 1.5,
+    padding: SPACING,
+    alignSelf: "flex-end",
     position: "absolute",
   },
   cataIcon: {

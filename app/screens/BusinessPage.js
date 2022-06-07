@@ -1,6 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import { AirbnbRating } from "react-native-ratings";
+import { useEffect, useState } from "react";
 import {
   View,
   Button,
@@ -43,6 +44,7 @@ export default function BusinessPage({ route, navigation }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [emptyList, setEmptyList] = React.useState([]);
+  const [CommentsList, setCommentsList] = React.useState([]);
   const {
     name,
     city,
@@ -58,9 +60,9 @@ export default function BusinessPage({ route, navigation }) {
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
-  // console.log("key", id);
+  console.log("key", id);
   async function checkLogin() {
-    if (account === "undefined") {
+    if (account === undefined) {
       Alert.alert("Unable to Rate", "Log in or register to rate", [
         { text: "Cancel", style: "cancel" },
         { text: "Log in!", onPress: () => navigation.navigate("FirstPage") },
@@ -69,6 +71,27 @@ export default function BusinessPage({ route, navigation }) {
       navigation.navigate("RatingPage", { account, key, phone });
     }
   }
+
+  //-------------------------CommentList----------------------------------
+  async function getList() {
+    const ref = dataBase.collection(key).doc(id).collection("rating");
+    //const ref2 = ref.doc(id);
+    //
+    const snapshot = await ref.get();
+    let tmp = [];
+    let tmpArr = [];
+    snapshot.forEach((doc) => {
+      //console.log(doc.id, '=>', doc.data());
+      tmpArr = doc.data();
+      tmp.push(tmpArr.comment);
+      console.log(tmp);
+    });
+  }
+  useEffect(() => {
+    getList();
+  }, []);
+  //----------------------------------------------------------------------
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -79,24 +102,6 @@ export default function BusinessPage({ route, navigation }) {
       />
       <View style={styles.Header}>
         <View style={styles.Topper}>
-          <View style={styles.searchBar}>
-            <TouchableHighlight
-              style={styles.searchIcon}
-              onPress={() => console.log("Search for " + SearchValue)}
-            >
-              <Image
-                style={styles.searchImg}
-                source={require("../assets/searchIcon.png")}
-              />
-            </TouchableHighlight>
-            <TextInput
-              placeholder="Search..."
-              placeholderTextColor={"black"}
-              value={SearchValue}
-              onChangeText={(SearchValue) => setSearchValue(SearchValue)}
-              style={{ color: "black", marginLeft: 5 }}
-            />
-          </View>
           <View style={styles.optButt}>
             <AntDesign
               name="back"
@@ -105,6 +110,8 @@ export default function BusinessPage({ route, navigation }) {
               onPress={() => navigation.goBack()}
             />
           </View>
+          <View width={"25%"}></View>
+          <View width={"25%"}></View>
         </View>
       </View>
       <View style={{ justifyContent: "flex-start" }}>
@@ -139,15 +146,33 @@ export default function BusinessPage({ route, navigation }) {
                 alignItems: "flex-end",
               }}
             >
-              <View style={{ flexDirection: "row-reverse" }}>
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
                 <Text style={styles.subName}> עיר: </Text>
                 <Text style={{ fontSize: 15 }}>{city}</Text>
               </View>
-              <View style={{ flexDirection: "row-reverse" }}>
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
                 <Text style={styles.subName}> קטוגוריה: </Text>
                 <Text style={{ fontSize: 15 }}>{category}</Text>
               </View>
-              <View style={{ flexDirection: "row-reverse" }}>
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
                 <Text style={styles.subName}> כתובת: </Text>
                 <Text style={{ fontSize: 15 }}>{address}</Text>
               </View>
@@ -156,6 +181,8 @@ export default function BusinessPage({ route, navigation }) {
                   borderColor: "black",
                   borderBottomWidth: 0.5,
                   flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
                 }}
                 onPress={() => dialCall(phone)}
               >
@@ -256,7 +283,7 @@ export default function BusinessPage({ route, navigation }) {
             הערות:
           </Text>
           <FlatList
-            data={cSection}
+            data={CommentsList}
             height={140}
             width={"90%"}
             backgroundColor={"rgba(255, 255, 255, 0.6)"}
@@ -285,7 +312,7 @@ export default function BusinessPage({ route, navigation }) {
                   <Text
                     style={{ color: "black", right: SPACING, fontSize: 18 }}
                   >
-                    {item.Comment}
+                    {item}
                   </Text>
                 </View>
               );
@@ -309,16 +336,20 @@ export default function BusinessPage({ route, navigation }) {
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate("Reports")}
-            style={{ margin: SPACING * 0.5 }}
+            style={{
+              margin: SPACING * 0.5,
+              borderRadius: 15,
+              backgroundColor: "red",
+            }}
           >
             <Text
               style={{
-                fontWeight: "600",
-                fontSize: 16,
-                borderColor: "red",
-                borderWidth: 0.8,
+                fontWeight: "700",
+                fontSize: 15,
+                borderWidth: 0.3,
                 borderRadius: 15,
                 padding: 3,
+                color: "white",
               }}
             >
               להגיש תלונה
@@ -337,40 +368,21 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   Header: {
-    height: "8%",
+    height: "5%",
     justifyContent: "flex-start",
   },
   Topper: {
-    height: 45,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  searchBar: {
-    width: "80%",
     height: 30,
-    flexDirection: "row",
-    backgroundColor: "#81daf5",
-    borderRadius: 30,
-  },
-
-  searchIcon: {
-    width: 50,
-    height: 50,
-    backgroundColor: "white",
-    borderWidth: 2,
-    borderColor: "#81daf5",
-    borderRadius: 50,
-    alignSelf: "flex-start",
-    marginTop: -10,
-  },
-  searchImg: {
-    width: 47,
-    height: 47,
-    borderRadius: 50,
-    backgroundColor: "white",
-    justifyContent: "center",
+    flexDirection: "row-reverse",
+    justifyContent: "space-around",
     alignItems: "center",
+  },
+  optButt: {
+    width: 35,
+    height: 35,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "flex-end",
   },
   profileIcon: {
     width: 120,
