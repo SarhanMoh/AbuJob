@@ -36,6 +36,7 @@ const logout = async () => {
   setdataUser([]);
 };
 const CustomDrawer = ({ onPress, navigation }) => {
+ 
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.menuContainer}>
@@ -77,7 +78,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                       auth.signOut();
                       navigation.navigate("Login");
                     } else if (index === 4) {
-                      navigation.navigate("Reports");
+                      navigation.navigate("Reports" , {account});
                     } else if (index === 5) {
                     }
                   }}

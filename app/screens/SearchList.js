@@ -23,17 +23,14 @@ import {
 import { options, recently } from "../../components/newComponents";
 
 const SPACING = 8,
-  cellWidth = 250,
-  cellHeight = 300;
-const FULL_SIZE = cellWidth + SPACING * 2;
+  cellWidth = 250;
 
 export default function SearchList({ route, navigation }) {
   const [searchQuery, setSearchQuery] = React.useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [emptyList, setEmptyList] = React.useState([]);
-
-  const { listData, account,} = route.params;
+  const iconPic = require("../assets/searchIcon.png");
+  const { ListJob:listData, account:account,} = route.params;
   console.log("accepted2", account);
   console.log("list",listData);
 
@@ -73,30 +70,6 @@ export default function SearchList({ route, navigation }) {
       />
       <View style={styles.Header}>
         <View style={styles.Topper}>
-          {/* <View style={styles.searchBar}>
-            <TouchableHighlight
-              style={styles.searchIcon}
-              onPress={() => console.log("Search for " + SearchValue)}
-            >
-              <Image
-                style={styles.searchImg}
-                source={require("../assets/searchIcon.png")}
-              />
-            </TouchableHighlight>
-            <TextInput
-              placeholder="חפש את ..."
-              placeholderTextColor={"black"}
-              value={SearchValue}
-              onChangeText={(SearchValue) => setSearchValue(SearchValue)}
-              style={{
-                color: "black",
-                marginLeft: 5,
-                fontSize: 16,
-                width: "80%",
-                textAlign: "right",
-              }}
-            />
-          </View> */}
           <View style={styles.optButt}>
             <AntDesign
               name="back"
@@ -156,10 +129,10 @@ export default function SearchList({ route, navigation }) {
           <View style={{ height: 1, backgroundColor: "#81daf5" }}></View>
         </View>
       </View>
-      {emptyList.length > 0 ? (
+      {listData.length > 0 ? (
         <View style={{ flex: 1 }}>
           <FlatList
-            data={emptyList}
+            data={listData}
             keyExtractor={(item) => `${item.phone_number}`}
             contentContainerStyle={{
               padding: SPACING,
@@ -170,8 +143,8 @@ export default function SearchList({ route, navigation }) {
                   onPress={() => {
                     const name = item.name;
                     const city = item.city;
-                    const pic = item.profilePic;
-                    // const category = label;
+                    const pic = require("../assets/searchIcon.png");
+                    const category = item.category;
                     const address = item.address;
                     const phone = item.phone_number;
                     const rate = item.rate;

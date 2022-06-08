@@ -22,36 +22,24 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
+import { Header,
+  Input,
+  Icon,
+  Item,
+  ListItem,} from 'native-base';
 import { options, recently } from "../../components/newComponents";
-import { render } from "react-dom";
-
 const SPACING = 8,
   cellWidth = 250,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 let messageHasShown = false;
 
-export default function HomeScreen({ route, navigation }) {
-  // const [category , setCategory] = useState('')
-  // let emptyList = []
-  // async function getList(){
-  //   const ref = dataBase
-  //   .collection(this.state.category);
-  //   const snapshot = await ref.get();
-  //   let tmp = [];
-  //   snapshot.forEach(doc => {
-  //   //console.log(doc.id, '=>', doc.data());
-  //   tmp.push(doc.data());
-
-  //   });
-  //   this.setState({
-  //     emptyList: tmp,
-  //   });
-  //   console.log(this.state.emptyList);
-
-  // }
+export default function HomeScreen({ route, navigation ,onSearchEnter }) {
   const { account } = route.params;
-
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+  const[term,setTerm]=useState("");
+  const[posts , setPosts] = useState([]);
   //console.log("accepted ", account);
   //console.log(data);
   const [searchQuery, setSearchQuery] = React.useState("");
@@ -60,20 +48,21 @@ export default function HomeScreen({ route, navigation }) {
   const [RecentlyList, setRecentlyList] = React.useState([]);
   const [searchCategory,setSearchCategory]=React.useState([]);
   const [dataSearch , setDataSearch]=React.useState([]);
-  async function getSearchValue(SearchValue) {
-    console.log(SearchValue);
+  async function getSearchValue(categorySelected) {
+    console.log(categorySelected);
     messageHasShown = false;
-    const ref = dataBase.collection(SearchValue);
+    const ref = dataBase.collection(categorySelected);
     const snapshot = await ref.get();
     let tmp2 = [];
     snapshot.forEach((doc) => {
-      tmp2.push({id: doc.id, job: doc.data().job, name: doc.data().name });
+      tmp2.push({id: doc.id, ...doc.data() , category:categorySelected});
+      
     });
     console.log(tmp2);
     setDataSearch(tmp2);
     setSearchQuery(tmp2);
+    setTerm(tmp2);
   }
-
   //--------------------------Recently code---------------------------------
   async function getList(sorting = "alphabet") {
     //console.log("entered");
@@ -94,7 +83,7 @@ export default function HomeScreen({ route, navigation }) {
   useEffect(() => {
     getList();
   }, []);
-
+ 
   //------------------------------------------------------------------------
   return (
     <SafeAreaView style={styles.container}>
@@ -108,8 +97,7 @@ export default function HomeScreen({ route, navigation }) {
         <View style={styles.Topper}>
           <View style={styles.searchBar}>
             <TouchableHighlight
-              style={styles.searchIcon}
-              
+              style={styles.searchIcon}          
               onPress={() => {
                 let listJob=[];
                 let listName=[];
@@ -120,31 +108,18 @@ export default function HomeScreen({ route, navigation }) {
                   if ((element.name).includes(SearchValue)){
                     listName.push(element); 
            }
-
                 })
                 console.log("search",SearchValue);
                 console.log("data",dataSearch);
                 console.log("lastname",listName);
                 console.log("lastjob",listJob);
                 if(listJob.length !=0){
-                <FlatList
-                data={listJob}
-                renderItem={({item})=>(
-                  <TouchableOpacity onPress={()=>navigation.navigate("SearchList",{item, account})}>
-                  </TouchableOpacity>
-                )}
-                >
-                </FlatList>
-                }
-                if(listName.length !=0){
-                  <FlatList
-                  data={listName}
-                  renderItem={({item})=>(
-                    <TouchableOpacity onPress={()=>navigation.navigate("SearchList",{item, account})}>
-                  </TouchableOpacity>
-                  )}
-                  >
-                  </FlatList>
+                  console.log("sdsd",listJob);
+                 navigation.navigate("SearchList",{ListJob:listJob, account:account});
+               }             
+                if(listName.length !=0){                
+                  console.log("sdsd",listName);          
+                navigation.navigate("SearchList",{ListJob:listName ,account:account});
                 }
               }}
             >
@@ -179,6 +154,20 @@ export default function HomeScreen({ route, navigation }) {
                 textAlign: "right",
               }}
             />
+         {/* <View style={styles.searchWrapperStyle}> */}
+           {/* <TextInput
+           placeholder="Search"
+           placeholderTextColor={"white"}
+           style = {styles.searchInputStyle}
+           value={term}
+           onChangeText={(newText)=>{
+            setTerm(newText);
+           }}
+           onEndEditing={()=>{
+             onSearchEnter(term);
+           }}
+           /> */}
+         
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
@@ -224,6 +213,7 @@ export default function HomeScreen({ route, navigation }) {
             />
           </View>
         </View>
+        
         <View style={{ height: 7 }}></View>
         <FlatList
           data={options}
@@ -375,6 +365,19 @@ const styles = StyleSheet.create({
     bottom: SPACING * 2,
     right: SPACING * 2,
     position: "absolute",
+  },
+  searchWrapperStyle:{
+    backgroundColor:"#16A085",
+    flexDirection:"row",
+    justifyContent:"space-between",
+  },
+  searchInputStyle:{
+    flex:1,
+    fontSize:16,
+    paddingHorizontal:8,
+    paddingVertical:0,
+    margin:0,
+    color:"white",
   },
   cataIcon: {
     width: cellWidth * 0.65,

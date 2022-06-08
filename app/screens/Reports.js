@@ -39,7 +39,8 @@ const options = [
   },
 ];
 class Reports extends Component {
-  constructor() {
+  constructor(route) {
+    const { account } = route.params;
     super();
     // this.ref = dataBase.collection('glory');
     this.state = {
@@ -90,7 +91,7 @@ class Reports extends Component {
             report: "",
             isLoading: false,
           });
-          this.props.navigation.navigate("Home");
+          this.props.navigation.navigate("Home" , {account} );
         })
         .catch((err) => {
           console.error("Error Occured: ", err);
