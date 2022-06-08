@@ -135,10 +135,10 @@ const styles = StyleSheet.create({
   menuContainer: {
     flex: 1,
     backgroundColor: "#222",
-    alignItems: "flex-start",
+    alignItems: "flex-end",
     paddingTop: 80,
     paddingBottom: 30,
-    paddingLeft: 30,
+    paddingRight: "10%",
   },
 
   menu: {
@@ -148,11 +148,13 @@ const styles = StyleSheet.create({
 
   button: {
     fontSize: 34,
+    textAlign: "right",
     lineHeight: 34 * 1.5,
   },
 
   buttonSmall: {
     fontSize: 16,
+    textAlign: "right",
     lineHeight: 16 * 1.5,
   },
 });
