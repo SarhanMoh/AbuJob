@@ -21,6 +21,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { dataBase } from "../../firebase";
+import { doc } from "../../firebase";
 
 const SPACING = 8,
   cellWidth = 250,
@@ -72,13 +73,9 @@ export default function BusinessPage({ route, navigation }) {
   //-------------------------CommentList----------------------------------
   async function getList() {
     const ref = dataBase.collection(key).doc(id_pure).collection("rating");
-    //const ref2 = ref.doc(id);
-    //
     const snapshot = await ref.get();
     let tmp = [];
-    let tmpArr = [];
     snapshot.forEach((doc) => {
-      //console.log(doc.id, '=>', doc.data());
       tmpArr = doc.data();
       if (tmpArr.comment != "" && tmpArr.comment != undefined) {
         tmp.push(tmpArr.comment);

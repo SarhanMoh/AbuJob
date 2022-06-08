@@ -17,6 +17,7 @@ import CustomButton from "./scr/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
+import { auth, dataBase } from "../../firebase";
 
 //import Logo from './assets/AbuJobsLogo.jpeg'
 
@@ -56,47 +57,36 @@ const FirstPage = () => {
               source={require("../assets/lang.png")}
               style={styles.lanButton}
             />
-            <Modal transparent={true} visible={modalOpen}>
-              <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    margin: 50,
-                    padding: 40,
-                    borderRadius: 10,
-                  }}
-                >
-                  <View style={styles.optButt}>
-                    <AntDesign
-                      name="close"
-                      size={34}
-                      color="#222"
-                      onPress={() => setModalOpen(false)}
-                    />
-                  </View>
-                  <View style={styles.modalContainer}>
-                    <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
-                    <View style={styles.buttonsCont}>
-                      <TouchableOpacity
-                        style={styles.buttonLan}
-                        onPress={() => {
-                          navigation.navigate("FirstPageAr"),
-                            setModalOpen(false);
-                        }}
-                      >
-                        <Text style={styles.textlan}>اللغة العربية</Text>
-                      </TouchableOpacity>
 
-                      <TouchableOpacity
-                        style={styles.buttonLan2}
-                        onPress={() => {
-                          navigation.navigate("FirstPage"), setModalOpen(false);
-                        }}
-                      >
-                        <Text style={styles.textlan}>שפה עברית</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+            <Modal
+            transparent={true}
+            visible={modalOpen}
+            >
+            <View style={{backgroundColor:"#000000aa",flex:1}}>
+                <View style={{backgroundColor:"white",margin:50,padding:40,borderRadius:10,}}>
+                <View style={styles.optButt}>
+                <AntDesign
+              name="close"
+              size={34}
+              color="#222"
+              onPress={() =>setModalOpen(false) }
+            />
+                </View>
+                <View style={styles.modalContainer}>
+                <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
+                <View style={styles.buttonsCont}>
+                <TouchableOpacity style={styles.buttonLan}
+                onPress={()=> {navigation.navigate("FirstPageAr"), setModalOpen(false),auth.signOut();}}>
+                <Text style={styles.textlan}>اللغة العربية</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity style={styles.buttonLan2}
+                 onPress={()=> {navigation.navigate("FirstPage")
+                 ,setModalOpen(false) ,auth.signOut();}}>
+                <Text style={styles.textlan}>שפה עברית</Text>
+                </TouchableOpacity>
+                </View>
+                </View>
                 </View>
               </View>
             </Modal>

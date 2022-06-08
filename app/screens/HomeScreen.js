@@ -58,19 +58,20 @@ export default function HomeScreen({ route, navigation }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
-  const [searchCategory, setSearchCategory] = React.useState([]);
-
+  const [searchCategory,setSearchCategory]=React.useState([]);
+  const [dataSearch , setDataSearch]=React.useState([]);
   async function getSearchValue(SearchValue) {
     console.log(SearchValue);
     messageHasShown = false;
     const ref = dataBase.collection(SearchValue);
     const snapshot = await ref.get();
-    let tmp = [];
+    let tmp2 = [];
     snapshot.forEach((doc) => {
-      tmp.push(doc.data());
-      console.log(tmp);
-      setSearchQuery(tmp);
+      tmp2.push({id: doc.id, job: doc.data().job, name: doc.data().name });
     });
+    console.log(tmp2);
+    setDataSearch(tmp2);
+    setSearchQuery(tmp2);
   }
 
   //--------------------------Recently code---------------------------------
@@ -108,10 +109,42 @@ export default function HomeScreen({ route, navigation }) {
           <View style={styles.searchBar}>
             <TouchableHighlight
               style={styles.searchIcon}
+              
               onPress={() => {
-                //getSearchValue(SearchValue);
-                if ("אום נאדר".includes("אום") <= 0) {
-                  console.log("helloooooooooo");
+                let listJob=[];
+                let listName=[];
+                dataSearch.forEach(element=>{
+                  if ((element.job).includes(SearchValue)){
+                    listJob.push(element);
+                  }
+                  if ((element.name).includes(SearchValue)){
+                    listName.push(element); 
+           }
+
+                })
+                console.log("search",SearchValue);
+                console.log("data",dataSearch);
+                console.log("lastname",listName);
+                console.log("lastjob",listJob);
+                if(listJob.length !=0){
+                <FlatList
+                data={listJob}
+                renderItem={({item})=>(
+                  <TouchableOpacity onPress={()=>navigation.navigate("SearchList",{item, account})}>
+                  </TouchableOpacity>
+                )}
+                >
+                </FlatList>
+                }
+                if(listName.length !=0){
+                  <FlatList
+                  data={listName}
+                  renderItem={({item})=>(
+                    <TouchableOpacity onPress={()=>navigation.navigate("SearchList",{item, account})}>
+                  </TouchableOpacity>
+                  )}
+                  >
+                  </FlatList>
                 }
               }}
             >
@@ -125,9 +158,7 @@ export default function HomeScreen({ route, navigation }) {
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => {
-                let tmp = searchCategory.filter((a) =>
-                  a.name.includes(SearchValue)
-                );
+              // let tmp = searchCategory.filter((a)=>a.name.includes(SearchValue));
                 setSearchValue(SearchValue);
                 if (messageHasShown === false) {
                   showMessage({
