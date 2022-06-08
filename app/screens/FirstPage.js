@@ -22,8 +22,8 @@ import { auth, dataBase } from "../../firebase";
 //import Logo from './assets/AbuJobsLogo.jpeg'
 
 const FirstPage = () => {
-  let show=false;
-  const [modalOpen , setModalOpen] = useState(false);
+  let show = false;
+  const [modalOpen, setModalOpen] = useState(false);
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
   const guest = "guest";
@@ -32,12 +32,12 @@ const FirstPage = () => {
     //   { text: "עברית", onPress: () => console.log("שפה עברית") },
     //   { text: "العربية", onPress: () => console.log("اللغة العربية") },
     // ]);
-    
+
     show = true;
-    console.log("hu",show);
-    return show
+    //console.log("hu",show);
+    return show;
   };
-  console.log("show",show);
+  //console.log("show",show);
   return (
     <SafeAreaView style={styles.safeView}>
       <ImageBackground
@@ -46,19 +46,18 @@ const FirstPage = () => {
         resizeMode="cover"
         blurRadius={25}
       />
-      
+
       <View style={styles.container}>
         <View>
-          
-          <TouchableOpacity onPress={()=> setModalOpen(true)}>
+          <TouchableOpacity onPress={() => setModalOpen(true)}>
             {/* <Text style={styles.lanButton} > Ar/He </Text> */}
-            
+
             <Image
               resizeMode="contain"
               source={require("../assets/lang.png")}
               style={styles.lanButton}
-              
             />
+
             <Modal
             transparent={true}
             visible={modalOpen}
@@ -88,9 +87,8 @@ const FirstPage = () => {
                 </TouchableOpacity>
                 </View>
                 </View>
-                
                 </View>
-            </View>
+              </View>
             </Modal>
           </TouchableOpacity>
         </View>
@@ -131,27 +129,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  modalContainer:{
-    alignSelf:"center",
-    
+  modalContainer: {
+    alignSelf: "center",
   },
-  tranText:{
-    fontSize:24,
-    fontWeight:"600",
+  tranText: {
+    fontSize: 24,
+    fontWeight: "600",
   },
   root: {
     flex: 1,
     alignItems: "center",
     padding: 20,
   },
-  textlan:{
-    color:"white",
-    fontSize:16,
-    fontWeight:"600",
-    alignItems:"center",
-    alignContent:"center",
-    alignSelf:"center",
-    justifyContent:"center",
+  textlan: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
+    alignItems: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    justifyContent: "center",
   },
   logo: {
     paddingTop: 200,
@@ -160,34 +157,33 @@ const styles = StyleSheet.create({
     maxWidth: 600,
     maxHeight: 600,
   },
-  buttonLan:{
-    padding:10,
-    borderRadius:5,
-    borderWidth:1,
-    marginRight:"10%",
-    marginTop:"10%",
-    backgroundColor:"red",
-    color:"white",
+  buttonLan: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    marginRight: "10%",
+    marginTop: "10%",
+    backgroundColor: "red",
+    color: "white",
   },
-  buttonLan2:{
-    padding:10,
-    borderRadius:5,
-    borderWidth:1,
-    marginTop:"10%",
-    backgroundColor:"blue",
-    
+  buttonLan2: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    marginTop: "10%",
+    backgroundColor: "blue",
   },
   text: {
     paddingTop: 30,
     fontWeight: "bold",
     color: "gray",
   },
-  buttonsCont:{
-    flexDirection:"row",
-    alignItems:"center",
-    alignContent:"center",
-    alignSelf:"center",
-    justifyContent:"center",
+  buttonsCont: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    justifyContent: "center",
     //  padding:10,
     // margin:10,
     //marginBottom:"5%"

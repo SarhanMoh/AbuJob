@@ -66,7 +66,7 @@ export default function HomeScreen({ route, navigation ,onSearchEnter }) {
   //--------------------------Recently code---------------------------------
   async function getList(sorting = "alphabet") {
     //console.log("entered");
-    const ref = dataBase.collection("All");
+    const ref = dataBase.collection("AllHe");
     const snapshot = await ref.get();
     let tmp = [];
     let counter = 0;

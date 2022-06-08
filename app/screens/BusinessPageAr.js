@@ -1,6 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import { AirbnbRating } from "react-native-ratings";
+import { useEffect, useState } from "react";
 import {
   View,
   Button,
@@ -39,10 +40,7 @@ const dialCall = (number) => {
 };
 
 export default function BusinessPageAr({ route, navigation }) {
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
-  const [SearchValue, setSearchValue] = React.useState("");
-  const [emptyList, setEmptyList] = React.useState([]);
+  const [CommentsList, setCommentsList] = React.useState([]);
   const {
     name,
     city,
@@ -55,20 +53,47 @@ export default function BusinessPageAr({ route, navigation }) {
     key,
     account,
     id,
+    id_pure,
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
   // console.log("key", id);
   async function checkLogin() {
     if (account === undefined) {
-      Alert.alert("Unable to Rate", "Log in or register to rate", [
-        { text: "Cancel", style: "cancel" },
-        { text: "Log in!", onPress: () => navigation.navigate("FirstPageAr") },
+      Alert.alert("لا يمكنك التقييم!", "سجل دخول لتستطيع التقييم", [
+        { text: "الغاء", style: "cancel" },
+        {
+          text: "سجل دخول!",
+          onPress: () => navigation.navigate("FirstPageAr"),
+        },
       ]);
     } else {
       navigation.navigate("RatingPageAr", { account, key, phone });
     }
   }
+
+  //-------------------------CommentList----------------------------------
+  async function getList() {
+    const ref = dataBase.collection(key).doc(id_pure).collection("rating");
+    //const ref2 = ref.doc(id);
+    //
+    const snapshot = await ref.get();
+    let tmp = [];
+    let tmpArr = [];
+    snapshot.forEach((doc) => {
+      //console.log(doc.id, '=>', doc.data());
+      tmpArr = doc.data();
+      if (tmpArr.comment != "" && tmpArr.comment != undefined) {
+        tmp.push(tmpArr.comment);
+      }
+    });
+    setCommentsList(tmp);
+  }
+  useEffect(() => {
+    getList();
+  }, []);
+  //----------------------------------------------------------------------
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -79,24 +104,6 @@ export default function BusinessPageAr({ route, navigation }) {
       />
       <View style={styles.Header}>
         <View style={styles.Topper}>
-          <View style={styles.searchBar}>
-            <TouchableHighlight
-              style={styles.searchIcon}
-              onPress={() => console.log("Search for " + SearchValue)}
-            >
-              <Image
-                style={styles.searchImg}
-                source={require("../assets/searchIcon.png")}
-              />
-            </TouchableHighlight>
-            <TextInput
-              placeholder="Search..."
-              placeholderTextColor={"black"}
-              value={SearchValue}
-              onChangeText={(SearchValue) => setSearchValue(SearchValue)}
-              style={{ color: "black", marginLeft: 5 }}
-            />
-          </View>
           <View style={styles.optButt}>
             <AntDesign
               name="back"
@@ -105,6 +112,8 @@ export default function BusinessPageAr({ route, navigation }) {
               onPress={() => navigation.goBack()}
             />
           </View>
+          <View width={"25%"}></View>
+          <View width={"25%"}></View>
         </View>
       </View>
       <View style={{ justifyContent: "flex-start" }}>
@@ -139,15 +148,33 @@ export default function BusinessPageAr({ route, navigation }) {
                 alignItems: "flex-end",
               }}
             >
-              <View style={{ flexDirection: "row-reverse" }}>
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
                 <Text style={styles.subName}> المدينة: </Text>
                 <Text style={{ fontSize: 15 }}>{city}</Text>
               </View>
-              <View style={{ flexDirection: "row-reverse" }}>
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
                 <Text style={styles.subName}> الفئة: </Text>
                 <Text style={{ fontSize: 15 }}>{category}</Text>
               </View>
-              <View style={{ flexDirection: "row-reverse" }}>
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
                 <Text style={styles.subName}> العنوان: </Text>
                 <Text style={{ fontSize: 15 }}>{address}</Text>
               </View>
@@ -156,6 +183,8 @@ export default function BusinessPageAr({ route, navigation }) {
                   borderColor: "black",
                   borderBottomWidth: 0.5,
                   flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
                 }}
                 onPress={() => dialCall(phone)}
               >
@@ -228,7 +257,7 @@ export default function BusinessPageAr({ route, navigation }) {
               right: SPACING,
             }}
           >
-           إوصفنا:
+            محتوى:
           </Text>
           <View style={styles.Description}>
             <Text
@@ -256,7 +285,7 @@ export default function BusinessPageAr({ route, navigation }) {
             ملاحظات:
           </Text>
           <FlatList
-            data={cSection}
+            data={CommentsList}
             height={140}
             width={"90%"}
             backgroundColor={"rgba(255, 255, 255, 0.6)"}
@@ -301,7 +330,7 @@ export default function BusinessPageAr({ route, navigation }) {
         >
           <View style={{ margin: SPACING * 0.5, flexDirection: "row-reverse" }}>
             <Text style={{ fontWeight: "600", fontSize: 16 }}>
-            تاريخ الانضمام :
+              تاريخ الانضمام :
             </Text>
             <Text style={{ fontWeight: "500", fontSize: 16 }}>
               {" Date Here"}
@@ -309,16 +338,21 @@ export default function BusinessPageAr({ route, navigation }) {
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate("ReportsAr")}
-            style={{ margin: SPACING * 0.5 }}
+            style={{
+              margin: SPACING * 0.5,
+              borderRadius: 15,
+              backgroundColor: "red",
+            }}
           >
             <Text
               style={{
-                fontWeight: "600",
-                fontSize: 16,
+                fontWeight: "700",
+                fontSize: 15,
                 borderColor: "red",
-                borderWidth: 0.8,
+                borderWidth: 0.3,
                 borderRadius: 15,
                 padding: 3,
+                color: "white",
               }}
             >
               تقديم شكوى
@@ -337,40 +371,22 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   Header: {
-    height: "8%",
+    height: "5%",
     justifyContent: "flex-start",
   },
   Topper: {
-    height: 45,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  searchBar: {
-    width: "80%",
     height: 30,
-    flexDirection: "row",
-    backgroundColor: "#81daf5",
-    borderRadius: 30,
-  },
-
-  searchIcon: {
-    width: 50,
-    height: 50,
-    backgroundColor: "white",
-    borderWidth: 2,
-    borderColor: "#81daf5",
-    borderRadius: 50,
-    alignSelf: "flex-start",
-    marginTop: -10,
-  },
-  searchImg: {
-    width: 47,
-    height: 47,
-    borderRadius: 50,
-    backgroundColor: "white",
-    justifyContent: "center",
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
     alignItems: "center",
+  },
+  optButt: {
+    width: 35,
+    height: 35,
+    borderRadius: 30,
+    left: "50%",
+    justifyContent: "center",
+    alignItems: "flex-end",
   },
   profileIcon: {
     width: 120,
@@ -398,7 +414,7 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 20,
-    backgroundColor: "rgba(50, 255, 30, 0.7)",
+    backgroundColor: "rgba(255, 215, 0, 0.9)",
     justifyContent: "center",
   },
   Description: {

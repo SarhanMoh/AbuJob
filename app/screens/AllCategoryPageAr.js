@@ -17,7 +17,7 @@ import {
   StatusBar,
   ImageBackground,
 } from "react-native";
-import { options, recently } from "../../components/newComponents";
+import { options, recently } from "../../components/newComponentsAr";
 import { State } from "react-native-gesture-handler";
 import { isLoaded, isLoading } from "expo-font";
 
@@ -45,7 +45,7 @@ export default function AllCategoryPageAr({ route, navigation }) {
             fontWeight: "700",
           }}
         >
-         جميع الفئات:
+          جميع الفئات:
         </Text>
         <View style={{ width: "15%" }}></View>
         <AntDesign
@@ -74,7 +74,7 @@ export default function AllCategoryPageAr({ route, navigation }) {
                   const label = item.label;
                   const key = item.value;
                   const iconPic = item.icon;
-                  navigation.navigate("CategoryPageAr", {
+                  navigation.navigate("CategoryAr", {
                     label,
                     key,
                     account,
@@ -120,11 +120,14 @@ const styles = StyleSheet.create({
   },
   catagoryTitle: {
     fontWeight: "800",
-    fontSize: 24,
+    fontSize: 23,
     maxWidth: "90%",
     color: "white",
+    textAlign: "right",
     bottom: SPACING * 2,
     right: SPACING * 1.5,
+    padding: SPACING,
+    alignSelf: "flex-end",
     position: "absolute",
   },
   cataIcon: {
