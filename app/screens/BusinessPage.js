@@ -40,10 +40,6 @@ const dialCall = (number) => {
 };
 
 export default function BusinessPage({ route, navigation }) {
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
-  const [SearchValue, setSearchValue] = React.useState("");
-  const [emptyList, setEmptyList] = React.useState([]);
   const [CommentsList, setCommentsList] = React.useState([]);
   const {
     name,
@@ -57,10 +53,11 @@ export default function BusinessPage({ route, navigation }) {
     key,
     account,
     id,
+    id_pure,
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
-  console.log("key", id);
+  // console.log("key", id);
   async function checkLogin() {
     if (account === undefined) {
       Alert.alert("Unable to Rate", "Log in or register to rate", [
@@ -74,7 +71,7 @@ export default function BusinessPage({ route, navigation }) {
 
   //-------------------------CommentList----------------------------------
   async function getList() {
-    const ref = dataBase.collection(key).doc(id).collection("rating");
+    const ref = dataBase.collection(key).doc(id_pure).collection("rating");
     //const ref2 = ref.doc(id);
     //
     const snapshot = await ref.get();
@@ -83,9 +80,11 @@ export default function BusinessPage({ route, navigation }) {
     snapshot.forEach((doc) => {
       //console.log(doc.id, '=>', doc.data());
       tmpArr = doc.data();
-      tmp.push(tmpArr.comment);
-      console.log(tmp);
+      if (tmpArr.comment != "" && tmpArr.comment != undefined) {
+        tmp.push(tmpArr.comment);
+      }
     });
+    setCommentsList(tmp);
   }
   useEffect(() => {
     getList();
@@ -304,13 +303,18 @@ export default function BusinessPage({ route, navigation }) {
                     backgroundColor: "#81daf5",
                     alignSelf: "center",
                     borderRadius: 30,
-                    margin: SPACING,
+                    margin: SPACING * 0.5,
                     justifyContent: "center",
                     alignItems: "flex-end",
                   }}
                 >
                   <Text
-                    style={{ color: "black", right: SPACING, fontSize: 18 }}
+                    style={{
+                      color: "black",
+                      right: SPACING * 1.5,
+                      fontSize: 18,
+                      justifyContent: "center",
+                    }}
                   >
                     {item}
                   </Text>
@@ -374,13 +378,14 @@ const styles = StyleSheet.create({
   Topper: {
     height: 30,
     flexDirection: "row-reverse",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   optButt: {
     width: 35,
     height: 35,
     borderRadius: 30,
+    left: "50%",
     justifyContent: "center",
     alignItems: "flex-end",
   },
@@ -410,7 +415,7 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 20,
-    backgroundColor: "rgba(50, 255, 30, 0.7)",
+    backgroundColor: "rgba(255, 215, 0, 0.9)",
     justifyContent: "center",
   },
   Description: {

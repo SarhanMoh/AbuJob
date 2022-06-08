@@ -43,7 +43,7 @@ export default function CategoryPage({ route, navigation }) {
     let tmp = [];
     snapshot.forEach((doc) => {
       //console.log(doc.id, '=>', doc.data());
-      tmp.push(doc.data());
+      tmp.push({ id_id: doc.id, ...doc.data() });
     });
     setEmptyList(
       tmp.sort(function (a, b) {
@@ -169,13 +169,14 @@ export default function CategoryPage({ route, navigation }) {
                   onPress={() => {
                     const name = item.name;
                     const city = item.city;
-                    const pic = item.profilePic;
+                    const pic = iconPic;
                     const category = label;
                     const address = item.address;
                     const phone = item.phone_number;
                     const rate = item.rate;
                     const job = item.job;
                     const id = item;
+                    const id_pure = item.id_id;
                     //console.log('keykey',id);
                     navigation.navigate("BusinessPage", {
                       name,
@@ -189,6 +190,7 @@ export default function CategoryPage({ route, navigation }) {
                       account,
                       key,
                       id,
+                      id_pure,
                     });
                   }}
                   style={{

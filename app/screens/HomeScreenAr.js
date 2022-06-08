@@ -56,7 +56,7 @@ export default function HomeScreenAr({ route, navigation }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
-  const [searchCategory,setSearchCategory]=React.useState([]);
+  const [searchCategory, setSearchCategory] = React.useState([]);
 
   async function getSearchValue(SearchValue) {
     console.log(SearchValue);
@@ -120,27 +120,29 @@ export default function HomeScreenAr({ route, navigation }) {
               placeholder="البحث عن ..."
               placeholderTextColor={"black"}
               value={SearchValue}
-              onChangeText={(SearchValue)=>{
-                let tmp = searchCategory.filter((a)=>a.name.includes(SearchValue));
-                  setSearchValue(SearchValue);
-                  if (messageHasShown === false) {
-                    showMessage({
-                      position: "center",
-                      duration: 3000,
-                      message: "الرجاء تحديد فئة قبل البحث!",
-                      type: "defualt",
-                      titleStyle: { fontWeight: "800", fontSize: 16 },
-                    });
-                    messageHasShown = true;
-                  }
-                }}
-                style={{
-                  color: "black",
-                  fontSize: 16,
-                  marginRight: 5,
-                  width: "55%",
-                  textAlign: "right",
-                }}
+              onChangeText={(SearchValue) => {
+                let tmp = searchCategory.filter((a) =>
+                  a.name.includes(SearchValue)
+                );
+                setSearchValue(SearchValue);
+                if (messageHasShown === false) {
+                  showMessage({
+                    position: "center",
+                    duration: 3000,
+                    message: "الرجاء تحديد فئة قبل البحث!",
+                    type: "defualt",
+                    titleStyle: { fontWeight: "800", fontSize: 16 },
+                  });
+                  messageHasShown = true;
+                }
+              }}
+              style={{
+                color: "black",
+                fontSize: 16,
+                marginRight: 5,
+                width: "55%",
+                textAlign: "right",
+              }}
             />
             <SelectDropdown
               data={options}
@@ -231,7 +233,9 @@ export default function HomeScreenAr({ route, navigation }) {
         />
         <View style={{ height: 40, alignItems: "center" }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("AllCategoryPageAr", { account })}
+            onPress={() =>
+              navigation.navigate("AllCategoryPageAr", { account })
+            }
             style={{
               backgroundColor: "rgba(220,220,220, 0.9)",
               width: "95%",
@@ -242,7 +246,7 @@ export default function HomeScreenAr({ route, navigation }) {
             }}
           >
             <Text style={{ fontWeight: "800", color: "black" }}>
-            عرض كل الفئات
+              عرض كل الفئات
             </Text>
           </TouchableOpacity>
         </View>
@@ -259,7 +263,7 @@ export default function HomeScreenAr({ route, navigation }) {
             padding: SPACING,
           }}
         >
-          انضم مؤخرًا
+          انضموا مؤخرًا
         </Text>
         {RecentlyList.length > 0 ? (
           <FlatList

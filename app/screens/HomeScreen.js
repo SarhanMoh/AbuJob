@@ -58,7 +58,7 @@ export default function HomeScreen({ route, navigation }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
-  const [searchCategory,setSearchCategory]=React.useState([]);
+  const [searchCategory, setSearchCategory] = React.useState([]);
 
   async function getSearchValue(SearchValue) {
     console.log(SearchValue);
@@ -76,7 +76,7 @@ export default function HomeScreen({ route, navigation }) {
   //--------------------------Recently code---------------------------------
   async function getList(sorting = "alphabet") {
     //console.log("entered");
-    const ref = dataBase.collection("All");
+    const ref = dataBase.collection("AllHe");
     const snapshot = await ref.get();
     let tmp = [];
     let counter = 0;
@@ -109,8 +109,10 @@ export default function HomeScreen({ route, navigation }) {
             <TouchableHighlight
               style={styles.searchIcon}
               onPress={() => {
-                getSearchValue(SearchValue);
-                console.log(searchQuery);
+                //getSearchValue(SearchValue);
+                if ("אום נאדר".includes("אום") <= 0) {
+                  console.log("helloooooooooo");
+                }
               }}
             >
               <Image
@@ -123,7 +125,9 @@ export default function HomeScreen({ route, navigation }) {
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => {
-              let tmp = searchCategory.filter((a)=>a.name.includes(SearchValue));
+                let tmp = searchCategory.filter((a) =>
+                  a.name.includes(SearchValue)
+                );
                 setSearchValue(SearchValue);
                 if (messageHasShown === false) {
                   showMessage({
@@ -149,7 +153,6 @@ export default function HomeScreen({ route, navigation }) {
               onSelect={(selectedItem) => {
                 getSearchValue(searchCategory);
                 setSearchCategory(selectedItem.value);
-
               }}
               defaultValueByIndex={0}
               buttonTextStyle={{ color: "white" }}
