@@ -17,6 +17,7 @@ import {
 import { dataBase } from "../firebase";
 import { Picker } from "@react-native-picker/picker";
 import { AntDesign } from "@expo/vector-icons";
+import { date } from "yup";
 const listCollection = [];
 
 const options = [
@@ -183,8 +184,9 @@ class CreateComponent extends Component {
       description: "",
       rate: 0,
       isLoading: false,
-      categoryAll: "",
       date:"",
+      categoryAll: "",
+      labelCategory:"שירותי רכב"
     };
   }
 
@@ -193,26 +195,23 @@ class CreateComponent extends Component {
     state[prop] = val;
     this.setState(state);
   };
-  // validate = (text) => {
-  //   console.log(text);
-  //   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-  //   if (reg.test(text) === false) {
-  //     console.log("Email is Not Correct");
-  //     this.setState({ email: text })
-  //     return false;
-  //   }
-  //   else {
-  //     this.setState({ email: text })
-  //     console.log("Email is Correct");
-  //   }
-  // }
   addBusiness(label) {
-    //console.log(date);
-    const time = new Date();
     console.log(this.state.category);
+    console.log(this.state.labelCategory);
     const cat = this.state.category;
-    const cateLabel = label;
-    console.log("catt", cat);
+    const cateLabel = options[this.state.labelCategory].label;
+    // console.log("cate",cateLabel);
+    // console.log("cate",cateLabel);
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    // console.log("label",label);
+    // console.log("catt", cat);
+    // console.log('date:',year);
+    // console.log('date:',month);
+    // console.log('date:',date);
+    let full_date = date+"/"+month+"/"+year;
+    console.log('full:',full_date);
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
     let dbAllHe = dataBase.collection("AllHe");
@@ -259,7 +258,7 @@ class CreateComponent extends Component {
         description: this.state.description,
         city: this.state.city,
         rate: this.state.rate,
-        date: this.state.time,
+        date: full_date,
       });
       dbAll
         .add({
@@ -268,7 +267,7 @@ class CreateComponent extends Component {
           phone_number: this.state.phone_number,
           city: this.state.city,
           categoryAll: cateLabel,
-          date: this.state.time,
+          date: full_date,
                 })
         .then((res) => {
           this.setState({
@@ -281,6 +280,8 @@ class CreateComponent extends Component {
             rate: 0,
             city: "",
             date: "",
+            labelCategory:"",
+            categoryAll:"",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponent");
@@ -319,7 +320,7 @@ class CreateComponent extends Component {
         description: this.state.description,
         city: this.state.city,
         rate: this.state.rate,
-        date: this.state.time,
+        date: full_date,
       });
       dbAllHe
         .add({
@@ -328,7 +329,7 @@ class CreateComponent extends Component {
           phone_number: this.state.phone_number,
           city: this.state.city,
           categoryAll: cateLabel,
-          date: this.state.time,
+          date: full_date,
         })
         .then((res) => {
           this.setState({
@@ -341,6 +342,8 @@ class CreateComponent extends Component {
             rate: 0,
             city: "",
             date: "",
+            labelCategory:"",
+            categoryAll:"",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponent");
@@ -492,7 +495,6 @@ class CreateComponent extends Component {
 
           <Picker
             selectedValue={this.state.category}
-            
             style={{
               width: 300,
               height: 150,
@@ -504,6 +506,7 @@ class CreateComponent extends Component {
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
+                labelCategory: itemIndex,
               })
             }
           >
@@ -513,7 +516,8 @@ class CreateComponent extends Component {
                 value={option.value}
                 label={option.label}
                 style={{ flexDirection: "column-reverse" }}
-              ></Picker.Item>
+              >
+              </Picker.Item>
             ))}
             {/* <Picker.Item label="Java" value="java" />
             <Picker.Item label="JavaScript" value="js" /> */}

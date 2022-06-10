@@ -115,9 +115,9 @@ export default function CategoryPageAr({ route, navigation }) {
             style={{ flexDirection: "row", justifyContent: "space-evenly" }}
           >
             <SelectDropdown
-              data={["أ,ب", "تقييم"]}
+              data={["أ - ب", "تقييم"]}
               onSelect={(selectedItem) => {
-                if (selectedItem == "أ,ب") {
+                if (selectedItem == "أ - ب") {
                   getList("alphabet");
                 } else if (selectedItem == "تقييم") {
                   getList("rating");

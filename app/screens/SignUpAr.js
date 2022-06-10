@@ -31,7 +31,7 @@ import {
       const unsubscribe = auth.onAuthStateChanged((user) => {
         if (user) {
           const account = user.email;
-          navigation.navigate("HomeScreenAr",{account});
+          navigation.navigate("HomeAr",{account});
         }
       });
       return unsubscribe;

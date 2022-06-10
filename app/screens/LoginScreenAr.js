@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
+import { AntDesign } from "@expo/vector-icons";
 // import { useNavigation } from '@react-navigation/native';
 import { dataBase } from "../../firebase";
 
@@ -19,6 +21,8 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [emptyList, setEmptyList] = React.useState([]);
   const [check , setCheck] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
   //setCheck("false");
   // const { key } = route.params;
   // console.log(key)
@@ -110,6 +114,50 @@ const LoginScreen = ({ navigation }) => {
             blurRadius={25}
           />
       <View>
+      <View>
+          <TouchableOpacity onPress={() => setModalOpen(true)}>
+            {/* <Text style={styles.lanButton} > Ar/He </Text> */}
+
+            <Image
+              resizeMode="contain"
+              source={require("../assets/lang.png")}
+              style={styles.lanButton}
+            />
+
+            <Modal
+            transparent={true}
+            visible={modalOpen}
+            >
+            <View style={{backgroundColor:"#000000aa",flex:1}}>
+                <View style={{backgroundColor:"white",margin:50,padding:40,borderRadius:10,}}>
+                <View style={styles.optButt}>
+                <AntDesign
+              name="close"
+              size={34}
+              color="#222"
+              onPress={() =>setModalOpen(false) }
+            />
+                </View>
+                <View style={styles.modalContainer}>
+                <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
+                <View style={styles.buttonsCont}>
+                <TouchableOpacity style={styles.buttonLan}
+                onPress={()=> {navigation.navigate("LoginAr"), setModalOpen(false),auth.signOut();}}>
+                <Text style={styles.textlan}>اللغة العربية</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity style={styles.buttonLan2}
+                 onPress={()=> {navigation.navigate("Login")
+                 ,setModalOpen(false) ,auth.signOut();}}>
+                <Text style={styles.textlan}>שפה עברית</Text>
+                </TouchableOpacity>
+                </View>
+                </View>
+                </View>
+              </View>
+            </Modal>
+          </TouchableOpacity>
+        </View>
         <Image
           style={styles.bigLogoStyle}
           source={require("../assets/good.png")}
@@ -175,6 +223,69 @@ const styles = StyleSheet.create({
     marginTop: 40,
   
   },
+  modalContainer: {
+    alignSelf: "center",
+  },
+  tranText: {
+    fontSize: 24,
+    fontWeight: "600",
+  },
+  optButt: {
+    width: 35,
+    height: 35,
+    borderRadius: 30,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  lanButton: {
+    // borderColor :"black",
+    // borderWidth : 2,
+    // fontSize: 16,
+    marginTop: 0,
+    paddingBottom:"10%",
+    alignItems: "flex-start",
+    width: "15%",
+    height: 40,
+    justifyContent: "center",
+    marginLeft: "2%",
+    // backgroundColor: "black"
+    //justifyContent: 'flex-start',
+  },
+  buttonsCont: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+    //  padding:10,
+    // margin:10,
+    //marginBottom:"5%"
+  },
+  buttonLan2: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    marginTop: "10%",
+    backgroundColor: "blue",
+  },
+  textlan: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "600",
+    alignItems: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  buttonLan: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    marginRight: "10%",
+    marginTop: "10%",
+    backgroundColor: "red",
+    color: "white",
+  },
   button: {
     backgroundColor: "#A8D173",
     width: "100%",
@@ -220,6 +331,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 16,
     fontWeight: "bold",
-  }
+  },
+  buttonContainer: {
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 40,
+  
+  },
 });
 //#0782f9 blue

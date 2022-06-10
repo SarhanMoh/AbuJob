@@ -25,7 +25,7 @@ import { options, recently } from "../../components/newComponents";
 const SPACING = 8,
   cellWidth = 250;
 
-export default function SearchList({ route, navigation }) {
+export default function SearchListAr({ route, navigation }) {
   const iconPic = require("../assets/searchIcon.png");
   const { ListJob:listData, account:account,} = route.params;
   console.log("accepted2", account);
@@ -59,11 +59,11 @@ export default function SearchList({ route, navigation }) {
             style={{ flexDirection: "row", justifyContent: "space-evenly" }}
           >
             <SelectDropdown
-              data={["א'ב", "דרוג"]}
+              data={["أ - ب", "تقييم"]}
               onSelect={(selectedItem) => {
-                if (selectedItem == "א'ב") {
+                if (selectedItem == "أ - ب") {
                   getList("alphabet");
-                } else if (selectedItem == "דרוג") {
+                } else if (selectedItem == "تقييم") {
                   getList("rating");
                 }
               }}
@@ -174,7 +174,7 @@ export default function SearchList({ route, navigation }) {
                         alignItems: "center",
                       }}
                     >
-                      <Text style={styles.subName}> עיר: {item.city}</Text>
+                      <Text style={styles.subName}> المدينة: {item.city}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>

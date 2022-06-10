@@ -52,6 +52,9 @@ import RatingPageAr from "./app/screens/RatingPageAr";
 import UpdateComponentAr from "./components/UpdateComponentAr";
 import AllCategoryPageAr from "./app/screens/AllCategoryPageAr";
 import SearchList from "./app/screens/SearchList";
+import SearchListAr from "./app/screens/SearchListAr";
+// import SearchDropDown from "./app/screens/SearchDropDown";
+// import Testing from "./app/screens/Testing";
 //
 export default function App() {
   return (
@@ -77,6 +80,22 @@ export default function App() {
             component={CreateComponent}
             options={{ title: "יצירת חשבון", headerShown: false }}
           />
+          <Stack.Screen
+            name="SearchListAr"
+            component={SearchListAr}
+            options={{ title: "بحث عن اعمال", headerShown: false }}
+          />
+         
+          {/* <Stack.Screen
+            name="Testing"
+            component={Testing}
+            options={{ title: "יצירת חשבון", headerShown: false }}
+          />
+          <Stack.Screen
+            name="SearchDropDown"
+            component={SearchDropDown}
+            options={{ title: "יצירת חשבון", headerShown: false }}
+          /> */}
           <Stack.Screen
             name="SearchList"
             component={SearchList}

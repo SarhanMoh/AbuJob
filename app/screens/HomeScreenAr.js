@@ -29,46 +29,30 @@ const SPACING = 8,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 let messageHasShown = false;
+
+//-------------------Home Function----------------------------
 export default function HomeScreenAr({ route, navigation }) {
-  // const [category , setCategory] = useState('')
-  // let emptyList = []
-  // async function getList(){
-  //   const ref = dataBase
-  //   .collection(this.state.category);
-  //   const snapshot = await ref.get();
-  //   let tmp = [];
-  //   snapshot.forEach(doc => {
-  //   //console.log(doc.id, '=>', doc.data());
-  //   tmp.push(doc.data());
-
-  //   });
-  //   this.setState({
-  //     emptyList: tmp,
-  //   });
-  //   console.log(this.state.emptyList);
-
-  // }
   const { account } = route.params;
-
-  //console.log("accepted ", account);
-  //console.log(data);
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
   const [searchCategory, setSearchCategory] = React.useState([]);
-
+  const [dataSearch , setDataSearch]=React.useState([]);
   async function getSearchValue(SearchValue) {
-    console.log(SearchValue);
+    console.log(categorySelected);
     messageHasShown = false;
-    const ref = dataBase.collection(SearchValue);
+    const ref = dataBase.collection(categorySelected);
     const snapshot = await ref.get();
-    let tmp = [];
+    let tmp2 = [];
     snapshot.forEach((doc) => {
-      tmp.push(doc.data());
-      console.log(tmp);
-      setSearchQuery(tmp);
+      tmp2.push({id: doc.id, ...doc.data() , category:categorySelected});
+      
     });
+    console.log(tmp2);
+    setDataSearch(tmp2);
+    setSearchQuery(tmp2);
+   
   }
 
   //--------------------------Recently code---------------------------------
@@ -106,9 +90,31 @@ export default function HomeScreenAr({ route, navigation }) {
           <View style={styles.searchBar}>
             <TouchableHighlight
               style={styles.searchIcon}
+//---------------------------Search Function -------------------------------------------- 
+              
               onPress={() => {
-                getSearchValue(SearchValue);
-                console.log(searchQuery);
+                let listJob=[];
+                let listName=[];
+                dataSearch.forEach(element=>{
+                  if ((element.job).includes(SearchValue)){
+                    listJob.push(element);
+                  }
+                  if ((element.name).includes(SearchValue)){
+                    listName.push(element); 
+           }
+                })
+                console.log("search",SearchValue);
+                console.log("data",dataSearch);
+                console.log("lastname",listName);
+                console.log("lastjob",listJob);
+                if(listJob.length !=0){
+                  console.log("sdsd",listJob);
+                 navigation.navigate("SearchListAr",{ListJob:listJob, account:account});
+               }             
+                if(listName.length !=0){                
+                  console.log("sdsd",listName);          
+                navigation.navigate("SearchListAr",{ListJob:listName ,account:account});
+                }
               }}
             >
               <Image
@@ -121,9 +127,9 @@ export default function HomeScreenAr({ route, navigation }) {
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => {
-                let tmp = searchCategory.filter((a) =>
-                  a.name.includes(SearchValue)
-                );
+                // let tmp = searchCategory.filter((a) =>
+                //   a.name.includes(SearchValue)
+                // );
                 setSearchValue(SearchValue);
                 if (messageHasShown === false) {
                   showMessage({
@@ -144,6 +150,7 @@ export default function HomeScreenAr({ route, navigation }) {
                 textAlign: "right",
               }}
             />
+  {/* ---------------------------- Select Category DropList ------------------------- */}
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
@@ -263,7 +270,7 @@ export default function HomeScreenAr({ route, navigation }) {
             padding: SPACING,
           }}
         >
-          انضموا مؤخرًا
+          المنضمين حديثاً
         </Text>
         {RecentlyList.length > 0 ? (
           <FlatList

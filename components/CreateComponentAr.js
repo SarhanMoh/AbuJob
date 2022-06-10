@@ -114,7 +114,9 @@ class CreateComponentAr extends Component {
       rating: 0,
       isLoading: false,
       categoryAll: "",
-      date : new Date().toLocaleString()
+      date : "",
+      labelCategory:"خدمات السيارات"
+
     };
   }
 
@@ -138,10 +140,13 @@ class CreateComponentAr extends Component {
   // }
   addBusiness() {
    //console.log(date);
-   const time = new Date().toLocaleString();
-    console.log(this.state.category);
     const cat = this.state.category;
     console.log("catt",cat);
+    const cateLabel = options[this.state.labelCategory].label;
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    let full_date = date+"/"+month+"/"+year;
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
     let dbAllHe = dataBase.collection("AllHe");
@@ -176,16 +181,16 @@ class CreateComponentAr extends Component {
         phone_number: this.state.phone_number,
         description: this.state.description,
         city: this.state.city,
-        rating: this.state.rating,
-        
+        rate: this.state.rate,
+        date: full_date,
       })
       dbAll.add({
         name: this.state.name,
         job: this.state.job,
         phone_number: this.state.phone_number,
         city: this.state.city,
-        categoryAll: this.state.category,
-        date : time,
+        categoryAll: cateLabel,
+        date: full_date,
       })
         .then((res) => {
           this.setState({
@@ -195,9 +200,11 @@ class CreateComponentAr extends Component {
             languages: "",
             phone_number: "",
             description: "",
-            rating: 0,
-            city : "",
-            date:"",
+            rate: 0,
+            city: "",
+            date: "",
+            labelCategory:"",
+            categoryAll:"",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponentAr");
@@ -225,15 +232,16 @@ class CreateComponentAr extends Component {
         phone_number: this.state.phone_number,
         description: this.state.description,
         city: this.state.city,
-        rating: this.state.rating,
+        rate: this.state.rate,
+        date: full_date,
       })
       dbAllHe.add({
         name: this.state.name,
-        job: this.state.job,
-        phone_number: this.state.phone_number,
-        city: this.state.city,
-        categoryAll: this.state.category,
-        date : time,
+          job: this.state.job,
+          phone_number: this.state.phone_number,
+          city: this.state.city,
+          categoryAll: cateLabel,
+          date: full_date,
       })
         .then((res) => {
           this.setState({
@@ -243,9 +251,11 @@ class CreateComponentAr extends Component {
             languages: "",
             phone_number: "",
             description: "",
-            rating: 0,
-            city : "",
-            date:"",
+            rate: 0,
+            city: "",
+            date: "",
+            labelCategory:"",
+            categoryAll:"",
             isLoading: false,
           });
           this.props.navigation.navigate("CreateComponentAr");

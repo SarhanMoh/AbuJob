@@ -33,21 +33,16 @@ const SPACING = 8,
   cellHeight = 300;
 const FULL_SIZE = cellWidth + SPACING * 2;
 let messageHasShown = false;
-
-export default function HomeScreen({ route, navigation ,onSearchEnter }) {
+//-------------------Home Function----------------------------
+export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
   const { account } = route.params;
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  const[term,setTerm]=useState("");
-  const[posts , setPosts] = useState([]);
-  //console.log("accepted ", account);
-  //console.log(data);
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
   const [searchCategory,setSearchCategory]=React.useState([]);
   const [dataSearch , setDataSearch]=React.useState([]);
+
   async function getSearchValue(categorySelected) {
     console.log(categorySelected);
     messageHasShown = false;
@@ -61,7 +56,7 @@ export default function HomeScreen({ route, navigation ,onSearchEnter }) {
     console.log(tmp2);
     setDataSearch(tmp2);
     setSearchQuery(tmp2);
-    setTerm(tmp2);
+   
   }
   //--------------------------Recently code---------------------------------
   async function getList(sorting = "alphabet") {
@@ -97,7 +92,8 @@ export default function HomeScreen({ route, navigation ,onSearchEnter }) {
         <View style={styles.Topper}>
           <View style={styles.searchBar}>
             <TouchableHighlight
-              style={styles.searchIcon}          
+              style={styles.searchIcon}   
+//---------------------------Search Function -------------------------------------------- 
               onPress={() => {
                 let listJob=[];
                 let listName=[];
@@ -145,6 +141,7 @@ export default function HomeScreen({ route, navigation ,onSearchEnter }) {
                   });
                   messageHasShown = true;
                 }
+
               }}
               style={{
                 color: "black",
@@ -154,21 +151,8 @@ export default function HomeScreen({ route, navigation ,onSearchEnter }) {
                 textAlign: "right",
               }}
             />
-         {/* <View style={styles.searchWrapperStyle}> */}
-           {/* <TextInput
-           placeholder="Search"
-           placeholderTextColor={"white"}
-           style = {styles.searchInputStyle}
-           value={term}
-           onChangeText={(newText)=>{
-            setTerm(newText);
-           }}
-           onEndEditing={()=>{
-             onSearchEnter(term);
-           }}
-           /> */}
-         
-            <SelectDropdown
+  {/* ---------------------------- Select Category DropList ------------------------- */}
+        <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
                 getSearchValue(searchCategory);
