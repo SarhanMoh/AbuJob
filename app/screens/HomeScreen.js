@@ -29,29 +29,30 @@ const SPACING = 8,
 const FULL_SIZE = cellWidth + SPACING * 2;
 let messageHasShown = false;
 //-------------------Home Function----------------------------
-export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
+export default function HomeScreen({
+  route,
+  navigation,
+  props,
+  onSearchEnter,
+}) {
   const { account } = route.params;
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
-  const [searchCategory,setSearchCategory]=React.useState([]);
-  const [dataSearch , setDataSearch]=React.useState([]);
+  const [dataSearch, setDataSearch] = React.useState([]);
 
   async function getSearchValue(categorySelected) {
     console.log(categorySelected);
-    messageHasShown = false;
     const ref = dataBase.collection(categorySelected);
     const snapshot = await ref.get();
     let tmp2 = [];
     snapshot.forEach((doc) => {
-      tmp2.push({id: doc.id, ...doc.data() , category:categorySelected});
-      
+      tmp2.push({ id: doc.id, ...doc.data(), category: categorySelected });
     });
-    console.log(tmp2);
+    //console.log(tmp2);
     setDataSearch(tmp2);
     setSearchQuery(tmp2);
-   
   }
   //--------------------------Recently code---------------------------------
   async function getList(sorting = "alphabet") {
@@ -61,19 +62,17 @@ export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
     let tmp = [];
     let counter = 0;
     snapshot.forEach((doc) => {
-      //console.log(doc.id, '=>', doc.data());
       if (counter < 13) {
         tmp.push(doc.data());
         counter++;
       }
     });
     setRecentlyList(tmp);
-    //console.log(tmp);
   }
   useEffect(() => {
     getList();
   }, []);
- 
+
   //------------------------------------------------------------------------
   return (
     <SafeAreaView style={styles.container}>
@@ -87,30 +86,52 @@ export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
         <View style={styles.Topper}>
           <View style={styles.searchBar}>
             <TouchableHighlight
-              style={styles.searchIcon}   
-//---------------------------Search Function -------------------------------------------- 
+              style={styles.searchIcon}
+              //---------------------------Search Function --------------------------------------------
               onPress={() => {
-                let listJob=[];
-                let listName=[];
-                dataSearch.forEach(element=>{
-                  if ((element.job).includes(SearchValue)){
-                    listJob.push(element);
+                if (dataSearch.length && SearchValue.length) {
+                  let listJob = [];
+                  let listName = [];
+                  let listCity = [];
+                  let listAll = [];
+                  dataSearch.forEach((element) => {
+                    if (element.job.includes(SearchValue)) {
+                      listJob.push(element);
+                    }
+                    if (element.name.includes(SearchValue)) {
+                      listName.push(element);
+                    }
+                    if (element.city.includes(SearchValue)) {
+                      listCity.push(element);
+                    }
+                  });
+                  console.log("search", SearchValue);
+                  console.log("data", dataSearch);
+                  console.log("lastname", listName);
+                  console.log("lastjob", listJob);
+                  if (listJob.length != 0) {
+                    listAll.push(...listJob);
                   }
-                  if ((element.name).includes(SearchValue)){
-                    listName.push(element); 
-           }
-                })
-                console.log("search",SearchValue);
-                console.log("data",dataSearch);
-                console.log("lastname",listName);
-                console.log("lastjob",listJob);
-                if(listJob.length !=0){
-                  console.log("sdsd",listJob);
-                 navigation.navigate("SearchList",{ListJob:listJob, account:account});
-               }             
-                if(listName.length !=0){                
-                  console.log("sdsd",listName);          
-                navigation.navigate("SearchList",{ListJob:listName ,account:account});
+                  if (listName.length != 0) {
+                    listAll.push(...listName);
+                  }
+                  if (listCity.length != 0) {
+                    listAll.push(...listCity);
+                  }
+                  if (listAll.length != 0) {
+                    navigation.navigate("SearchList", {
+                      ListJob: listAll,
+                      account: account,
+                    });
+                  }
+                } else if (dataSearch.length == 0) {
+                  showMessage({
+                    position: "center",
+                    duration: 3000,
+                    message: "בבקשה לבחר קטגוריה לפני לחפש!",
+                    type: "defualt",
+                    titleStyle: { fontWeight: "800", fontSize: 20 },
+                  });
                 }
               }}
             >
@@ -124,19 +145,17 @@ export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => {
-              // let tmp = searchCategory.filter((a)=>a.name.includes(SearchValue));
                 setSearchValue(SearchValue);
                 if (messageHasShown === false) {
                   showMessage({
                     position: "center",
-                    duration: 3000,
+                    duration: 5000,
                     message: "בבקשה לבחר קטגוריה לפני לחפש!",
                     type: "defualt",
                     titleStyle: { fontWeight: "800", fontSize: 20 },
                   });
                   messageHasShown = true;
                 }
-
               }}
               style={{
                 color: "black",
@@ -146,14 +165,13 @@ export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
                 textAlign: "right",
               }}
             />
-  {/* ---------------------------- Select Category DropList ------------------------- */}
-        <SelectDropdown
+            {/* ---------------------------- Select Category DropList ------------------------- */}
+            <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
-                getSearchValue(searchCategory);
-                setSearchCategory(selectedItem.value);
+                getSearchValue(selectedItem.value);
               }}
-              defaultValueByIndex={0}
+              defaultButtonText={"לבחר"}
               buttonTextStyle={{ color: "white" }}
               buttonStyle={{
                 backgroundColor: "rgba(64, 64, 64, 1)",
@@ -192,7 +210,7 @@ export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
             />
           </View>
         </View>
-        
+
         <View style={{ height: 7 }}></View>
         <FlatList
           data={options}
@@ -345,18 +363,18 @@ const styles = StyleSheet.create({
     right: SPACING * 2,
     position: "absolute",
   },
-  searchWrapperStyle:{
-    backgroundColor:"#16A085",
-    flexDirection:"row",
-    justifyContent:"space-between",
+  searchWrapperStyle: {
+    backgroundColor: "#16A085",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  searchInputStyle:{
-    flex:1,
-    fontSize:16,
-    paddingHorizontal:8,
-    paddingVertical:0,
-    margin:0,
-    color:"white",
+  searchInputStyle: {
+    flex: 1,
+    fontSize: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 0,
+    margin: 0,
+    color: "white",
   },
   cataIcon: {
     width: cellWidth * 0.65,

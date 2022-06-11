@@ -27,9 +27,9 @@ const SPACING = 8,
 
 export default function SearchListAr({ route, navigation }) {
   const iconPic = require("../assets/searchIcon.png");
-  const { ListJob:listData, account:account,} = route.params;
+  const { ListJob: listData, account: account } = route.params;
   console.log("accepted2", account);
-  console.log("list",listData);
+  console.log("list", listData);
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -86,7 +86,7 @@ export default function SearchListAr({ route, navigation }) {
               }}
               dropdownIconPosition={"left"}
             />
-            <View></View>
+            <View width={"40%"}></View>
             <Text
               style={{
                 fontSize: 19,
@@ -122,8 +122,8 @@ export default function SearchListAr({ route, navigation }) {
                     const id = item;
                     const id_pure = item.id_id;
                     const date = item.date;
-                    console.log('keykey',id);
-                    console.log("dsd",id_pure);
+                    console.log("keykey", id);
+                    console.log("dsd", id_pure);
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -134,7 +134,7 @@ export default function SearchListAr({ route, navigation }) {
                       rate,
                       job,
                       account,
-                    //   ,key
+                      //   ,key
                       id,
                       id_pure,
                       date,
@@ -204,41 +204,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   Topper: {
-    height: 45,
+    height: 30,
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  searchBar: {
-    width: "80%",
-    height: 40,
-    flexDirection: "row",
-    backgroundColor: "#81daf5",
-    borderRadius: 30,
-  },
-
-  searchIcon: {
-    width: 50,
-    height: 50,
-    backgroundColor: "white",
-    borderWidth: 2,
-    borderColor: "#81daf5",
-    borderRadius: 50,
-    alignSelf: "flex-start",
-    marginTop: -5,
-  },
-  searchImg: {
-    width: 47,
-    height: 47,
-    borderRadius: 50,
-    backgroundColor: "white",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
   },
   optButt: {
     width: 35,
     height: 35,
     borderRadius: 30,
+    right: "50%",
     justifyContent: "center",
     alignItems: "center",
   },

@@ -76,19 +76,18 @@ export default function BusinessPageAr({ route, navigation }) {
   //-------------------------CommentList----------------------------------
   async function getList() {
     const ref = dataBase.collection(key).doc(id_pure).collection("rating");
-    //const ref2 = ref.doc(id);
-    //
     const snapshot = await ref.get();
     let tmp = [];
     let tmpArr = [];
-    snapshot.forEach((doc) => {
-      //console.log(doc.id, '=>', doc.data());
-      tmpArr = doc.data();
-      if (tmpArr.comment != "" && tmpArr.comment != undefined) {
-        tmp.push(tmpArr.comment);
-      }
-    });
-    setCommentsList(tmp);
+    if (Array.isArray(snapshot) && snapshot.length) {
+      snapshot.forEach((doc) => {
+        tmpArr = doc.data();
+        if (tmpArr.comment != "" && tmpArr.comment != undefined) {
+          tmp.push(tmpArr.comment);
+        }
+      });
+      setCommentsList(tmp);
+    }
   }
   useEffect(() => {
     getList();
@@ -113,8 +112,7 @@ export default function BusinessPageAr({ route, navigation }) {
               onPress={() => navigation.goBack()}
             />
           </View>
-          <View width={"25%"}></View>
-          <View width={"25%"}></View>
+          <View width={"40%"}></View>
         </View>
       </View>
       <View style={{ justifyContent: "flex-start" }}>
@@ -333,9 +331,7 @@ export default function BusinessPageAr({ route, navigation }) {
             <Text style={{ fontWeight: "600", fontSize: 16 }}>
               تاريخ الانضمام :
             </Text>
-            <Text style={{ fontWeight: "500", fontSize: 16 }}>
-              {date}
-            </Text>
+            <Text style={{ fontWeight: "500", fontSize: 16 }}>{date}</Text>
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate("ReportsAr")}

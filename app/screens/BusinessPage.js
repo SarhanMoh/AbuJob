@@ -76,13 +76,16 @@ export default function BusinessPage({ route, navigation }) {
     const ref = dataBase.collection(key).doc(id_pure).collection("rating");
     const snapshot = await ref.get();
     let tmp = [];
-    snapshot.forEach((doc) => {
-      tmpArr = doc.data();
-      if (tmpArr.comment != "" && tmpArr.comment != undefined) {
-        tmp.push(tmpArr.comment);
-      }
-    });
-    setCommentsList(tmp);
+    let tmpArr = [];
+    if (Array.isArray(snapshot) && snapshot.length) {
+      snapshot.forEach((doc) => {
+        tmpArr = doc.data();
+        if (tmpArr.comment != "" && tmpArr.comment != undefined) {
+          tmp.push(tmpArr.comment);
+        }
+      });
+      setCommentsList(tmp);
+    }
   }
   useEffect(() => {
     getList();
@@ -107,8 +110,7 @@ export default function BusinessPage({ route, navigation }) {
               onPress={() => navigation.goBack()}
             />
           </View>
-          <View width={"25%"}></View>
-          <View width={"25%"}></View>
+          <View width={"40%"}></View>
         </View>
       </View>
       <View style={{ justifyContent: "flex-start" }}>
@@ -332,9 +334,7 @@ export default function BusinessPage({ route, navigation }) {
             <Text style={{ fontWeight: "600", fontSize: 16 }}>
               תאריך הצטרפות :
             </Text>
-            <Text style={{ fontWeight: "500", fontSize: 16 }}>
-              {date}
-            </Text>
+            <Text style={{ fontWeight: "500", fontSize: 16 }}>{date}</Text>
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate("Reports")}
