@@ -29,17 +29,6 @@ const options = [
 
     value: "Cars",
   },
-
-  {
-    label: "כולם בעברית",
-
-    value: "AllHe",
-  },
-  {
-    label: "الجميع بالعربي",
-
-    value: "All",
-  },
   {
     label: "קייטרינג",
 

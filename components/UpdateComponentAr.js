@@ -109,17 +109,6 @@ const options = [
 
     value: "Cars",
   },
-
-  {
-    label: "כולם בעברית",
-
-    value: "AllHe",
-  },
-  {
-    label: "الجميع بالعربي",
-
-    value: "All",
-  },
   {
     label: "קייטרינג",
 
@@ -225,6 +214,7 @@ class UpdateComponentAr extends Component {
     });
     console.log(this.state.emptyList);
   }
+  
   async deleteItem(item) {
     var docRef = dataBase.collection(this.state.category).doc(item.id);
 
@@ -301,6 +291,7 @@ class UpdateComponentAr extends Component {
             data={this.state.emptyList}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{}}
+            
             renderItem={({ item, index }) => {
               return (
                 <View key={index} style={styles.list}>
