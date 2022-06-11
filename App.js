@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  SafeAreaView,
+} from "react-native";
 import AdminHomePage from "./app/screens/AdminHomePage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -57,7 +64,8 @@ import SearchListAr from "./app/screens/SearchListAr";
 // import Testing from "./app/screens/Testing";
 //
 export default function App() {
-  return (
+  let bolly = true;
+  return bolly ? (
     <NavigationContainer>
       {/* <Stack.Navigator> */}
 
@@ -85,7 +93,7 @@ export default function App() {
             component={SearchListAr}
             options={{ title: "بحث عن اعمال", headerShown: false }}
           />
-         
+
           {/* <Stack.Screen
             name="Testing"
             component={Testing}
@@ -316,6 +324,11 @@ export default function App() {
       </AuthContext>
       <FlashMessage position="top" />
     </NavigationContainer>
+  ) : (
+    <SafeAreaView style={styles.container}>
+      <Text>No Internet Connection</Text>
+      <Button title="Try Again!" />
+    </SafeAreaView>
   );
 }
 

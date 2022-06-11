@@ -37,23 +37,19 @@ export default function HomeScreenAr({ route, navigation }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [RecentlyList, setRecentlyList] = React.useState([]);
-  const [searchCategory, setSearchCategory] = React.useState([]);
-  const [dataSearch , setDataSearch]=React.useState([]);
+  const [dataSearch, setDataSearch] = React.useState([]);
 
   async function getSearchValue(categorySelected) {
     console.log(categorySelected);
-    messageHasShown = false;
     const ref = dataBase.collection(categorySelected);
     const snapshot = await ref.get();
     let tmp2 = [];
     snapshot.forEach((doc) => {
-      tmp2.push({id: doc.id, ...doc.data() , category:categorySelected});
-      
+      tmp2.push({ id: doc.id, ...doc.data(), category: categorySelected });
     });
-    console.log(tmp2);
+    //console.log(tmp2);
     setDataSearch(tmp2);
     setSearchQuery(tmp2);
-   
   }
 
   //--------------------------Recently code---------------------------------
@@ -64,14 +60,12 @@ export default function HomeScreenAr({ route, navigation }) {
     let tmp = [];
     let counter = 0;
     snapshot.forEach((doc) => {
-      //console.log(doc.id, '=>', doc.data());
       if (counter < 13) {
         tmp.push(doc.data());
         counter++;
       }
     });
     setRecentlyList(tmp);
-    //console.log(tmp);
   }
   useEffect(() => {
     getList();
@@ -91,30 +85,52 @@ export default function HomeScreenAr({ route, navigation }) {
           <View style={styles.searchBar}>
             <TouchableHighlight
               style={styles.searchIcon}
-//---------------------------Search Function -------------------------------------------- 
-              
+              //---------------------------Search Function --------------------------------------------
+
               onPress={() => {
-                let listJob=[];
-                let listName=[];
-                dataSearch.forEach(element=>{
-                  if ((element.job).includes(SearchValue)){
-                    listJob.push(element);
+                if (dataSearch.length && SearchValue.length) {
+                  let listJob = [];
+                  let listName = [];
+                  let listCity = [];
+                  let listAll = [];
+                  dataSearch.forEach((element) => {
+                    if (element.job.includes(SearchValue)) {
+                      listJob.push(element);
+                    }
+                    if (element.name.includes(SearchValue)) {
+                      listName.push(element);
+                    }
+                    if (element.city.includes(SearchValue)) {
+                      listCity.push(element);
+                    }
+                  });
+                  console.log("search", SearchValue);
+                  console.log("data", dataSearch);
+                  console.log("lastname", listName);
+                  console.log("lastjob", listJob);
+                  if (listJob.length != 0) {
+                    listAll.push(...listJob);
                   }
-                  if ((element.name).includes(SearchValue)){
-                    listName.push(element); 
-           }
-                })
-                console.log("search",SearchValue);
-                console.log("data",dataSearch);
-                console.log("lastname",listName);
-                console.log("lastjob",listJob);
-                if(listJob.length !=0){
-                  console.log("sdsd",listJob);
-                 navigation.navigate("SearchListAr",{ListJob:listJob, account:account});
-               }             
-                if(listName.length !=0){                
-                  console.log("sdsd",listName);          
-                navigation.navigate("SearchListAr",{ListJob:listName ,account:account});
+                  if (listName.length != 0) {
+                    listAll.push(...listName);
+                  }
+                  if (listCity.length != 0) {
+                    listAll.push(...listCity);
+                  }
+                  if (listAll.length != 0) {
+                    navigation.navigate("SearchList", {
+                      ListJob: listAll,
+                      account: account,
+                    });
+                  }
+                } else if (dataSearch.length == 0) {
+                  showMessage({
+                    position: "center",
+                    duration: 3000,
+                    message: "בבקשה לבחר קטגוריה לפני לחפש!",
+                    type: "defualt",
+                    titleStyle: { fontWeight: "800", fontSize: 20 },
+                  });
                 }
               }}
             >
@@ -128,14 +144,11 @@ export default function HomeScreenAr({ route, navigation }) {
               placeholderTextColor={"black"}
               value={SearchValue}
               onChangeText={(SearchValue) => {
-                // let tmp = searchCategory.filter((a) =>
-                //   a.name.includes(SearchValue)
-                // );
                 setSearchValue(SearchValue);
                 if (messageHasShown === false) {
                   showMessage({
                     position: "center",
-                    duration: 3000,
+                    duration: 5000,
                     message: "الرجاء تحديد فئة قبل البحث!",
                     type: "defualt",
                     titleStyle: { fontWeight: "800", fontSize: 16 },
@@ -151,14 +164,13 @@ export default function HomeScreenAr({ route, navigation }) {
                 textAlign: "right",
               }}
             />
-  {/* ---------------------------- Select Category DropList ------------------------- */}
+            {/* ---------------------------- Select Category DropList ------------------------- */}
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
-                setSearchCategory(selectedItem.value);
-                getSearchValue(searchCategory);
+                getSearchValue(selectedItem.value);
               }}
-              defaultValueByIndex={0}
+              defaultButtonText={"اختار"}
               buttonTextStyle={{ color: "white" }}
               buttonStyle={{
                 backgroundColor: "rgba(64, 64, 64, 1)",
