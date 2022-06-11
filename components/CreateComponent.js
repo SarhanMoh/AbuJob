@@ -195,6 +195,19 @@ class CreateComponent extends Component {
     state[prop] = val;
     this.setState(state);
   };
+  // validate = (text) => {
+  //   console.log(text);
+  //   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+  //   if (reg.test(text) === false) {
+  //     console.log("Email is Not Correct");
+  //     this.setState({ email: text })
+  //     return false;
+  //   }
+  //   else {
+  //     this.setState({ email: text })
+  //     console.log("Email is Correct");
+  //   }
+  // }
   addBusiness(label) {
     console.log(this.state.category);
     console.log(this.state.labelCategory);

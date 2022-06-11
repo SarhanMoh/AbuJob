@@ -54,6 +54,7 @@ export default function BusinessPageAr({ route, navigation }) {
     account,
     id,
     id_pure,
+    date,
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
@@ -333,7 +334,7 @@ export default function BusinessPageAr({ route, navigation }) {
               تاريخ الانضمام :
             </Text>
             <Text style={{ fontWeight: "500", fontSize: 16 }}>
-              {" Date Here"}
+              {date}
             </Text>
           </View>
           <TouchableOpacity

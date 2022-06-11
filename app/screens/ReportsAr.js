@@ -20,21 +20,21 @@ import { dataBase } from "../../firebase";
 import { AntDesign } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 //import ReportsAr from "../../../../ArPages/Screens/ReportsAr";
-
+const account = "undefined";
 const options = [
   {
-    label: "تقرير عام",
+    label: "شكوى عامة",
 
     value: "Report",
   },
   {
-    label: "تقرير تقني",
+    label: "شكوى تقنية",
 
     value: "technicalReport",
   },
 
   {
-    label: "تقرير قاعدة البيانات",
+    label: "شكوى عن مقدم عمل ",
 
     value: "businessReport",
   },
@@ -91,7 +91,7 @@ class ReportsAr extends Component {
             report: "",
             isLoading: false,
           });
-          this.props.navigation.navigate("HomeScreenAr");
+          this.props.navigation.navigate("HomeAr" , {account});
         })
         .catch((err) => {
           console.error("Error Occured: ", err);
@@ -142,9 +142,9 @@ class ReportsAr extends Component {
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={styles.textInfo}>تم الإبلاغ عن الاسم</Text>
+              <Text style={styles.textInfo}>اسم مقدم الشكوى</Text>
               <TextInput
-                placeholder="تم الإبلاغ عن الاسم<"
+                placeholder="اسم مقدم الشكوى"
                 placeholderTextColor="#899499"
                 value={this.state.name}
                 textAlign="right"
@@ -173,9 +173,9 @@ class ReportsAr extends Component {
                 onChangeText={(val) => this.onValUpdate(val, "phone_number")}
                 style={styles.input}
               />
-              <Text style={styles.textInfo}>وصف التقرير</Text>
+              <Text style={styles.textInfo}>وصف الشكوى</Text>
               <TextInput
-                placeholder="وصف التقرير"
+                placeholder="وصف الشكوى"
                 placeholderTextColor="#899499"
                 multiline={true}
                 maxLength={200}
@@ -187,7 +187,7 @@ class ReportsAr extends Component {
               />
             </View>
           </KeyboardAvoidingView>
-          <Text style={styles.textInfo2}>نوع التقرير</Text>
+          <Text style={styles.textInfo2}>نوع الشكوى</Text>
           <Picker
             selectedValue={this.state.category}
             style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
@@ -267,6 +267,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     fontSize: 20,
     fontWeight: "bold",
+    marginBottom:"-20%",
+    textDecorationLine:1,
 
     // flexDirection:'column-reverse'
   },
@@ -300,7 +302,7 @@ const styles = StyleSheet.create({
     //width:'60%',
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 20,
   },
   button: {
@@ -313,7 +315,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 18,
   },
   buttonOutLine: {
     backgroundColor: "white",

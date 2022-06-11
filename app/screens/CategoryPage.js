@@ -177,6 +177,7 @@ export default function CategoryPage({ route, navigation }) {
                     const job = item.job;
                     const id = item;
                     const id_pure = item.id_id;
+                    const date = item.date;
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -190,6 +191,7 @@ export default function CategoryPage({ route, navigation }) {
                       key,
                       id,
                       id_pure,
+                      date,
                     });
                   }}
                   style={{

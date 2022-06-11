@@ -92,7 +92,7 @@ class ReportsRead extends Component {
  <Text
             style={{
               alignSelf: "center",
-              marginBottom: "-15%",
+              marginBottom: "-20%",
               paddingTop: "5%",
               fontSize: 24,
               fontWeight: "600",
@@ -105,6 +105,14 @@ class ReportsRead extends Component {
           </Text>
           <Picker
             selectedValue={this.state.category}
+            style={{
+              width: 300,
+              height: 150,
+              alignContent: "center",
+              alignSelf: "center",
+              marginTop: "20%",
+            }}
+            itemStyle={{ height: 150 }}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -193,31 +201,31 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.7, textAlign: "right" }}
                     >
-                      כתובת:
+                      מייל:
                     </Text>
-                    <Text style={{ fontSize: 18, opacity: 0.7 }}>
+                    <Text style={{ fontSize: 14, opacity: 0.7 ,alignSelf:"center" , justifyContent:"center" , alignContent:"center" , alignItems:"center"}}>
                       {" "}
-                      {item.address}{" "}
+                      {item.email}{" "}
                     </Text>
                   </View>
                   <View style={styles.info}>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      שפות:
+                      טלפון:
                     </Text>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
                       {" "}
-                      {item.languages}
+                      {item.phone_number}
                     </Text>
                   </View>
                   <View style={styles.info}>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      מספר טלפון:
+                       תיאור הדוח:
                     </Text>
                     <Text
                       style={{
@@ -228,7 +236,7 @@ class ReportsRead extends Component {
                       }}
                     >
                       {" "}
-                      {item.phone_number}
+                      {item.report}
                     </Text>
                   </View>
                 </View>

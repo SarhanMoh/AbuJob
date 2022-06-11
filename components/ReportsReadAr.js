@@ -93,7 +93,7 @@ class ReportsReadAr extends Component {
  <Text
             style={{
               alignSelf: "center",
-              marginBottom: "-15%",
+              marginBottom: "-20%",
               paddingTop: "5%",
               fontSize: 24,
               fontWeight: "600",
@@ -106,6 +106,14 @@ class ReportsReadAr extends Component {
           </Text>
           <Picker
             selectedValue={this.state.category}
+            style={{
+              width: 300,
+              height: 150,
+              alignContent: "center",
+              alignSelf: "center",
+              marginTop: "20%",
+            }}
+            itemStyle={{ height: 150 }}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -194,31 +202,31 @@ class ReportsReadAr extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.7, textAlign: "right" }}
                     >
-                      العنوان:
+                      البريد الالكتروني:
                     </Text>
-                    <Text style={{ fontSize: 18, opacity: 0.7 }}>
+                    <Text style={{ fontSize: 14, opacity: 0.7 ,alignSelf:"center" , justifyContent:"center" , alignContent:"center" , alignItems:"center" }}>
                       {" "}
-                      {item.address}{" "}
+                      {item.email}{" "}
                     </Text>
                   </View>
                   <View style={styles.info}>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      اللغات:
+                      رقم الهاتف : 
                     </Text>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
                       {" "}
-                      {item.languages}
+                      {item.phone_number}
                     </Text>
                   </View>
                   <View style={styles.info}>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      رقم الهاتف:
+                      وصف الشكوى : 
                     </Text>
                     <Text
                       style={{
@@ -229,7 +237,7 @@ class ReportsReadAr extends Component {
                       }}
                     >
                       {" "}
-                      {item.phone_number}
+                      {item.report}
                     </Text>
                   </View>
                 </View>

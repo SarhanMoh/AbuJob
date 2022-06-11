@@ -97,6 +97,76 @@ const options = [
 
     value: "VariousAr",
   },
+  {
+    label: "שירותי רכב",
+
+    value: "Cars",
+  },
+  {
+    label: "קייטרינג",
+
+    value: "Catering",
+  },
+  {
+    label: "שיפוצים",
+
+    value: "Renovations",
+  },
+  {
+    label: "טיפול",
+
+    value: "Treatment",
+  },
+  {
+    label: "אמנות ומלאכת יד",
+
+    value: "Arts",
+  },
+  {
+    label: "קוסמטיקה",
+
+    value: "cosmetics",
+  },
+  {
+    label: "תיקונים ומלאכות",
+
+    value: "Repairs",
+  },
+  {
+    label: "חשמלאות",
+
+    value: "Electricians",
+  },
+  {
+    label: "הוראה",
+
+    value: "Teaching",
+  },
+  {
+    label: "מוסיקה",
+
+    value: "Music",
+  },
+  {
+    label: "שירותי מכלות",
+
+    value: "Grocery",
+  },
+  {
+    label: "טכנאים",
+
+    value: "Technicians",
+  },
+  {
+    label: "כושר ואימון פיזי",
+
+    value: "Fitness",
+  },
+  {
+    label: "שונות",
+
+    value: "Various",
+  },
   
 ];
 class CreateComponentAr extends Component {
@@ -111,7 +181,7 @@ class CreateComponentAr extends Component {
       languages: "",
       phone_number: "",
       description: "",
-      rating: 0,
+      rate: 0,
       isLoading: false,
       categoryAll: "",
       date : "",
@@ -384,7 +454,7 @@ class CreateComponentAr extends Component {
           <TextInput
             placeholder={"التقييم"}
             placeholderTextColor="#899499"
-            value={this.state.rating.toString()}
+            value={this.state.rate.toString()}
             keyboardType="numeric"
             onChangeText={(val) => this.onValUpdate(val, "rating")}
             style={styles.input}
@@ -399,6 +469,8 @@ class CreateComponentAr extends Component {
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
+                labelCategory: itemIndex,
+
               })
             }
           >

@@ -38,9 +38,10 @@ const options = [
     value: "businessReport",
   },
 ];
+const account = "undefined";
 class Reports extends Component {
-  constructor(route) {
-    const { account } = route.params;
+  constructor() {
+    
     super();
     // this.ref = dataBase.collection('glory');
     this.state = {
@@ -267,6 +268,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     fontSize: 20,
     fontWeight: "bold",
+    marginBottom:"-20%",
+    textDecorationLine:1,
 
     // flexDirection:'column-reverse'
   },
@@ -300,7 +303,7 @@ const styles = StyleSheet.create({
     //width:'60%',
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 20,
   },
   button: {
@@ -313,7 +316,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 18,
   },
   buttonOutLine: {
     backgroundColor: "white",

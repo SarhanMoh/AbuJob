@@ -55,15 +55,16 @@ export default function BusinessPage({ route, navigation }) {
     account,
     id,
     id_pure,
+    date,
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
   // console.log("key", id);
   async function checkLogin() {
     if (account === undefined) {
-      Alert.alert("Unable to Rate", "Log in or register to rate", [
-        { text: "Cancel", style: "cancel" },
-        { text: "Log in!", onPress: () => navigation.navigate("FirstPage") },
+      Alert.alert("לא ניתן לדרג", "היכנס או הירשם כדי לדרג", [
+        { text: "בטל", style: "cancel" },
+        { text: "התחברות!", onPress: () => navigation.navigate("FirstPage") },
       ]);
     } else {
       navigation.navigate("RatingPage", { account, key, phone });
@@ -332,7 +333,7 @@ export default function BusinessPage({ route, navigation }) {
               תאריך הצטרפות :
             </Text>
             <Text style={{ fontWeight: "500", fontSize: 16 }}>
-              {" Date Here"}
+              {date}
             </Text>
           </View>
           <TouchableOpacity
