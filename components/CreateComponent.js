@@ -208,7 +208,7 @@ class CreateComponent extends Component {
   //     console.log("Email is Correct");
   //   }
   // }
-  addBusiness(label) {
+  addBusiness() {
     console.log(this.state.category);
     console.log(this.state.labelCategory);
     const cat = this.state.category;

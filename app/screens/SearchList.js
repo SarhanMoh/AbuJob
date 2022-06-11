@@ -123,8 +123,12 @@ export default function SearchList({ route, navigation }) {
                     const id = item;
                     const id_pure = item.id_id;
                     const date = item.date;
-                    console.log("keykey", id);
+                    console.log("keykey2", id);
                     console.log("dsd", id_pure);
+                    console.log("keykey3", job);
+                    console.log("dsd2", phone_number);
+                    console.log("keykey4", date);
+                    console.log("dsd3", address);
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
