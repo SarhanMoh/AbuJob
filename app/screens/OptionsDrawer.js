@@ -31,9 +31,12 @@ const ButtonNav = ({ onPress, label, style }) => {
   );
 };
 const logout = async () => {
-  await signOut(auth);
-  setCurrentUser(null);
-  setdataUser([]);
+
+  await auth.signOut();
+  return ()=> {
+    auth.signOut(auth);
+  }
+
 };
 const CustomDrawer = ({ onPress, navigation }) => {
  
@@ -60,26 +63,28 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={route}
                   onPress={() => {
                     if (index === 0) {
-                      Alert.alert("Visit our Page", "", [
-                        { text: "Cancel", style: "cancel" },
+                     
+                    } else if (index === 1) {
+                      navigation.navigate("BusinessReg");
+                    } else if (index === 2) {
+                      navigation.navigate("SignIn");
+                    } else if (index === 3) {
+                      logout();
+                      console.log("logout", auth);
+                      navigation.navigate("Login");
+                    } else if (index === 4) {
+                      navigation.navigate("Reports" , {account});
+                    } else if (index === 5) {
+                      Alert.alert("כנס לדף הפיסבוק שלנו ! ", "", [
+                        { text: "בטל", style: "cancel" },
                         {
-                          text: "Open!",
+                          text: "להיכנס!",
                           onPress: () =>
                             Linking.openURL(
                               "https://www.facebook.com/goodneighborsabutor/"
                             ),
                         },
                       ]);
-                    } else if (index === 1) {
-                      navigation.navigate("BusinessReg");
-                    } else if (index === 2) {
-                      navigation.navigate("SignIn");
-                    } else if (index === 3) {
-                      auth.signOut();
-                      navigation.navigate("Login");
-                    } else if (index === 4) {
-                      navigation.navigate("Reports" , {account});
-                    } else if (index === 5) {
                     }
                   }}
                   style={[styles.button, { color: colors[index] }]}
@@ -95,8 +100,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={link}
                   onPress={() => {
                     if (index === 0) {
-                      auth.signOut();
-                      console.log("logout", auth);
+                     logout();
                       navigation.navigate("FirstPage");
                     }
                   }}

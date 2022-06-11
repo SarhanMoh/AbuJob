@@ -35,8 +35,10 @@ const LoginScreen = ({ navigation }) => {
         navigation.navigate("AdminHomePageAr");
       }
     });
-    return unsubscribe;
-  });
+    return ()=> {
+      unsubscribe;
+    }
+  },[]);
   async function getList(emailCheck) {
     let found =false;
     console.log("checklmail",emailCheck);

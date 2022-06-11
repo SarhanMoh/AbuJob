@@ -22,20 +22,18 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [emptyList, setEmptyList] = React.useState([]);
   const [check , setCheck] = useState("");
-  //setCheck("false");
-  // const { key } = route.params;
-  // console.log(key)
 
-  //const navigation = useNavigation()
   useEffect(() => {
     setCheck("false");
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         navigation.navigate("AdminHomePage");
       }
-    });
-    return unsubscribe;
-  });
+    })
+    return ()=> {
+      unsubscribe;
+    }
+  },[]);
   async function getList(emailCheck) {
     let found =false;
     console.log("checklmail",emailCheck);
@@ -63,7 +61,7 @@ const LoginScreen = ({ navigation }) => {
         if(found=== false){
           Alert.alert("שגוי", "כניסה מאושרת רק לאדמין", [{ text: "בסדר" }]);
         }
-
+        return emptyList;
   }
 
   const handleLogin = () => {
@@ -75,6 +73,7 @@ const LoginScreen = ({ navigation }) => {
         console.log("Logged In", user.email);
         setPassword("")
         setEmail("")
+       // navigation.navigate("AdminHomePage");
         //addUser(user);
       })
       .catch((error) => {
@@ -141,13 +140,13 @@ const LoginScreen = ({ navigation }) => {
                 <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
                 <View style={styles.buttonsCont}>
                 <TouchableOpacity style={styles.buttonLan}
-                onPress={()=> {navigation.navigate("LoginAr"), setModalOpen(false),auth.signOut();}}>
+                onPress={()=> {navigation.navigate("LoginAr"), setModalOpen(false)}}>
                 <Text style={styles.textlan}>اللغة العربية</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.buttonLan2}
                  onPress={()=> {navigation.navigate("Login")
-                 ,setModalOpen(false) ,auth.signOut();}}>
+                 ,setModalOpen(false)}}>
                 <Text style={styles.textlan}>שפה עברית</Text>
                 </TouchableOpacity>
                 </View>

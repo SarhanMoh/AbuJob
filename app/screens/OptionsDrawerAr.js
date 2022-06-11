@@ -31,9 +31,12 @@ const ButtonNav = ({ onPress, label, style }) => {
   );
 };
 const logout = async () => {
-  await signOut(auth);
-  setCurrentUser(null);
-  setdataUser([]);
+
+  await auth.signOut();
+  return ()=> {
+    auth.signOut(auth);
+  }
+
 };
 const CustomDrawer = ({ onPress, navigation }) => {
   return (
@@ -59,26 +62,28 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={route}
                   onPress={() => {
                     if (index === 0) {
+                     
+                    } else if (index === 1) {
+                      navigation.navigate("BusinessRegAr");
+                    } else if (index === 2) {
+                      navigation.navigate("SignInAr");
+                    } else if (index === 3) {
+                      logout();
+                      auth.signOut();
+                      navigation.navigate("LoginAr");
+                    } else if (index === 4) {
+                      navigation.navigate("ReportsAr");
+                    } else if (index === 5) {
                       Alert.alert("قم بزيارة صفحتنا", "", [
-                        { text: "إلغاء", style: "إلغاء" },
+                        { text: "إلغاء", style: "cancel" },
                         {
-                          text: "فتح!",
+                          text: "إفتح!",
                           onPress: () =>
                             Linking.openURL(
                               "https://www.facebook.com/goodneighborsabutor/"
                             ),
                         },
                       ]);
-                    } else if (index === 1) {
-                      navigation.navigate("BusinessRegAr");
-                    } else if (index === 2) {
-                      navigation.navigate("SignInAr");
-                    } else if (index === 3) {
-                      auth.signOut();
-                      navigation.navigate("LoginAr");
-                    } else if (index === 4) {
-                      navigation.navigate("ReportsAr");
-                    } else if (index === 5) {
                     }
                   }}
                   style={[styles.button, { color: colors[index] }]}
@@ -95,6 +100,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   onPress={() => {
                     if (index === 0) {
                       auth.signOut();
+                      logout();
                       console.log("logout", auth);
                       navigation.navigate("FirstPageAr");
                     }

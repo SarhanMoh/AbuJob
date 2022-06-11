@@ -118,16 +118,26 @@ export default function HomeScreenAr({ route, navigation }) {
                     listAll.push(...listCity);
                   }
                   if (listAll.length != 0) {
-                    navigation.navigate("SearchList", {
+                    navigation.navigate("SearchListAr", {
                       ListJob: listAll,
                       account: account,
                     });
+                  }
+                  else{
+                    showMessage({
+                      position: "center",
+                      duration: 3000,
+                      message: "لا يوجد نتيجة !",
+                      type: "defualt",
+                      titleStyle: { fontWeight: "800", fontSize: 20 },
+                    });
+
                   }
                 } else if (dataSearch.length == 0) {
                   showMessage({
                     position: "center",
                     duration: 3000,
-                    message: "בבקשה לבחר קטגוריה לפני לחפש!",
+                    message: "الرجاء تحديد فئة قبل البحث!",
                     type: "defualt",
                     titleStyle: { fontWeight: "800", fontSize: 20 },
                   });

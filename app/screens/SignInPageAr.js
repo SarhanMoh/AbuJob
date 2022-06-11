@@ -41,8 +41,10 @@ import {
           navigation.navigate("HomeAr" , {account});
         }
       });
-      return unsubscribe;
-    });
+      return ()=> {
+        unsubscribe;
+      }
+    },[]);
     async function getList(emailCheck) {
       let found =false;
       console.log("checklmail",emailCheck);
@@ -70,9 +72,8 @@ import {
           if(found=== false){
             Alert.alert("غير صحيح", "الحساب غير موجود", [{ text: "صحيح" }]);
           }
-          // setEmptyList(tmp);
-          // console.log("list",emptyList);
-      // return emptyList;
+         
+      return emptyList;
     }
   
     const handleSignIn = () => {
@@ -112,45 +113,6 @@ import {
           }
         });
     };
-    //  async function addUser(user) {
-    //     let db = dataBase.collection("Users");
-    //       db.add({
-    //         email: user.email,
-    //         uid:user.uid,
-    //         First_name: this.state.name,
-    //         Last_Name: this.state.name,
-    //         address: this.state.address,
-    //         languages: this.state.languages,
-    //         phone_number: this.state.phone_number,
-    //       }).then((res) => {
-    //         this.setState({
-    //           name: '',
-    //           address: '',
-    //           languages:'',
-    //           phone_number:'',
-    //           isLoading: false,
-    //         });
-    //         this.props.navigation.navigate('SignInPageAr')
-    //       })
-    //       .catch((err) => {
-    //         console.error("Error occured: ", err);
-    //         this.setState({
-    //           isLoading: false,
-    //         });
-    //       });
-  
-    //   }
-    //   const handleLogin = ()=>{
-    //     auth
-    //       .signInWithEmailAndPassword(email , password)
-    //       .then(userCredentials => {
-    //         const user = userCredentials.user;
-    //         console.log('Logged in with:', user.email);
-    //         console.log(dataBase.collection('Admins').doc('first').get());
-    //     })
-    //       .catch(error =>alert(error.message))
-    //   }
-  
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <ImageBackground

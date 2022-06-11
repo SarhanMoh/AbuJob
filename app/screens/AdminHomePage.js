@@ -14,7 +14,14 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
+const logout = async () => {
 
+  await auth.signOut();
+  return ()=> {
+    auth.signOut(auth);
+  }
+
+};
 function AdminHomePage(props) {
   const { onPress, title = "Save" } = props;
   const navigation = useNavigation();
@@ -39,8 +46,7 @@ function AdminHomePage(props) {
           <TouchableOpacity
             style={styles.button3}
             onPress={() => {
-              auth.signOut();
-              // logout
+               logout();
               console.log("logout", auth);
               navigation.navigate("FirstPage");
             }}

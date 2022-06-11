@@ -28,7 +28,8 @@ const SignInPage = ({ navigation }) => {
    const [dataUser, setdataUser] = useState([]);
  
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    console.log("check 4");
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         // const q = user
         // ? query(collection(dataBase, "Users"), where("uid", "==", user?.uid))
@@ -40,12 +41,15 @@ const SignInPage = ({ navigation }) => {
         //const data = dataUser;
         navigation.navigate("Home" , {account});
       }
-    });
-    return unsubscribe;
-  });
+    })
+    return ()=> {
+      unsubscribe;
+    }
+  },[]);
   async function getList(emailCheck) {
+    console.log("check 3");
     let found =false;
-    console.log("checklmail",emailCheck);
+    //console.log("checklmail",emailCheck);
     //console.log("entered");
     const ref = dataBase.collection("Users");
     const snapshot = await ref.get();
@@ -53,14 +57,14 @@ const SignInPage = ({ navigation }) => {
     snapshot.forEach((doc) => {
       tmp.push(doc.data().email);
         });
-        console.log(found);
+        //console.log(found);
         setEmptyList(tmp);
-        console.log("emailCheck" , emailCheck);
+        //console.log("emailCheck" , emailCheck);
         tmp.forEach((element)=>{
-          console.log(element);
+          //console.log(element);
           if(emailCheck.localeCompare(element)==0){
             found = true;
-            console.log(found);
+            //console.log(found);
             handleSignIn();
           }
           else {
@@ -72,10 +76,11 @@ const SignInPage = ({ navigation }) => {
         }
         // setEmptyList(tmp);
         // console.log("list",emptyList);
-    // return emptyList;
+     return emptyList;
   }
 
   const handleSignIn = () => {
+    console.log("check 2");
     console.log("empty",emptyList);
     auth
       .signInWithEmailAndPassword(email, password)
@@ -112,45 +117,6 @@ const SignInPage = ({ navigation }) => {
         }
       });
   };
-  //  async function addUser(user) {
-  //     let db = dataBase.collection("Users");
-  //       db.add({
-  //         email: user.email,
-  //         uid:user.uid,
-  //         First_name: this.state.name,
-  //         Last_Name: this.state.name,
-  //         address: this.state.address,
-  //         languages: this.state.languages,
-  //         phone_number: this.state.phone_number,
-  //       }).then((res) => {
-  //         this.setState({
-  //           name: '',
-  //           address: '',
-  //           languages:'',
-  //           phone_number:'',
-  //           isLoading: false,
-  //         });
-  //         this.props.navigation.navigate('SignInPage')
-  //       })
-  //       .catch((err) => {
-  //         console.error("Error occured: ", err);
-  //         this.setState({
-  //           isLoading: false,
-  //         });
-  //       });
-
-  //   }
-  //   const handleLogin = ()=>{
-  //     auth
-  //       .signInWithEmailAndPassword(email , password)
-  //       .then(userCredentials => {
-  //         const user = userCredentials.user;
-  //         console.log('Logged in with:', user.email);
-  //         console.log(dataBase.collection('Admins').doc('first').get());
-  //     })
-  //       .catch(error =>alert(error.message))
-  //   }
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <ImageBackground
@@ -196,13 +162,13 @@ const SignInPage = ({ navigation }) => {
         </TouchableOpacity> */}
         <TouchableOpacity
           style={[styles.button, styles.buttonOutLine]}
-          onPress={()=>getList(email)}
+          onPress={()=>{
+            console.log("check 1");
+            getList(email);
+          }}
         >
           <Text
             style={styles.buttonOutLineText}
-            
-
-           // onPress={() => navigation.navigate("Home")}
           >
             להתחבר
           </Text>

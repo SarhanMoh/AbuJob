@@ -124,6 +124,16 @@ export default function HomeScreen({
                       account: account,
                     });
                   }
+                  else{
+                    showMessage({
+                      position: "center",
+                      duration: 3000,
+                      message: "אין תוצאה!",
+                      type: "defualt",
+                      titleStyle: { fontWeight: "800", fontSize: 20 },
+                    });
+
+                  }
                 } else if (dataSearch.length == 0) {
                   showMessage({
                     position: "center",

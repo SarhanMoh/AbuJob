@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   SafeAreaView,
+  RefreshControl,
 } from "react-native";
 import AdminHomePage from "./app/screens/AdminHomePage";
 import { NavigationContainer } from "@react-navigation/native";
@@ -53,18 +54,15 @@ import CreateComponentAr from "./components/CreateComponentAr";
 import ReadComponentAr from "./components/ReadComponentAr";
 import ReportsReadAr from "./components/ReportsReadAr";
 import RequestsListAr from "./components/RequestsListAr";
-//import SaveAr from "./components/SaveAr";
-//import newsaveAr from  "./components/newsaveAr";
 import RatingPageAr from "./app/screens/RatingPageAr";
 import UpdateComponentAr from "./components/UpdateComponentAr";
 import AllCategoryPageAr from "./app/screens/AllCategoryPageAr";
 import SearchList from "./app/screens/SearchList";
 import SearchListAr from "./app/screens/SearchListAr";
-// import SearchDropDown from "./app/screens/SearchDropDown";
-// import Testing from "./app/screens/Testing";
-//
+import NetInfo from "@react-native-community/netinfo";
+
 export default function App() {
-  let bolly = true;
+  let bolly = NetInfo.useNetInfo().isConnected;
   return bolly ? (
     <NavigationContainer>
       {/* <Stack.Navigator> */}
@@ -94,16 +92,7 @@ export default function App() {
             options={{ title: "بحث عن اعمال", headerShown: false }}
           />
 
-          {/* <Stack.Screen
-            name="Testing"
-            component={Testing}
-            options={{ title: "יצירת חשבון", headerShown: false }}
-          />
-          <Stack.Screen
-            name="SearchDropDown"
-            component={SearchDropDown}
-            options={{ title: "יצירת חשבון", headerShown: false }}
-          /> */}
+  
           <Stack.Screen
             name="SearchList"
             component={SearchList}
@@ -327,7 +316,9 @@ export default function App() {
   ) : (
     <SafeAreaView style={styles.container}>
       <Text>No Internet Connection</Text>
-      <Button title="Try Again!" />
+      <Button title="Try Again!" 
+      onPress={()=> refresh()}
+       />
     </SafeAreaView>
   );
 }
