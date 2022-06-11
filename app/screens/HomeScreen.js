@@ -293,7 +293,7 @@ export default function HomeScreen({ route, navigation ,props,onSearchEnter }) {
                   }}
                 >
                   <Image
-                    source={require("../assets/profileIcon.png")}
+                    source={require("../assets/newnew.png")}
                     style={styles.profileIcon}
                   />
                   <View style={{ flex: 1, right: SPACING, top: SPACING }}>

@@ -186,7 +186,7 @@ class CreateComponent extends Component {
       isLoading: false,
       date:"",
       categoryAll: "",
-      labelCategory:"שירותי רכב"
+      labelCategory: 0,
     };
   }
 
@@ -293,7 +293,7 @@ class CreateComponent extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:"",
+            labelCategory:0,
             categoryAll:"",
             isLoading: false,
           });
@@ -355,7 +355,7 @@ class CreateComponent extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:"",
+            labelCategory:0,
             categoryAll:"",
             isLoading: false,
           });

@@ -39,7 +39,8 @@ export default function HomeScreenAr({ route, navigation }) {
   const [RecentlyList, setRecentlyList] = React.useState([]);
   const [searchCategory, setSearchCategory] = React.useState([]);
   const [dataSearch , setDataSearch]=React.useState([]);
-  async function getSearchValue(SearchValue) {
+
+  async function getSearchValue(categorySelected) {
     console.log(categorySelected);
     messageHasShown = false;
     const ref = dataBase.collection(categorySelected);
@@ -154,7 +155,8 @@ export default function HomeScreenAr({ route, navigation }) {
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
-                searchCategory = selectedItem.value;
+                setSearchCategory(selectedItem.value);
+                getSearchValue(searchCategory);
               }}
               defaultValueByIndex={0}
               buttonTextStyle={{ color: "white" }}
@@ -297,7 +299,7 @@ export default function HomeScreenAr({ route, navigation }) {
                   }}
                 >
                   <Image
-                    source={require("../assets/profileIcon.png")}
+                    source={require("../assets/newnew.png")}
                     style={styles.profileIcon}
                   />
                   <View style={{ flex: 1, right: SPACING, top: SPACING }}>

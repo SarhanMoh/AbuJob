@@ -185,7 +185,7 @@ class CreateComponentAr extends Component {
       isLoading: false,
       categoryAll: "",
       date : "",
-      labelCategory:"خدمات السيارات"
+      labelCategory:0,
 
     };
   }
@@ -273,7 +273,7 @@ class CreateComponentAr extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:"",
+            labelCategory:0,
             categoryAll:"",
             isLoading: false,
           });
@@ -324,7 +324,7 @@ class CreateComponentAr extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:"",
+            labelCategory:0,
             categoryAll:"",
             isLoading: false,
           });
