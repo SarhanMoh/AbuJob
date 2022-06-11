@@ -22,11 +22,6 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
-import { Header,
-  Input,
-  Icon,
-  Item,
-  ListItem,} from 'native-base';
 import { options, recently } from "../../components/newComponents";
 const SPACING = 8,
   cellWidth = 250,

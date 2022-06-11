@@ -121,6 +121,7 @@ export default function SearchList({ route, navigation }) {
                     const job = item.job;
                     const id = item;
                     const id_pure = item.id_id;
+                    const date = item.date;
                     console.log('keykey',id);
                     console.log("dsd",id_pure);
                     navigation.navigate("BusinessPage", {
@@ -136,6 +137,7 @@ export default function SearchList({ route, navigation }) {
                     //   ,key
                       id,
                       id_pure,
+                      date,
                     });
                   }}
                   style={{

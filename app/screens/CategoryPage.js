@@ -32,10 +32,27 @@ export default function CategoryPage({ route, navigation }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   const [SearchValue, setSearchValue] = React.useState("");
   const [emptyList, setEmptyList] = React.useState([]);
+  const [searchCategory,setSearchCategory]=React.useState([]);
+  const [dataSearch , setDataSearch]=React.useState([]);
 
   const { label, key, account, iconPic } = route.params;
   console.log("accepted2", account);
 
+  async function getSearchValue() {
+    console.log(key);
+    messageHasShown = false;
+    const ref = dataBase.collection(key);
+    const snapshot = await ref.get();
+    let tmp2 = [];
+    snapshot.forEach((doc) => {
+      tmp2.push({id: doc.id, ...doc.data() , category:key});
+      
+    });
+    console.log(tmp2);
+    setDataSearch(tmp2);
+    setSearchQuery(tmp2);
+   
+  }
   async function getList(sorting = "alphabet") {
     //console.log("entered");
     const ref = dataBase.collection(key);
@@ -60,7 +77,8 @@ export default function CategoryPage({ route, navigation }) {
   }
   useEffect(() => {
     getList();
-  }, []);
+    getSearchValue();
+  }, [],[]);
   //console.log(emptyList);
   return (
     <SafeAreaView style={styles.container}>
@@ -75,7 +93,30 @@ export default function CategoryPage({ route, navigation }) {
           <View style={styles.searchBar}>
             <TouchableHighlight
               style={styles.searchIcon}
-              onPress={() => console.log("Search for " + SearchValue)}
+              onPress={() => {
+                let listJob=[];
+                let listName=[];
+                dataSearch.forEach(element=>{
+                  if ((element.job).includes(SearchValue)){
+                    listJob.push(element);
+                  }
+                  if ((element.name).includes(SearchValue)){
+                    listName.push(element); 
+           }
+                })
+                console.log("search",SearchValue);
+                console.log("data",dataSearch);
+                console.log("lastname",listName);
+                console.log("lastjob",listJob);
+                if(listJob.length !=0){
+                  console.log("sdsd",listJob);
+                 navigation.navigate("SearchList",{ListJob:listJob, account:account});
+               }             
+                if(listName.length !=0){                
+                  console.log("sdsd",listName);          
+                navigation.navigate("SearchList",{ListJob:listName ,account:account});
+                }
+              }}
             >
               <Image
                 style={styles.searchImg}
