@@ -21,7 +21,6 @@ import {
   ImageBackground,
 } from "react-native";
 import { dataBase } from "../../firebase";
-import { doc } from "../../firebase";
 
 const SPACING = 8,
   cellWidth = 250,
@@ -56,6 +55,7 @@ export default function BusinessPage({ route, navigation }) {
     id,
     id_pure,
     date,
+    comments,
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
@@ -77,13 +77,14 @@ export default function BusinessPage({ route, navigation }) {
     const snapshot = await ref.get();
     let tmp = [];
     let tmpArr = [];
-    if (Array.isArray(snapshot) && snapshot.length) {
-      snapshot.forEach((doc) => {
-        tmpArr = doc.data();
-        if (tmpArr.comment != "" && tmpArr.comment != undefined) {
-          tmp.push(tmpArr.comment);
-        }
-      });
+
+    snapshot.forEach((doc) => {
+      tmpArr = doc.data();
+      if (tmpArr.comment != "" && tmpArr.comment != undefined) {
+        tmp.push(tmpArr.comment);
+      }
+    });
+    if (tmp.length) {
       setCommentsList(tmp);
     }
   }

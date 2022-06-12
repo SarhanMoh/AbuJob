@@ -42,13 +42,18 @@ export default function HomeScreen({
   const [RecentlyList, setRecentlyList] = React.useState([]);
   const [dataSearch, setDataSearch] = React.useState([]);
 
-  async function getSearchValue(categorySelected) {
+  async function getSearchValue(categorySelected, categoryLabel) {
     console.log(categorySelected);
     const ref = dataBase.collection(categorySelected);
     const snapshot = await ref.get();
     let tmp2 = [];
     snapshot.forEach((doc) => {
-      tmp2.push({ id: doc.id, ...doc.data(), category: categorySelected });
+      tmp2.push({
+        id: doc.id,
+        ...doc.data(),
+        key: categorySelected,
+        category: categoryLabel,
+      });
     });
     //console.log(tmp2);
     setDataSearch(tmp2);
@@ -105,10 +110,10 @@ export default function HomeScreen({
                       listCity.push(element);
                     }
                   });
-                  console.log("search", SearchValue);
-                  console.log("data", dataSearch);
-                  console.log("lastname", listName);
-                  console.log("lastjob", listJob);
+                  // console.log("search", SearchValue);
+                  // console.log("data", dataSearch);
+                  // console.log("lastname", listName);
+                  // console.log("lastjob", listJob);
                   if (listJob.length != 0) {
                     listAll.push(...listJob);
                   }
@@ -123,8 +128,7 @@ export default function HomeScreen({
                       ListJob: listAll,
                       account: account,
                     });
-                  }
-                  else{
+                  } else {
                     showMessage({
                       position: "center",
                       duration: 3000,
@@ -132,7 +136,6 @@ export default function HomeScreen({
                       type: "defualt",
                       titleStyle: { fontWeight: "800", fontSize: 20 },
                     });
-
                   }
                 } else if (dataSearch.length == 0) {
                   showMessage({
@@ -179,7 +182,7 @@ export default function HomeScreen({
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
-                getSearchValue(selectedItem.value);
+                getSearchValue(selectedItem.value, selectedItem.label);
               }}
               defaultButtonText={"לבחר"}
               buttonTextStyle={{ color: "white" }}
@@ -305,7 +308,7 @@ export default function HomeScreen({
             }}
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity
+                <View
                   style={{
                     height: 100,
                     flexDirection: "row",
@@ -344,7 +347,7 @@ export default function HomeScreen({
                       <Text style={styles.subName}>עבודה: {item.job}</Text>
                     </View>
                   </View>
-                </TouchableOpacity>
+                </View>
               );
             }}
           />

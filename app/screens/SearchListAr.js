@@ -28,8 +28,30 @@ const SPACING = 8,
 export default function SearchListAr({ route, navigation }) {
   const iconPic = require("../assets/searchIcon.png");
   const { ListJob: listData, account: account } = route.params;
-  console.log("accepted2", account);
-  console.log("list", listData);
+  const [emptyList, setEmptyList] = React.useState([]);
+
+  async function getList(sorting = "alphabet") {
+    //console.log("entered");
+    let tmp = [];
+    listData.forEach((doc) => {
+      tmp.push({ id_id: doc.id, ...doc });
+    });
+    setEmptyList(
+      tmp.sort(function (a, b) {
+        if (sorting === "alphabet") {
+          return a.name.localeCompare(b.name);
+        } else if (sorting === "rating") {
+          return b.rate - a.rate;
+        } else {
+          return b.rate - a.rate;
+        }
+      })
+    );
+  }
+  useEffect(() => {
+    getList();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -49,7 +71,7 @@ export default function SearchListAr({ route, navigation }) {
             />
           </View>
         </View>
-        <View style={{ height: 10 }} />
+        <View style={{}} />
         <View
           style={{
             flex: 1,
@@ -122,8 +144,9 @@ export default function SearchListAr({ route, navigation }) {
                     const id = item;
                     const id_pure = item.id_id;
                     const date = item.date;
-                    console.log("keykey", id);
-                    console.log("dsd", id_pure);
+                    const key = item.key;
+                    //console.log("keykey", id);
+                    //console.log("dsd", id_pure);
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -134,7 +157,7 @@ export default function SearchListAr({ route, navigation }) {
                       rate,
                       job,
                       account,
-                      //   ,key
+                      key,
                       id,
                       id_pure,
                       date,
@@ -200,7 +223,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   Header: {
-    height: "11%",
+    height: "7%",
     justifyContent: "flex-start",
   },
   Topper: {

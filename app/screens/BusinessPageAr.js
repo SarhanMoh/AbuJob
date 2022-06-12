@@ -79,13 +79,14 @@ export default function BusinessPageAr({ route, navigation }) {
     const snapshot = await ref.get();
     let tmp = [];
     let tmpArr = [];
-    if (Array.isArray(snapshot) && snapshot.length) {
-      snapshot.forEach((doc) => {
-        tmpArr = doc.data();
-        if (tmpArr.comment != "" && tmpArr.comment != undefined) {
-          tmp.push(tmpArr.comment);
-        }
-      });
+
+    snapshot.forEach((doc) => {
+      tmpArr = doc.data();
+      if (tmpArr.comment != "" && tmpArr.comment != undefined) {
+        tmp.push(tmpArr.comment);
+      }
+    });
+    if (tmp.length) {
       setCommentsList(tmp);
     }
   }
