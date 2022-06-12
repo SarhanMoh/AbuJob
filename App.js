@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,6 @@ import {
   TextInput,
   Button,
   SafeAreaView,
-  RefreshControl,
 } from "react-native";
 import AdminHomePage from "./app/screens/AdminHomePage";
 import { NavigationContainer } from "@react-navigation/native";
@@ -60,9 +59,15 @@ import AllCategoryPageAr from "./app/screens/AllCategoryPageAr";
 import SearchList from "./app/screens/SearchList";
 import SearchListAr from "./app/screens/SearchListAr";
 import NetInfo from "@react-native-community/netinfo";
+import AboutUs from "./app/screens/AboutUs";
+import ForgotPassADA from "./app/screens/ForgotPassADA";
+import ForgotPassAdmin from "./app/screens/ForgotPassAdmin";
 
 export default function App() {
+  const [connectStatus, setConnectStatus] = useState(false);
   let bolly = NetInfo.useNetInfo().isConnected;
+  let tester = false;
+
   return bolly ? (
     <NavigationContainer>
       {/* <Stack.Navigator> */}
@@ -92,7 +97,6 @@ export default function App() {
             options={{ title: "بحث عن اعمال", headerShown: false }}
           />
 
-  
           <Stack.Screen
             name="SearchList"
             component={SearchList}
@@ -309,6 +313,21 @@ export default function App() {
             name="ForgetPasswordAr"
             component={ForgetPassAr}
           />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="AboutUs"
+            component={AboutUs}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ForgotPassADA"
+            component={ForgotPassADA}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ForgotPassAdmin"
+            component={ForgotPassAdmin}
+          />
         </Stack.Navigator>
       </AuthContext>
       <FlashMessage position="top" />
@@ -316,9 +335,12 @@ export default function App() {
   ) : (
     <SafeAreaView style={styles.container}>
       <Text>No Internet Connection</Text>
-      <Button title="Try Again!" 
-      onPress={()=> refresh()}
-       />
+      <Button
+        title="Try Again!"
+        onPress={() => {
+          setConnectStatus(NetInfo.isConnected);
+        }}
+      />
     </SafeAreaView>
   );
 }

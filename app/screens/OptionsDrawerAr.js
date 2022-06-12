@@ -31,12 +31,10 @@ const ButtonNav = ({ onPress, label, style }) => {
   );
 };
 const logout = async () => {
-
   await auth.signOut();
-  return ()=> {
+  return () => {
     auth.signOut(auth);
-  }
-
+  };
 };
 const CustomDrawer = ({ onPress, navigation }) => {
   return (
@@ -62,7 +60,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={route}
                   onPress={() => {
                     if (index === 0) {
-                     
+                      navigation.navigate("AboutUs");
                     } else if (index === 1) {
                       navigation.navigate("BusinessRegAr");
                     } else if (index === 2) {

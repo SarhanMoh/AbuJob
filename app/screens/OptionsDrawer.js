@@ -31,15 +31,12 @@ const ButtonNav = ({ onPress, label, style }) => {
   );
 };
 const logout = async () => {
-
   await auth.signOut();
-  return ()=> {
+  return () => {
     auth.signOut(auth);
-  }
-
+  };
 };
 const CustomDrawer = ({ onPress, navigation }) => {
- 
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.menuContainer}>
@@ -63,7 +60,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={route}
                   onPress={() => {
                     if (index === 0) {
-                     
+                      navigation.navigate("AboutUs");
                     } else if (index === 1) {
                       navigation.navigate("BusinessReg");
                     } else if (index === 2) {
@@ -73,7 +70,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                       console.log("logout", auth);
                       navigation.navigate("Login");
                     } else if (index === 4) {
-                      navigation.navigate("Reports" , {account});
+                      navigation.navigate("Reports", { account });
                     } else if (index === 5) {
                       Alert.alert("כנס לדף הפיסבוק שלנו ! ", "", [
                         { text: "בטל", style: "cancel" },
@@ -100,7 +97,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                   key={link}
                   onPress={() => {
                     if (index === 0) {
-                     logout();
+                      logout();
                       navigation.navigate("FirstPage");
                     }
                   }}

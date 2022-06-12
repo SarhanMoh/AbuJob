@@ -39,13 +39,18 @@ export default function HomeScreenAr({ route, navigation }) {
   const [RecentlyList, setRecentlyList] = React.useState([]);
   const [dataSearch, setDataSearch] = React.useState([]);
 
-  async function getSearchValue(categorySelected) {
+  async function getSearchValue(categorySelected, categoryLabel) {
     console.log(categorySelected);
     const ref = dataBase.collection(categorySelected);
     const snapshot = await ref.get();
     let tmp2 = [];
     snapshot.forEach((doc) => {
-      tmp2.push({ id: doc.id, ...doc.data(), category: categorySelected });
+      tmp2.push({
+        id: doc.id,
+        ...doc.data(),
+        key: categorySelected,
+        category: categoryLabel,
+      });
     });
     //console.log(tmp2);
     setDataSearch(tmp2);
@@ -122,8 +127,7 @@ export default function HomeScreenAr({ route, navigation }) {
                       ListJob: listAll,
                       account: account,
                     });
-                  }
-                  else{
+                  } else {
                     showMessage({
                       position: "center",
                       duration: 3000,
@@ -131,7 +135,6 @@ export default function HomeScreenAr({ route, navigation }) {
                       type: "defualt",
                       titleStyle: { fontWeight: "800", fontSize: 20 },
                     });
-
                   }
                 } else if (dataSearch.length == 0) {
                   showMessage({
@@ -178,7 +181,7 @@ export default function HomeScreenAr({ route, navigation }) {
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => {
-                getSearchValue(selectedItem.value);
+                getSearchValue(selectedItem.value, selectedItem.label);
               }}
               defaultButtonText={"اختار"}
               buttonTextStyle={{ color: "white" }}
