@@ -21,7 +21,7 @@ const LoginScreen = ({ navigation }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [emptyList, setEmptyList] = React.useState([]);
-  const [check , setCheck] = useState("");
+  const [check, setCheck] = useState("");
 
   useEffect(() => {
     setCheck("false");
@@ -29,51 +29,50 @@ const LoginScreen = ({ navigation }) => {
       if (user) {
         navigation.navigate("AdminHomePage");
       }
-    })
-    return ()=> {
+    });
+    return () => {
       unsubscribe;
-    }
-  },[]);
+    };
+  }, []);
   async function getList(emailCheck) {
-    let found =false;
-    console.log("checklmail",emailCheck);
+    let found = false;
+    console.log("checklmail", emailCheck);
     //console.log("entered");
     const ref = dataBase.collection("Admins");
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
       tmp.push(doc.data().email);
-        });
+    });
+    console.log(found);
+    setEmptyList(tmp);
+    console.log("emailCheck", emailCheck);
+    tmp.forEach((element) => {
+      console.log(element);
+      if (emailCheck.localeCompare(element) == 0) {
+        found = true;
         console.log(found);
-        setEmptyList(tmp);
-        console.log("emailCheck" , emailCheck);
-        tmp.forEach((element)=>{
-          console.log(element);
-          if(emailCheck.localeCompare(element)==0){
-            found = true;
-            console.log(found);
-            handleLogin();
-          }
-          else {
-            console.log("Searching");
-          }
-        })
-        if(found=== false){
-          Alert.alert("שגוי", "כניסה מאושרת רק לאדמין", [{ text: "בסדר" }]);
-        }
-        return emptyList;
+        handleLogin();
+      } else {
+        console.log("Searching");
+      }
+    });
+    if (found === false) {
+      Alert.alert("שגוי", "כניסה מאושרת רק לאדמין", [{ text: "בסדר" }]);
+    }
+    return emptyList;
   }
 
   const handleLogin = () => {
-    console.log("empty",emptyList);
+    console.log("empty", emptyList);
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged In", user.email);
-        setPassword("")
-        setEmail("")
-       // navigation.navigate("AdminHomePage");
+        setPassword("");
+        setEmail("");
+        // navigation.navigate("AdminHomePage");
         //addUser(user);
       })
       .catch((error) => {
@@ -89,12 +88,12 @@ const LoginScreen = ({ navigation }) => {
             Alert.alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
             break;
           case "auth/too-many-requests":
-              Alert.alert(
-                "שגוי",
-                "הגישה לחשבון זה הושבתה זמנית עקב ניסיונות התחברות רבים כושלים. אתה יכול לשחזר אותו מיד על ידי איפוס הסיסמה שלך או שאתה יכול לנסות שוב מאוחר יותר",
-                [{ text: "בסדר" }]
-              );
-              break;
+            Alert.alert(
+              "שגוי",
+              "הגישה לחשבון זה הושבתה זמנית עקב ניסיונות התחברות רבים כושלים. אתה יכול לשחזר אותו מיד על ידי איפוס הסיסמה שלך או שאתה יכול לנסות שוב מאוחר יותר",
+              [{ text: "בסדר" }]
+            );
+            break;
           default:
             console.log(error);
             Alert.alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
@@ -106,13 +105,13 @@ const LoginScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <ImageBackground
-            source={require("../assets/back.png")}
-            style={StyleSheet.absoluteFillObject}
-            resizeMode="cover"
-            blurRadius={25}
-          />
+        source={require("../assets/back.png")}
+        style={StyleSheet.absoluteFillObject}
+        resizeMode="cover"
+        blurRadius={25}
+      />
       <View>
-      <View>
+        <View>
           <TouchableOpacity onPress={() => setModalOpen(true)}>
             {/* <Text style={styles.lanButton} > Ar/He </Text> */}
 
@@ -122,35 +121,46 @@ const LoginScreen = ({ navigation }) => {
               style={styles.lanButton}
             />
 
-            <Modal
-            transparent={true}
-            visible={modalOpen}
-            >
-            <View style={{backgroundColor:"#000000aa",flex:1}}>
-                <View style={{backgroundColor:"white",margin:50,padding:40,borderRadius:10,}}>
-                <View style={styles.optButt}>
-                <AntDesign
-              name="close"
-              size={34}
-              color="#222"
-              onPress={() =>setModalOpen(false) }
-            />
-                </View>
-                <View style={styles.modalContainer}>
-                <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
-                <View style={styles.buttonsCont}>
-                <TouchableOpacity style={styles.buttonLan}
-                onPress={()=> {navigation.navigate("LoginAr"), setModalOpen(false)}}>
-                <Text style={styles.textlan}>اللغة العربية</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity style={styles.buttonLan2}
-                 onPress={()=> {navigation.navigate("Login")
-                 ,setModalOpen(false)}}>
-                <Text style={styles.textlan}>שפה עברית</Text>
-                </TouchableOpacity>
-                </View>
-                </View>
+            <Modal transparent={true} visible={modalOpen}>
+              <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
+                <View
+                  style={{
+                    backgroundColor: "white",
+                    margin: 50,
+                    padding: 40,
+                    borderRadius: 10,
+                  }}
+                >
+                  <View style={styles.optButt}>
+                    <AntDesign
+                      name="close"
+                      size={34}
+                      color="#222"
+                      onPress={() => setModalOpen(false)}
+                    />
+                  </View>
+                  <View style={styles.modalContainer}>
+                    <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
+                    <View style={styles.buttonsCont}>
+                      <TouchableOpacity
+                        style={styles.buttonLan}
+                        onPress={() => {
+                          navigation.navigate("LoginAr"), setModalOpen(false);
+                        }}
+                      >
+                        <Text style={styles.textlan}>اللغة العربية</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity
+                        style={styles.buttonLan2}
+                        onPress={() => {
+                          navigation.navigate("Login"), setModalOpen(false);
+                        }}
+                      >
+                        <Text style={styles.textlan}>שפה עברית</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -162,9 +172,9 @@ const LoginScreen = ({ navigation }) => {
         />
         <Text style={[styles.adminText]}> ברוך הבא אדמין</Text>
       </View>
-     
+
       <View style={styles.inputContainer}>
-      <Text style = {styles.text}>מייל:</Text>
+        <Text style={styles.text}>מייל:</Text>
         <TextInput
           placeholder="מייל"
           placeholderTextColor="#899499"
@@ -172,7 +182,7 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
-        <Text style ={styles.text}>סיסמה:</Text>
+        <Text style={styles.text}>סיסמה:</Text>
         <TextInput
           placeholder="סיסמה"
           placeholderTextColor="#899499"
@@ -184,9 +194,13 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-         onPress={()=>getList(email) }style={styles.button}>
+        <TouchableOpacity onPress={() => getList(email)} style={styles.button}>
           <Text style={styles.buttonText}>להתחבר</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("forgotPassAdmin")}
+        >
+          <Text style={styles.buttonSignIn}>שכחת את הסיסמה?</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -259,7 +273,7 @@ const styles = StyleSheet.create({
     // borderWidth : 2,
     // fontSize: 16,
     marginTop: 0,
-    paddingBottom:"10%",
+    paddingBottom: "10%",
     alignItems: "flex-start",
     width: "15%",
     height: 40,
@@ -283,7 +297,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
-  
   },
   button: {
     backgroundColor: "#A8D173",
@@ -325,12 +338,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  text:{
-  color: "#2885A6",
-    textAlign: 'right',
+  text: {
+    color: "#2885A6",
+    textAlign: "right",
     fontSize: 16,
     fontWeight: "bold",
   },
-  
+  buttonSignIn: {
+    color: "gray",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 20,
+    fontWeight: "500",
+    padding: 20,
+    textAlign: "right",
+  },
 });
 //#0782f9 blue

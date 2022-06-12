@@ -2,7 +2,7 @@ import React from "react";
 
 const options = [
   {
-    label: "רכב",
+    label: "שירותי רכב",
 
     value: "Cars",
 

@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emptyList, setEmptyList] = React.useState([]);
-  const [check , setCheck] = useState("");
+  const [check, setCheck] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
   //setCheck("false");
@@ -35,49 +35,47 @@ const LoginScreen = ({ navigation }) => {
         navigation.navigate("AdminHomePageAr");
       }
     });
-    return ()=> {
+    return () => {
       unsubscribe;
-    }
-  },[]);
+    };
+  }, []);
   async function getList(emailCheck) {
-    let found =false;
-    console.log("checklmail",emailCheck);
+    let found = false;
+    console.log("checklmail", emailCheck);
     //console.log("entered");
     const ref = dataBase.collection("Admins");
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
       tmp.push(doc.data().email);
-        });
+    });
+    console.log(found);
+    setEmptyList(tmp);
+    console.log("emailCheck", emailCheck);
+    tmp.forEach((element) => {
+      console.log(element);
+      if (emailCheck.localeCompare(element) == 0) {
+        found = true;
         console.log(found);
-        setEmptyList(tmp);
-        console.log("emailCheck" , emailCheck);
-        tmp.forEach((element)=>{
-          console.log(element);
-          if(emailCheck.localeCompare(element)==0){
-            found = true;
-            console.log(found);
-            handleLogin();
-          }
-          else {
-            console.log("Searching");
-          }
-        })
-        if(found=== false){
-          Alert.alert("غير صحيح", "الدخول مسموح فقط للمسؤولين", [{ text: "صحيح" }]);
-        }
-
+        handleLogin();
+      } else {
+        console.log("Searching");
+      }
+    });
+    if (found === false) {
+      Alert.alert("غير صحيح", "الدخول مسموح فقط للمسؤولين", [{ text: "صحيح" }]);
+    }
   }
 
   const handleLogin = () => {
-    console.log("empty",emptyList);
+    console.log("empty", emptyList);
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged In", user.email);
-        setPassword("")
-        setEmail("")
+        setPassword("");
+        setEmail("");
         //addUser(user);
       })
       .catch((error) => {
@@ -87,18 +85,20 @@ const LoginScreen = ({ navigation }) => {
           //   alert("מייל כבר קיים", [{ text: "בסדר" }]);
           //   break;
           case "auth/wrong-password":
-            Alert.alert("غير صحيح", "بريد إلكتروني أو كلمة مرور غير صحيحة", [{ text: "صحيح" }]);
+            Alert.alert("غير صحيح", "بريد إلكتروني أو كلمة مرور غير صحيحة", [
+              { text: "صحيح" },
+            ]);
             break;
           case "auth/user-not-found":
             Alert.alert("غير صحيح", "الحساب غير موجود", [{ text: "صحيح" }]);
             break;
           case "auth/too-many-requests":
-              Alert.alert(
-                "غير صحيح",
-                "تم تعطيل الوصول إلى هذا الحساب مؤقتًا بسبب العديد من محاولات تسجيل الدخول الفاشلة. يمكنك استعادتها على الفور عن طريق إعادة تعيين كلمة مرورك أو يمكنك المحاولة مرة أخرى لاحقًا",
-                [{ text: "صحيح" }]
-              );
-              break;
+            Alert.alert(
+              "غير صحيح",
+              "تم تعطيل الوصول إلى هذا الحساب مؤقتًا بسبب العديد من محاولات تسجيل الدخول الفاشلة. يمكنك استعادتها على الفور عن طريق إعادة تعيين كلمة مرورك أو يمكنك المحاولة مرة أخرى لاحقًا",
+              [{ text: "صحيح" }]
+            );
+            break;
           default:
             console.log(error);
             Alert.alert("غير صحيح", "خطأ في الاتصال", [{ text: "صحيح" }]);
@@ -110,13 +110,13 @@ const LoginScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <ImageBackground
-            source={require("../assets/back.png")}
-            style={StyleSheet.absoluteFillObject}
-            resizeMode="cover"
-            blurRadius={25}
-          />
+        source={require("../assets/back.png")}
+        style={StyleSheet.absoluteFillObject}
+        resizeMode="cover"
+        blurRadius={25}
+      />
       <View>
-      <View>
+        <View>
           <TouchableOpacity onPress={() => setModalOpen(true)}>
             {/* <Text style={styles.lanButton} > Ar/He </Text> */}
 
@@ -126,35 +126,50 @@ const LoginScreen = ({ navigation }) => {
               style={styles.lanButton}
             />
 
-            <Modal
-            transparent={true}
-            visible={modalOpen}
-            >
-            <View style={{backgroundColor:"#000000aa",flex:1}}>
-                <View style={{backgroundColor:"white",margin:50,padding:40,borderRadius:10,}}>
-                <View style={styles.optButt}>
-                <AntDesign
-              name="close"
-              size={34}
-              color="#222"
-              onPress={() =>setModalOpen(false) }
-            />
-                </View>
-                <View style={styles.modalContainer}>
-                <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
-                <View style={styles.buttonsCont}>
-                <TouchableOpacity style={styles.buttonLan}
-                onPress={()=> {navigation.navigate("LoginAr"), setModalOpen(false),auth.signOut();}}>
-                <Text style={styles.textlan}>اللغة العربية</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity style={styles.buttonLan2}
-                 onPress={()=> {navigation.navigate("Login")
-                 ,setModalOpen(false) ,auth.signOut();}}>
-                <Text style={styles.textlan}>שפה עברית</Text>
-                </TouchableOpacity>
-                </View>
-                </View>
+            <Modal transparent={true} visible={modalOpen}>
+              <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
+                <View
+                  style={{
+                    backgroundColor: "white",
+                    margin: 50,
+                    padding: 40,
+                    borderRadius: 10,
+                  }}
+                >
+                  <View style={styles.optButt}>
+                    <AntDesign
+                      name="close"
+                      size={34}
+                      color="#222"
+                      onPress={() => setModalOpen(false)}
+                    />
+                  </View>
+                  <View style={styles.modalContainer}>
+                    <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
+                    <View style={styles.buttonsCont}>
+                      <TouchableOpacity
+                        style={styles.buttonLan}
+                        onPress={() => {
+                          navigation.navigate("LoginAr"),
+                            setModalOpen(false),
+                            auth.signOut();
+                        }}
+                      >
+                        <Text style={styles.textlan}>اللغة العربية</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity
+                        style={styles.buttonLan2}
+                        onPress={() => {
+                          navigation.navigate("Login"),
+                            setModalOpen(false),
+                            auth.signOut();
+                        }}
+                      >
+                        <Text style={styles.textlan}>שפה עברית</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -167,7 +182,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={[styles.adminText]}>مرحبًا بالمسؤول</Text>
       </View>
       <View style={styles.inputContainer}>
-      <Text style = {styles.text}>البريد الالكتروني:</Text>
+        <Text style={styles.text}>البريد الالكتروني:</Text>
         <TextInput
           placeholder="البريد الالكتروني"
           placeholderTextColor="#899499"
@@ -175,7 +190,7 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
-        <Text style ={styles.text}>كلمة المرور:</Text>
+        <Text style={styles.text}>كلمة المرور:</Text>
         <TextInput
           placeholder="كلمة المرور"
           placeholderTextColor="#899499"
@@ -187,9 +202,11 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-         onPress={()=>getList(email) }style={styles.button}>
+        <TouchableOpacity onPress={() => getList(email)} style={styles.button}>
           <Text style={styles.buttonText}>تسجيل الدخول</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassADA")}>
+          <Text style={styles.buttonSignIn}>هل نسيت كلمة السر؟</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -223,7 +240,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
-  
   },
   modalContainer: {
     alignSelf: "center",
@@ -244,7 +260,7 @@ const styles = StyleSheet.create({
     // borderWidth : 2,
     // fontSize: 16,
     marginTop: 0,
-    paddingBottom:"10%",
+    paddingBottom: "10%",
     alignItems: "flex-start",
     width: "15%",
     height: 40,
@@ -328,9 +344,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  text:{
-  color: "#2885A6",
-    textAlign: 'right',
+  text: {
+    color: "#2885A6",
+    textAlign: "right",
     fontSize: 16,
     fontWeight: "bold",
   },
@@ -339,7 +355,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
-  
+  },
+  buttonSignIn: {
+    color: "gray",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 20,
+    fontWeight: "500",
+    padding: 20,
+    textAlign: "right",
   },
 });
 //#0782f9 blue

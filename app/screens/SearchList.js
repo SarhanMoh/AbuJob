@@ -27,9 +27,54 @@ const SPACING = 8,
 
 export default function SearchList({ route, navigation }) {
   const iconPic = require("../assets/searchIcon.png");
-  const { ListJob: listData, account: account } = route.params;
-  console.log("accepted2", account);
-  console.log("list", listData);
+  const { ListJob: listJob, account: account } = route.params;
+  const [emptyList, setEmptyList] = React.useState([]);
+  // const [fullList, setFullList] = React.useState([]);
+
+  //console.log("accepted2", account);
+  //console.log("list", listData);
+
+  // async function getRating(keyD, idD, doc) {
+  //   const ref2 = dataBase.collection(keyD).doc(idD).collection("rating");
+  //   const snapshot2 = await ref2.get();
+  //   let tmp = [];
+  //   let tmpArr = [];
+  //   snapshot2.forEach((item) => {
+  //     tmpArr = item.data();
+  //     if (tmpArr.comment != "" && tmpArr.comment != undefined) {
+  //       tmp.push(tmpArr.comment);
+  //     }
+  //   });
+  //   let tmpList = { comments: tmp, ...doc };
+  //   setFullList(fullList.push(tmpList));
+  //   console.log("full List", fullList);
+  // }
+
+  async function getList(sorting = "alphabet") {
+    //console.log("entered");
+
+    let tmp = [];
+    listJob.forEach((doc) => {
+      //console.log(doc.id, '=>', doc.data());
+      tmp.push({ id_id: doc.id, ...doc });
+    });
+    console.log(tmp);
+    setEmptyList(
+      tmp.sort(function (a, b) {
+        if (sorting === "alphabet") {
+          return a.name.localeCompare(b.name);
+        } else if (sorting === "rating") {
+          return b.rate - a.rate;
+        } else {
+          return b.rate - a.rate;
+        }
+      })
+    );
+    //console.log(tmp);
+  }
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -49,7 +94,7 @@ export default function SearchList({ route, navigation }) {
             />
           </View>
         </View>
-        <View style={{ height: 10 }} />
+        <View style={{}} />
         <View
           style={{
             flex: 1,
@@ -87,23 +132,14 @@ export default function SearchList({ route, navigation }) {
               dropdownIconPosition={"left"}
             />
             <View width={"40%"}></View>
-
-            <Text
-              style={{
-                fontSize: 19,
-                fontWeight: "700",
-              }}
-            >
-              {/* קטוגוריה: {label} */}
-            </Text>
           </View>
           <View style={{ height: 1, backgroundColor: "#81daf5" }}></View>
         </View>
       </View>
-      {listData.length > 0 ? (
+      {listJob.length > 0 ? (
         <View style={{ flex: 1 }}>
           <FlatList
-            data={listData}
+            data={emptyList}
             keyExtractor={(item) => `${item.phone_number}`}
             contentContainerStyle={{
               padding: SPACING,
@@ -120,11 +156,13 @@ export default function SearchList({ route, navigation }) {
                     const phone = item.phone_number;
                     const rate = item.rate;
                     const job = item.job;
-                    const id = item;
+                    const id = item.id_id;
                     const id_pure = item.id_id;
                     const date = item.date;
-                    console.log("keykey", id);
-                    console.log("dsd", id_pure);
+                    const key = item.key;
+                    const comments = item.comments;
+                    //console.log("keykey", id);
+                    //console.log("dsd", id_pure);
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -135,10 +173,11 @@ export default function SearchList({ route, navigation }) {
                       rate,
                       job,
                       account,
-                      //   ,key
+                      key,
                       id,
                       id_pure,
                       date,
+                      comments,
                     });
                   }}
                   style={{
@@ -201,7 +240,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   Header: {
-    height: "11%",
+    height: "7%",
     justifyContent: "flex-start",
   },
   Topper: {
