@@ -116,6 +116,13 @@ const LoginScreen = ({ navigation }) => {
         blurRadius={25}
       />
       <View>
+      <AntDesign
+              name="back"
+              size={34}
+              color="#222"
+              onPress={() => navigation.goBack()}
+              style={{right:"0%", alignSelf:"flex-end"}}
+            />
         <View>
           <TouchableOpacity onPress={() => setModalOpen(true)}>
             {/* <Text style={styles.lanButton} > Ar/He </Text> */}

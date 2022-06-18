@@ -22,7 +22,7 @@ import {
         auth
         .sendPasswordResetEmail(email)
         .then(()=>{
-          alert( "سنرسل رسالة للبريد الالكترونس الخاص بك");
+          alert( "سنرسل رسالة للبريد الالكتروني الخاص بك");
         })
        .catch ((error) => {
         switch (error.code) {

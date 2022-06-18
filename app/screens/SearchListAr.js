@@ -144,9 +144,8 @@ export default function SearchListAr({ route, navigation }) {
                     const id = item;
                     const id_pure = item.id_id;
                     const date = item.date;
-                    const key = item.key;
-                    //console.log("keykey", id);
-                    //console.log("dsd", id_pure);
+                    const key = item.category;
+                   
                     navigation.navigate("BusinessPage", {
                       name,
                       city,

@@ -86,7 +86,7 @@ class BusinessRegister extends Component {
             businessNumber: "",
             isLoading: false,
           });
-          this.props.navigation.navigate("ReadComponent");
+          this.props.navigation.navigate("FirstPage");
         })
         .catch((err) => {
           console.error("Error occured: ", err);
@@ -137,7 +137,7 @@ class BusinessRegister extends Component {
             <View>
               <Image
                 style={styles.bigLogoStyle}
-                source={require("../assets/AbuJobsBigLogo.jpeg")}
+                source={require("../assets/good.png")}
               />
               {/* <Text style ={[styles.adminText,]}>Welcome Admin</Text> */}
             </View>

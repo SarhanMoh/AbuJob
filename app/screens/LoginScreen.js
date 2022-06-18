@@ -111,6 +111,13 @@ const LoginScreen = ({ navigation }) => {
         blurRadius={25}
       />
       <View>
+      <AntDesign
+              name="back"
+              size={34}
+              color="#222"
+              onPress={() => navigation.goBack()}
+              style={{right:"0%", alignSelf:"flex-end"}}
+            />
         <View>
           <TouchableOpacity onPress={() => setModalOpen(true)}>
             {/* <Text style={styles.lanButton} > Ar/He </Text> */}
@@ -198,7 +205,7 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>להתחבר</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("forgotPassAdmin")}
+          onPress={() => navigation.navigate("ForgotPassAdmin")}
         >
           <Text style={styles.buttonSignIn}>שכחת את הסיסמה?</Text>
         </TouchableOpacity>

@@ -70,7 +70,7 @@ const CustomDrawer = ({ onPress, navigation }) => {
                       console.log("logout", auth);
                       navigation.navigate("Login");
                     } else if (index === 4) {
-                      navigation.navigate("Reports", { account });
+                      navigation.navigate("Reports");
                     } else if (index === 5) {
                       Alert.alert("כנס לדף הפיסבוק שלנו ! ", "", [
                         { text: "בטל", style: "cancel" },

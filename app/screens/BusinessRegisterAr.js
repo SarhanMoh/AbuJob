@@ -86,7 +86,7 @@ class BusinessRegisterAr extends Component {
             businessNumber: "",
             isLoading: false,
           });
-          this.props.navigation.navigate("ReadComponentAr");
+          this.props.navigation.navigate("FirstPageAr");
         })
         .catch((err) => {
           console.error("Error occured: ", err);

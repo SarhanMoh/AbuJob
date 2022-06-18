@@ -62,8 +62,14 @@ import NetInfo from "@react-native-community/netinfo";
 import AboutUs from "./app/screens/AboutUs";
 import ForgotPassADA from "./app/screens/ForgotPassADA";
 import ForgotPassAdmin from "./app/screens/ForgotPassAdmin";
+import { LogBox } from 'react-native';
+
 
 export default function App() {
+  console.disableYellowBox = true;
+  LogBox.ignoreLogs(["Require cycle:"]);
+  console.disableYellowBox = true;
+
   const [connectStatus, setConnectStatus] = useState(false);
   let bolly = NetInfo.useNetInfo().isConnected;
   let tester = false;
@@ -337,9 +343,7 @@ export default function App() {
       <Text>No Internet Connection</Text>
       <Button
         title="Try Again!"
-        onPress={() => {
-          setConnectStatus(NetInfo.isConnected);
-        }}
+        onPress={() => {}}
       />
     </SafeAreaView>
   );

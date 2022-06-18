@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom:"-20%",
-    textDecorationLine:1,
+    //textDecorationLine:1,
 
     // flexDirection:'column-reverse'
   },

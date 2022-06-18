@@ -11,6 +11,7 @@ import {
   Text,
   Alert,
   Linking,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,6 +21,7 @@ function AboutUs() {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
+      
       <ImageBackground
         source={require("../assets/back.png")}
         style={StyleSheet.absoluteFillObject}
@@ -30,7 +32,7 @@ function AboutUs() {
         style={{
           flexDirection: "row",
           justifyContent: "flex-end",
-          height: "5%",
+          
         }}
       >
         <AntDesign
@@ -61,7 +63,7 @@ function AboutUs() {
           عضوي ، وفعاليات مجتمعية مجتمعية.
         </Text>
 
-        <View style={styles.buttonContainer}>
+        {/* <View style={styles.buttonContainer}>
           {
             <TouchableOpacity
               onPress={() => {
@@ -81,7 +83,7 @@ function AboutUs() {
               <Text style={styles.buttonOutLineText}>פייסבוק\فيس بوك</Text>
             </TouchableOpacity>
           }
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     color: "white",
     paddingBottom: "10%",
+    height:"80%",
   },
   bigLogoStyle: {
     resizeMode: "contain",
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
   textA: {
     // flex:1,
     fontWeight: "700",
-    fontSize: 20,
+    fontSize: 17,
     width: "90%",
     // paddingBottom:"5%",
     // alignItems:"center",
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
     // flex:1,
     paddingTop: "5%",
     fontWeight: "600",
-    fontSize: 20,
+    fontSize: 17,
     width: "90%",
     // paddingBottom:"10%",
     // borderBottomColor:"blue",

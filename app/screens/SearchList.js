@@ -29,26 +29,7 @@ export default function SearchList({ route, navigation }) {
   const iconPic = require("../assets/searchIcon.png");
   const { ListJob: listJob, account: account } = route.params;
   const [emptyList, setEmptyList] = React.useState([]);
-  // const [fullList, setFullList] = React.useState([]);
 
-  //console.log("accepted2", account);
-  //console.log("list", listData);
-
-  // async function getRating(keyD, idD, doc) {
-  //   const ref2 = dataBase.collection(keyD).doc(idD).collection("rating");
-  //   const snapshot2 = await ref2.get();
-  //   let tmp = [];
-  //   let tmpArr = [];
-  //   snapshot2.forEach((item) => {
-  //     tmpArr = item.data();
-  //     if (tmpArr.comment != "" && tmpArr.comment != undefined) {
-  //       tmp.push(tmpArr.comment);
-  //     }
-  //   });
-  //   let tmpList = { comments: tmp, ...doc };
-  //   setFullList(fullList.push(tmpList));
-  //   console.log("full List", fullList);
-  // }
 
   async function getList(sorting = "alphabet") {
     //console.log("entered");
@@ -159,12 +140,8 @@ export default function SearchList({ route, navigation }) {
                     const id = item.id_id;
                     const id_pure = item.id_id;
                     const date = item.date;
-                    console.log("keykey2", id);
-                    console.log("dsd", id_pure);
-                    console.log("keykey3", job);
-                    console.log("dsd2", phone_number);
-                    console.log("keykey4", date);
-                    console.log("dsd3", address);
+                    const key = item.category;
+                  
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -179,7 +156,7 @@ export default function SearchList({ route, navigation }) {
                       id,
                       id_pure,
                       date,
-                      comments,
+                      
                     });
                   }}
                   style={{
