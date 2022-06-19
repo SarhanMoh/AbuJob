@@ -64,10 +64,10 @@ const CustomDrawer = ({ onPress, navigation }) => {
                     } else if (index === 1) {
                       navigation.navigate("BusinessRegAr");
                     } else if (index === 2) {
+                      logout();
                       navigation.navigate("SignInAr");
                     } else if (index === 3) {
                       logout();
-                      auth.signOut();
                       navigation.navigate("LoginAr");
                     } else if (index === 4) {
                       navigation.navigate("ReportsAr");

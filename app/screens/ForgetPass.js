@@ -1,5 +1,3 @@
-
-
 import {
   KeyboardAvoidingView,
   Image,
@@ -18,27 +16,26 @@ import { dataBase } from "../../firebase";
 
 const ForgetPass = ({ navigation }) => {
   const [email, setEmail] = useState("");
-  
+
   const resetPassword = () => {
-    
-      auth
-      .sendPasswordResetEmail(email)
-      .then(()=>{
-        alert( "נשלח לך הודעה על מייל");
+    auth
+      .sendPasswordResetEmail(email.toLowerCase())
+      .then(() => {
+        alert("נשלח לך הודעה על מייל");
       })
-     .catch ((error) => {
-      switch (error.code) {
-        case "auth/invalid-email":
-          alert("שגוי", "מייל שגוי", [{ text: "בסדר" }]);
-          break;
-        case "auth/user-not-found":
-          alert("שגוי", "משתמש לא נמצא", [{ text: "בסדר" }]);
-          break;
-        // default:
-        //   alert("3שגיאה", "שגיאה בקליתה", [{ text: "בסדר" }]);
-        //   break;
-      }
-    });
+      .catch((error) => {
+        switch (error.code) {
+          case "auth/invalid-email":
+            alert("שגוי", "מייל שגוי", [{ text: "בסדר" }]);
+            break;
+          case "auth/user-not-found":
+            alert("שגוי", "משתמש לא נמצא", [{ text: "בסדר" }]);
+            break;
+          // default:
+          //   alert("3שגיאה", "שגיאה בקליתה", [{ text: "בסדר" }]);
+          //   break;
+        }
+      });
   };
 
   return (
@@ -61,7 +58,7 @@ const ForgetPass = ({ navigation }) => {
         <TextInput
           placeholder="מייל"
           placeholderTextColor="#899499"
-          fontSize= "16"
+          fontSize="16"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
@@ -83,9 +80,7 @@ const ForgetPass = ({ navigation }) => {
             לשלוח
           </Text>
         </TouchableOpacity>
-        <Text style={styles.text}>
-       אנו נשלח קישור לכתובת המייל 
-        </Text>
+        <Text style={styles.text}>אנו נשלח קישור לכתובת המייל</Text>
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
           <Text style={styles.buttonSignIn}>אין לך חשבון ? להירשם כאן</Text>
         </TouchableOpacity>
@@ -183,13 +178,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
-  text1:{
+  text1: {
     //padding: 5,
     paddingTop: 15,
-    fontSize : 16,
+    fontSize: 16,
     color: "#2885A6",
     fontWeight: "900",
     marginVertical: 5,
     textAlign: "right",
-  }
+  },
 });

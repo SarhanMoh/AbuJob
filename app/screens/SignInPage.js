@@ -15,40 +15,38 @@ import { auth } from "../../firebase";
 import { dataBase } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
 
-
+let check = false;
 
 const SignInPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [check , setCheck] = useState("");
-   //contains user login data
-   const [emptyList, setEmptyList] = React.useState([]);
-   const [currentUser, setCurrentUser] = useState(null);
-   //contains user personal data
-   const [dataUser, setdataUser] = useState([]);
- 
+
+  //contains user login data
+  const [emptyList, setEmptyList] = React.useState([]);
+  //contains user personal data
+  const [dataUser, setdataUser] = useState([]);
+
   useEffect(() => {
     console.log("check 4");
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        // const q = user
-        // ? query(collection(dataBase, "Users"), where("uid", "==", user?.uid))
-        // : "";
-        // const querySnapshot = q ? await getDocs(q) : "";
-        //setdataUser(querySnapshot ? querySnapshot.docs[0]?.data() : []);
-        setCurrentUser(user);
-        const account = user.email;
-        //const data = dataUser;
-        navigation.navigate("Home" , {account});
+        console.log("got here first");
+        console.log(check);
+        if (check) {
+          console.log("founded and went there");
+          const account = user.email;
+          navigation.navigate("Home", { account });
+        }
       }
-    })
-    return ()=> {
+    });
+    return () => {
       unsubscribe;
-    }
-  },[]);
+    };
+  }, []);
+
   async function getList(emailCheck) {
     console.log("check 3");
-    let found =false;
+    let found = false;
     //console.log("checklmail",emailCheck);
     //console.log("entered");
     const ref = dataBase.collection("Users");
@@ -56,39 +54,39 @@ const SignInPage = ({ navigation }) => {
     let tmp = [];
     snapshot.forEach((doc) => {
       tmp.push(doc.data().email);
-        });
-        //console.log(found);
-        setEmptyList(tmp);
-        //console.log("emailCheck" , emailCheck);
-        tmp.forEach((element)=>{
-          //console.log(element);
-          if(emailCheck.localeCompare(element)==0){
-            found = true;
-            //console.log(found);
-            handleSignIn();
-          }
-          else {
-            console.log("Searching");
-          }
-        })
-        if(found=== false){
-          Alert.alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
-        }
-        // setEmptyList(tmp);
-        // console.log("list",emptyList);
-     return emptyList;
+    });
+    //console.log(found);
+    setEmptyList(tmp);
+    //console.log("emailCheck" , emailCheck);
+    tmp.forEach((element) => {
+      //console.log(element);
+      if (emailCheck.localeCompare(element) == 0) {
+        found = true;
+        check = true;
+        handleSignIn();
+      } else {
+        console.log("Searching");
+      }
+    });
+    if (found === false) {
+      check = false;
+      Alert.alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
+    }
+    // setEmptyList(tmp);
+    // console.log("list",emptyList);
+    return emptyList;
   }
 
   const handleSignIn = () => {
     console.log("check 2");
-    console.log("empty",emptyList);
+    console.log("empty", emptyList);
     auth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email.toLowerCase(), password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged In", user.email);
-        setPassword("")
-        setEmail("")
+        setPassword("");
+        setEmail("");
         //addUser(user);
       })
       .catch((error) => {
@@ -104,12 +102,12 @@ const SignInPage = ({ navigation }) => {
             Alert.alert("שגוי", "חשבון לא קיים", [{ text: "בסדר" }]);
             break;
           case "auth/too-many-requests":
-              Alert.alert(
-                "שגוי",
-                "הגישה לחשבון זה הושבתה זמנית עקב ניסיונות התחברות רבים כושלים. אתה יכול לשחזר אותו מיד על ידי איפוס הסיסמה שלך או שאתה יכול לנסות שוב מאוחר יותר",
-                [{ text: "בסדר" }]
-              );
-              break;
+            Alert.alert(
+              "שגוי",
+              "הגישה לחשבון זה הושבתה זמנית עקב ניסיונות התחברות רבים כושלים. אתה יכול לשחזר אותו מיד על ידי איפוס הסיסמה שלך או שאתה יכול לנסות שוב מאוחר יותר",
+              [{ text: "בסדר" }]
+            );
+            break;
           default:
             console.log(error);
             Alert.alert("שגוי", "טעות בתקשורת", [{ text: "בסדר" }]);
@@ -162,16 +160,12 @@ const SignInPage = ({ navigation }) => {
         </TouchableOpacity> */}
         <TouchableOpacity
           style={[styles.button, styles.buttonOutLine]}
-          onPress={()=>{
+          onPress={() => {
             console.log("check 1");
-            getList(email);
+            getList(email.toLowerCase());
           }}
         >
-          <Text
-            style={styles.buttonOutLineText}
-          >
-            להתחבר
-          </Text>
+          <Text style={styles.buttonOutLineText}>להתחבר</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}>
           <Text style={styles.buttonSignIn}>שכחת את הסיסמה?</Text>
@@ -257,11 +251,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500",
     padding: 20,
-    textAlign:"right",
+    textAlign: "right",
   },
   lable: {
     color: "#2885A6",
-    textAlign: 'right',
+    textAlign: "right",
     fontSize: 16,
     fontWeight: "bold",
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -62,19 +62,28 @@ import NetInfo from "@react-native-community/netinfo";
 import AboutUs from "./app/screens/AboutUs";
 import ForgotPassADA from "./app/screens/ForgotPassADA";
 import ForgotPassAdmin from "./app/screens/ForgotPassAdmin";
-import { LogBox } from 'react-native';
+import { LogBox } from "react-native";
 
+const checkConnected = () => {
+  return NetInfo.fetch().then((tmp) => {
+    return tmp.isConnected;
+  });
+};
 
 export default function App() {
-  console.disableYellowBox = true;
+  //console.disableYellowBox = true;
   LogBox.ignoreLogs(["Require cycle:"]);
   console.disableYellowBox = true;
 
-  const [connectStatus, setConnectStatus] = useState(false);
-  let bolly = NetInfo.useNetInfo().isConnected;
-  let tester = false;
+  //let bolly = NetInfo.useNetInfo().isConnected;
+  //let tester = false;
 
-  return bolly ? (
+  const [connectStatus, setConnectedStatus] = useState();
+  checkConnected().then((res) => {
+    setConnectedStatus(res);
+  });
+
+  return connectStatus ? (
     <NavigationContainer>
       {/* <Stack.Navigator> */}
 
@@ -343,7 +352,11 @@ export default function App() {
       <Text>No Internet Connection</Text>
       <Button
         title="Try Again!"
-        onPress={() => {}}
+        onPress={() => {
+          checkConnected().then((res) => {
+            setConnectedStatus(res);
+          });
+        }}
       />
     </SafeAreaView>
   );
