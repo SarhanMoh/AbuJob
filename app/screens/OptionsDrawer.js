@@ -33,7 +33,7 @@ const ButtonNav = ({ onPress, label, style }) => {
 const logout = async () => {
   await auth.signOut();
   return () => {
-    auth.signOut(auth);
+    auth.signOut();
   };
 };
 const CustomDrawer = ({ onPress, navigation }) => {
@@ -64,10 +64,11 @@ const CustomDrawer = ({ onPress, navigation }) => {
                     } else if (index === 1) {
                       navigation.navigate("BusinessReg");
                     } else if (index === 2) {
+                      logout();
                       navigation.navigate("SignIn");
                     } else if (index === 3) {
                       logout();
-                      console.log("logout", auth);
+                      //console.log("logout", auth);
                       navigation.navigate("Login");
                     } else if (index === 4) {
                       navigation.navigate("Reports");
