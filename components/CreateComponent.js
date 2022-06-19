@@ -173,7 +173,6 @@ const options = [
 class CreateComponent extends Component {
   constructor() {
     super();
-    // this.ref = dataBase.collection('glory');
     this.state = {
       category: "Cars",
       name: "",
@@ -195,39 +194,32 @@ class CreateComponent extends Component {
     state[prop] = val;
     this.setState(state);
   };
-  // validate = (text) => {
-  //   console.log(text);
-  //   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-  //   if (reg.test(text) === false) {
-  //     console.log("Email is Not Correct");
-  //     this.setState({ email: text })
-  //     return false;
-  //   }
-  //   else {
-  //     this.setState({ email: text })
-  //     console.log("Email is Correct");
-  //   }
-  // }
   addBusiness() {
     console.log(this.state.category);
     console.log(this.state.labelCategory);
     const cat = this.state.category;
+    let collectionSizeAr =0;
+    let collectionSizeHe=0;
     const cateLabel = options[this.state.labelCategory].label;
-    // console.log("cate",cateLabel);
-    // console.log("cate",cateLabel);
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
-    // console.log("label",label);
-    // console.log("catt", cat);
-    // console.log('date:',year);
-    // console.log('date:',month);
-    // console.log('date:',date);
     let full_date = date+"/"+month+"/"+year;
     console.log('full:',full_date);
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
     let dbAllHe = dataBase.collection("AllHe");
+    dataBase.collection("All").get().then(snap => {
+      const size = snap.size // will return the collection size
+      collectionSizeAr += size;
+    });
+    dataBase.collection("AllHe").get().then(snap => {
+      const size = snap.size // will return the collection size
+      collectionSizeHe += size;
+
+    });
+    console.log("ArSize",collectionSizeAr);
+    console.log("HeSize",collectionSizeHe);
     if (this.state.name === "") {
       alert("חייב  לרשום שם ");
     } else if (this.state.job === "") {

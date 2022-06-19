@@ -212,6 +212,7 @@ class CreateComponentAr extends Component {
    //console.log(date);
     const cat = this.state.category;
     console.log("catt",cat);
+    console.log(this.state.labelCategory);
     const cateLabel = options[this.state.labelCategory].label;
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;

@@ -67,12 +67,19 @@ export default function HomeScreen({
     let tmp = [];
     let counter = 0;
     snapshot.forEach((doc) => {
-      if (counter < 13) {
-        tmp.push(doc.data());
-        counter++;
-      }
+      // if (counter < 13) {
+         tmp.push(doc.data());
+         counter++;
+      // }
     });
-    setRecentlyList(tmp);
+    setRecentlyList(tmp.sort(function (a, b) {
+      if (sorting === "alphabet") {
+        return a.name.localeCompare(b.name);
+      }
+       else {
+        return b.rate - a.rate;
+      }
+  }));
   }
   useEffect(() => {
     getList();
