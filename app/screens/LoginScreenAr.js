@@ -16,11 +16,11 @@ import { AntDesign } from "@expo/vector-icons";
 // import { useNavigation } from '@react-navigation/native';
 import { dataBase } from "../../firebase";
 
+let check = false;
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emptyList, setEmptyList] = React.useState([]);
-  const [check, setCheck] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
   //setCheck("false");
@@ -29,10 +29,10 @@ const LoginScreen = ({ navigation }) => {
 
   //const navigation = useNavigation()
   useEffect(() => {
-    setCheck("false");
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (user && check) {
         navigation.navigate("AdminHomePageAr");
+      } else {
       }
     });
     return () => {
@@ -56,6 +56,7 @@ const LoginScreen = ({ navigation }) => {
       console.log(element);
       if (emailCheck.localeCompare(element) == 0) {
         found = true;
+        check = true;
         console.log(found);
         handleLogin();
       } else {
@@ -63,6 +64,7 @@ const LoginScreen = ({ navigation }) => {
       }
     });
     if (found === false) {
+      check = false;
       Alert.alert("غير صحيح", "الدخول مسموح فقط للمسؤولين", [{ text: "صحيح" }]);
     }
   }
@@ -70,7 +72,7 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = () => {
     console.log("empty", emptyList);
     auth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email.toLowerCase(), password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged In", user.email);
@@ -116,13 +118,13 @@ const LoginScreen = ({ navigation }) => {
         blurRadius={25}
       />
       <View>
-      <AntDesign
-              name="back"
-              size={34}
-              color="#222"
-              onPress={() => navigation.goBack()}
-              style={{right:"0%", alignSelf:"flex-end"}}
-            />
+        <AntDesign
+          name="back"
+          size={34}
+          color="#222"
+          onPress={() => navigation.goBack()}
+          style={{ right: "0%", alignSelf: "flex-end" }}
+        />
         <View>
           <TouchableOpacity onPress={() => setModalOpen(true)}>
             {/* <Text style={styles.lanButton} > Ar/He </Text> */}
@@ -209,7 +211,10 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => getList(email)} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => getList(email.toLowerCase())}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>تسجيل الدخول</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("ForgotPassADA")}>
