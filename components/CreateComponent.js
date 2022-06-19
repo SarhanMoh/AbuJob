@@ -186,6 +186,8 @@ class CreateComponent extends Component {
       date:"",
       categoryAll: "",
       labelCategory: 0,
+      col_ar:0,
+      col_he:0,
     };
   }
 
@@ -195,31 +197,55 @@ class CreateComponent extends Component {
     this.setState(state);
   };
   addBusiness() {
-    console.log(this.state.category);
-    console.log(this.state.labelCategory);
+    //console.log(this.state.category);
+    //console.log(this.state.labelCategory);
     const cat = this.state.category;
-    let collectionSizeAr =0;
-    let collectionSizeHe=0;
+    let collectionAr;
+    let collectionHe;
     const cateLabel = options[this.state.labelCategory].label;
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
     let full_date = date+"/"+month+"/"+year;
-    console.log('full:',full_date);
+    //console.log('full:',full_date);
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
     let dbAllHe = dataBase.collection("AllHe");
     dataBase.collection("All").get().then(snap => {
       const size = snap.size // will return the collection size
-      collectionSizeAr += size;
+     // collectionSizeAr += size;
     });
     dataBase.collection("AllHe").get().then(snap => {
       const size = snap.size // will return the collection size
-      collectionSizeHe += size;
+     // collectionSizeHe += size;
 
     });
-    console.log("ArSize",collectionSizeAr);
-    console.log("HeSize",collectionSizeHe);
+    dataBase.collection("All").get().then(function(querySnapshot) {   
+       const collectionSizeAr =querySnapshot.size;
+       console.log("ArSize",collectionSizeAr);
+       collectionAr = collectionSizeAr;
+       //console.log("ar",querySnapshot.size); 
+       console.log("ar2",collectionAr); 
+  });
+    dataBase.collection("AllHe").get().then(function(querySnapshot) {     
+      const collectionSizeHe = querySnapshot.size;
+      console.log("HeSize",collectionSizeHe);
+      collectionHe = collectionSizeHe;
+      console.log("he2",collectionHe); 
+      //console.log("he",querySnapshot.size); 
+  });
+  const size_ar = collectionAr;
+  const size_he = collectionHe;
+   console.log("ds1",size_ar);
+   console.log("ds2",size_he);
+  // this.setState({
+  //   col_ar:collectionAr,
+  //   col_he:collectionHe
+  // })
+  //  console.log("ds",this.state.col_ar);
+  //  console.log("ds",this.state.col_he);
+
+   
     if (this.state.name === "") {
       alert("חייב  לרשום שם ");
     } else if (this.state.job === "") {
@@ -264,6 +290,7 @@ class CreateComponent extends Component {
         city: this.state.city,
         rate: this.state.rate,
         date: full_date,
+        col_ar:collectionAr,
       });
       dbAll
         .add({
@@ -273,6 +300,7 @@ class CreateComponent extends Component {
           city: this.state.city,
           categoryAll: cateLabel,
           date: full_date,
+          col_ar:collectionAr,
                 })
         .then((res) => {
           this.setState({
@@ -288,6 +316,7 @@ class CreateComponent extends Component {
             labelCategory:0,
             categoryAll:"",
             isLoading: false,
+            col_ar:0,
           });
           this.props.navigation.navigate("CreateComponent");
         })
@@ -326,6 +355,8 @@ class CreateComponent extends Component {
         city: this.state.city,
         rate: this.state.rate,
         date: full_date,
+        col_he:collectionHe,
+
       });
       dbAllHe
         .add({
@@ -335,6 +366,8 @@ class CreateComponent extends Component {
           city: this.state.city,
           categoryAll: cateLabel,
           date: full_date,
+          col_he:collectionHe,
+
         })
         .then((res) => {
           this.setState({
@@ -350,6 +383,7 @@ class CreateComponent extends Component {
             labelCategory:0,
             categoryAll:"",
             isLoading: false,
+            col_he:0,
           });
           this.props.navigation.navigate("CreateComponent");
         })
