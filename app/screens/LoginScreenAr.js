@@ -16,7 +16,7 @@ import { AntDesign } from "@expo/vector-icons";
 // import { useNavigation } from '@react-navigation/native';
 import { dataBase } from "../../firebase";
 
-let check = false;
+let checkAdmin = false;
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +30,7 @@ const LoginScreen = ({ navigation }) => {
   //const navigation = useNavigation()
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && check) {
+      if (user && checkAdmin) {
         navigation.navigate("AdminHomePageAr");
       } else {
       }
@@ -56,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
       console.log(element);
       if (emailCheck.localeCompare(element) == 0) {
         found = true;
-        check = true;
+        checkAdmin = true;
         console.log(found);
         handleLogin();
       } else {
@@ -64,7 +64,7 @@ const LoginScreen = ({ navigation }) => {
       }
     });
     if (found === false) {
-      check = false;
+      checkAdmin = false;
       Alert.alert("غير صحيح", "الدخول مسموح فقط للمسؤولين", [{ text: "صحيح" }]);
     }
   }

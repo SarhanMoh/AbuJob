@@ -30,7 +30,6 @@ import BusinessPage from "./app/screens/BusinessPage";
 import AuthContext, { useAuth } from "./app/context/AuthContext";
 import Reports from "./app/screens/Reports";
 import RatingPage from "./app/screens/RatingPage";
-import BusinessList from "./app/screens/BusinessList";
 import AllCategoryPage from "./app/screens/AllCategoryPage";
 import FlashMessage from "react-native-flash-message";
 const Stack = createNativeStackNavigator();
@@ -122,11 +121,7 @@ export default function App() {
             component={CreateComponentAr}
             options={{ title: "יצירת חשבון", headerShown: false }}
           />
-          <Stack.Screen
-            name="BusinessList"
-            component={BusinessList}
-            options={{ title: "יצירת חשבון", headerShown: false }}
-          />
+
           <Stack.Screen
             name="RatingPage"
             component={RatingPage}

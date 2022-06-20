@@ -17,7 +17,6 @@ import {
 import { dataBase } from "../firebase";
 import { Picker } from "@react-native-picker/picker";
 import { AntDesign } from "@expo/vector-icons";
-import { date } from "yup";
 const listCollection = [];
 
 const options = [
@@ -183,11 +182,11 @@ class CreateComponent extends Component {
       description: "",
       rate: 0,
       isLoading: false,
-      date:"",
+      date: "",
       categoryAll: "",
       labelCategory: 0,
-      col_ar:0,
-      col_he:0,
+      col_ar: "",
+      col_he: "",
     };
   }
 
@@ -196,9 +195,7 @@ class CreateComponent extends Component {
     state[prop] = val;
     this.setState(state);
   };
-  addBusiness() {
-    //console.log(this.state.category);
-    //console.log(this.state.labelCategory);
+  async addBusiness() {
     const cat = this.state.category;
     let collectionAr;
     let collectionHe;
@@ -206,46 +203,43 @@ class CreateComponent extends Component {
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
-    let full_date = date+"/"+month+"/"+year;
+    let full_date = date + "/" + month + "/" + year;
     //console.log('full:',full_date);
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
     let dbAllHe = dataBase.collection("AllHe");
-    dataBase.collection("All").get().then(snap => {
-      const size = snap.size // will return the collection size
-     // collectionSizeAr += size;
-    });
-    dataBase.collection("AllHe").get().then(snap => {
-      const size = snap.size // will return the collection size
-     // collectionSizeHe += size;
 
-    });
-    dataBase.collection("All").get().then(function(querySnapshot) {   
-       const collectionSizeAr =querySnapshot.size;
-       console.log("ArSize",collectionSizeAr);
-       collectionAr = collectionSizeAr;
-       //console.log("ar",querySnapshot.size); 
-       console.log("ar2",collectionAr); 
-  });
-    dataBase.collection("AllHe").get().then(function(querySnapshot) {     
-      const collectionSizeHe = querySnapshot.size;
-      console.log("HeSize",collectionSizeHe);
-      collectionHe = collectionSizeHe;
-      console.log("he2",collectionHe); 
-      //console.log("he",querySnapshot.size); 
-  });
-  const size_ar = collectionAr;
-  const size_he = collectionHe;
-   console.log("ds1",size_ar);
-   console.log("ds2",size_he);
-  // this.setState({
-  //   col_ar:collectionAr,
-  //   col_he:collectionHe
-  // })
-  //  console.log("ds",this.state.col_ar);
-  //  console.log("ds",this.state.col_he);
+    await dataBase
+      .collection("All")
+      .get()
+      .then(function (querySnapshot) {
+        const collectionSizeAr = querySnapshot.size;
+        console.log("ArSize", collectionSizeAr);
+        collectionAr = collectionSizeAr;
+        //console.log("ar",querySnapshot.size);
+        console.log("ar2", collectionAr);
+      });
+    await dataBase
+      .collection("AllHe")
+      .get()
+      .then(function (querySnapshot) {
+        const collectionSizeHe = querySnapshot.size;
+        console.log("HeSize", collectionSizeHe);
+        collectionHe = collectionSizeHe;
+        console.log("he2", collectionHe);
+        //console.log("he",querySnapshot.size);
+      });
+    const size_ar = collectionAr;
+    const size_he = collectionHe;
+    console.log("ds1", size_ar);
+    console.log("ds2", size_he);
+    // this.setState({
+    //   col_ar:collectionAr,
+    //   col_he:collectionHe
+    // })
+    //  console.log("ds",this.state.col_ar);
+    //  console.log("ds",this.state.col_he);
 
-   
     if (this.state.name === "") {
       alert("חייב  לרשום שם ");
     } else if (this.state.job === "") {
@@ -290,7 +284,7 @@ class CreateComponent extends Component {
         city: this.state.city,
         rate: this.state.rate,
         date: full_date,
-        col_ar:collectionAr,
+        col_ar: size_ar,
       });
       dbAll
         .add({
@@ -300,8 +294,8 @@ class CreateComponent extends Component {
           city: this.state.city,
           categoryAll: cateLabel,
           date: full_date,
-          col_ar:collectionAr,
-                })
+          col_ar: size_ar,
+        })
         .then((res) => {
           this.setState({
             name: "",
@@ -313,10 +307,10 @@ class CreateComponent extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:0,
-            categoryAll:"",
+            labelCategory: 0,
+            categoryAll: "",
             isLoading: false,
-            col_ar:0,
+            col_ar: "",
           });
           this.props.navigation.navigate("CreateComponent");
         })
@@ -355,8 +349,7 @@ class CreateComponent extends Component {
         city: this.state.city,
         rate: this.state.rate,
         date: full_date,
-        col_he:collectionHe,
-
+        col_he: size_he,
       });
       dbAllHe
         .add({
@@ -366,8 +359,7 @@ class CreateComponent extends Component {
           city: this.state.city,
           categoryAll: cateLabel,
           date: full_date,
-          col_he:collectionHe,
-
+          col_he: size_he,
         })
         .then((res) => {
           this.setState({
@@ -380,10 +372,10 @@ class CreateComponent extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:0,
-            categoryAll:"",
+            labelCategory: 0,
+            categoryAll: "",
             isLoading: false,
-            col_he:0,
+            col_he: "",
           });
           this.props.navigation.navigate("CreateComponent");
         })
@@ -555,8 +547,7 @@ class CreateComponent extends Component {
                 value={option.value}
                 label={option.label}
                 style={{ flexDirection: "column-reverse" }}
-              >
-              </Picker.Item>
+              ></Picker.Item>
             ))}
             {/* <Picker.Item label="Java" value="java" />
             <Picker.Item label="JavaScript" value="js" /> */}
@@ -564,7 +555,6 @@ class CreateComponent extends Component {
           <View style={styles.containerB}>
             <Pressable
               style={styles.button}
-              
               onPress={() => this.addBusiness()}
               // color="#000"
               // backgroundColor='#000'

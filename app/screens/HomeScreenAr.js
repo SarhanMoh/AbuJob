@@ -63,14 +63,26 @@ export default function HomeScreenAr({ route, navigation }) {
     const ref = dataBase.collection("All");
     const snapshot = await ref.get();
     let tmp = [];
-    let counter = 0;
+    let tmpall = [];
+
     snapshot.forEach((doc) => {
+      // if (counter < 13) {
+      tmp.push(doc.data());
+      // }
+    });
+
+    tmp.sort(function (a, b) {
+      b.col_ar - a.col_ar;
+    });
+
+    let counter = 0;
+    tmp.forEach((doc) => {
       if (counter < 13) {
-        tmp.push(doc.data());
+        tmpall.push(doc);
         counter++;
       }
     });
-    setRecentlyList(tmp);
+    setRecentlyList(tmpall);
   }
   useEffect(() => {
     getList();

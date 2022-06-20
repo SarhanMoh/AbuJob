@@ -12,6 +12,7 @@ import {
   View,
   StatusBar,
   TextInput,
+  SafeAreaView,
   Text,
   Alert,
 } from "react-native";
@@ -19,9 +20,6 @@ import { dataBase } from "../firebase";
 import { Picker } from "@react-native-picker/picker";
 import { collection, deleteDoc } from "firebase/firestore";
 import { FlatList } from "react-native";
-import { list } from "firebase/storage";
-import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const options = [
   {

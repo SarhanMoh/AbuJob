@@ -35,7 +35,7 @@ const options = [
 
     value: "RenovationsAr",
   },
-  
+
   {
     label: "علاج",
 
@@ -67,31 +67,31 @@ const options = [
 
     value: "TeachingAr",
   },
-  
+
   {
     label: "موسيقى",
 
     value: "MusicAr",
   },
-  
+
   {
     label: "خدمات البقالة",
 
     value: "GroceryAr",
   },
-  
+
   {
     label: "فنين",
 
     value: "TechniciansAr",
   },
- 
+
   {
     label: "اللياقة البدنية واليوجا",
 
     value: "FitnessAr",
   },
-  
+
   {
     label: "متنوع",
 
@@ -167,7 +167,6 @@ const options = [
 
     value: "Various",
   },
-  
 ];
 class CreateComponentAr extends Component {
   constructor() {
@@ -177,16 +176,17 @@ class CreateComponentAr extends Component {
       category: "CarsAr",
       name: "",
       address: "",
-      city:"",
+      city: "",
       languages: "",
       phone_number: "",
       description: "",
       rate: 0,
       isLoading: false,
       categoryAll: "",
-      date : "",
-      labelCategory:0,
-
+      date: "",
+      labelCategory: 0,
+      col_ar: "",
+      col_he: "",
     };
   }
 
@@ -195,32 +195,43 @@ class CreateComponentAr extends Component {
     state[prop] = val;
     this.setState(state);
   };
-  // validate = (text) => {
-  //   console.log(text);
-  //   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-  //   if (reg.test(text) === false) {
-  //     console.log("Email is Not Correct");
-  //     this.setState({ email: text })
-  //     return false;
-  //   }
-  //   else {
-  //     this.setState({ email: text })
-  //     console.log("Email is Correct");
-  //   }
-  // }
-  addBusiness() {
-   //console.log(date);
+  async addBusiness() {
     const cat = this.state.category;
-    console.log("catt",cat);
-    console.log(this.state.labelCategory);
+    let collectionAr;
+    let collectionHe;
     const cateLabel = options[this.state.labelCategory].label;
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
-    let full_date = date+"/"+month+"/"+year;
+    let full_date = date + "/" + month + "/" + year;
     let db = dataBase.collection(this.state.category);
     let dbAll = dataBase.collection("All");
     let dbAllHe = dataBase.collection("AllHe");
+    await dataBase
+      .collection("All")
+      .get()
+      .then(function (querySnapshot) {
+        const collectionSizeAr = querySnapshot.size;
+        console.log("ArSize", collectionSizeAr);
+        collectionAr = collectionSizeAr;
+        //console.log("ar",querySnapshot.size);
+        console.log("ar2", collectionAr);
+      });
+    await dataBase
+      .collection("AllHe")
+      .get()
+      .then(function (querySnapshot) {
+        const collectionSizeHe = querySnapshot.size;
+        console.log("HeSize", collectionSizeHe);
+        collectionHe = collectionSizeHe;
+        console.log("he2", collectionHe);
+        //console.log("he",querySnapshot.size);
+      });
+    const size_ar = collectionAr;
+    const size_he = collectionHe;
+    console.log("ds1", size_ar);
+    console.log("ds2", size_he);
+
     if (this.state.name === "") {
       alert("يرجى تسجيل اسم العمل ");
     } else if (this.state.job === "") {
@@ -236,11 +247,22 @@ class CreateComponentAr extends Component {
       this.state.phone_number.length < 9
     ) {
       alert("  يرجى تسجيل رقم الهاتف صحيح ");
-    } else if (cat ==="VariousAr" || cat ==="FitnessAr" || cat ==="TechniciansAr"
-    || cat ==="GroceryAr" || cat ==="MusicAr" || cat ==="TeachingAr"
-    || cat ==="ElectriciansAr" || cat ==="RepairsAr" || cat ==="cosmeticsAr"
-    || cat ==="ArtsAr" || cat ==="TreatmentAr"|| cat ==="RenovationsAr"
-    || cat ==="CarsAr"|| cat ==="CateringAr") {
+    } else if (
+      cat === "VariousAr" ||
+      cat === "FitnessAr" ||
+      cat === "TechniciansAr" ||
+      cat === "GroceryAr" ||
+      cat === "MusicAr" ||
+      cat === "TeachingAr" ||
+      cat === "ElectriciansAr" ||
+      cat === "RepairsAr" ||
+      cat === "cosmeticsAr" ||
+      cat === "ArtsAr" ||
+      cat === "TreatmentAr" ||
+      cat === "RenovationsAr" ||
+      cat === "CarsAr" ||
+      cat === "CateringAr"
+    ) {
       this.setState({
         isLoading: true,
       });
@@ -254,15 +276,18 @@ class CreateComponentAr extends Component {
         city: this.state.city,
         rate: this.state.rate,
         date: full_date,
-      })
-      dbAll.add({
-        name: this.state.name,
-        job: this.state.job,
-        phone_number: this.state.phone_number,
-        city: this.state.city,
-        categoryAll: cateLabel,
-        date: full_date,
-      })
+        col_ar: size_ar,
+      });
+      dbAll
+        .add({
+          name: this.state.name,
+          job: this.state.job,
+          phone_number: this.state.phone_number,
+          city: this.state.city,
+          categoryAll: cateLabel,
+          date: full_date,
+          col_ar: size_ar,
+        })
         .then((res) => {
           this.setState({
             name: "",
@@ -274,9 +299,10 @@ class CreateComponentAr extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:0,
-            categoryAll:"",
+            labelCategory: 0,
+            categoryAll: "",
             isLoading: false,
+            col_ar: "",
           });
           this.props.navigation.navigate("CreateComponentAr");
         })
@@ -286,12 +312,22 @@ class CreateComponentAr extends Component {
             isLoading: false,
           });
         });
-    }
-    else if(cat ==="Various" || cat ==="Fitness" || cat ==="Technicians"
-    || cat ==="Grocery" || cat ==="Music" || cat ==="Teaching"
-    || cat ==="Electricians" || cat ==="Repairs" || cat ==="cosmetics"
-    || cat ==="Arts" || cat ==="Treatment"|| cat ==="Renovations"
-    || cat ==="Cars"|| cat ==="Catering") {
+    } else if (
+      cat === "Various" ||
+      cat === "Fitness" ||
+      cat === "Technicians" ||
+      cat === "Grocery" ||
+      cat === "Music" ||
+      cat === "Teaching" ||
+      cat === "Electricians" ||
+      cat === "Repairs" ||
+      cat === "cosmetics" ||
+      cat === "Arts" ||
+      cat === "Treatment" ||
+      cat === "Renovations" ||
+      cat === "Cars" ||
+      cat === "Catering"
+    ) {
       this.setState({
         isLoading: true,
       });
@@ -305,15 +341,18 @@ class CreateComponentAr extends Component {
         city: this.state.city,
         rate: this.state.rate,
         date: full_date,
-      })
-      dbAllHe.add({
-        name: this.state.name,
+        col_he: size_he,
+      });
+      dbAllHe
+        .add({
+          name: this.state.name,
           job: this.state.job,
           phone_number: this.state.phone_number,
           city: this.state.city,
           categoryAll: cateLabel,
           date: full_date,
-      })
+          col_he: size_he,
+        })
         .then((res) => {
           this.setState({
             name: "",
@@ -325,9 +364,10 @@ class CreateComponentAr extends Component {
             rate: 0,
             city: "",
             date: "",
-            labelCategory:0,
-            categoryAll:"",
+            labelCategory: 0,
+            categoryAll: "",
             isLoading: false,
+            col_he: "",
           });
           this.props.navigation.navigate("CreateComponentAr");
         })
@@ -360,7 +400,7 @@ class CreateComponentAr extends Component {
           name="back"
           size={34}
           color="#222"
-          style={{ alignSelf: "flex-end" , paddingRight: "4%"}}
+          style={{ alignSelf: "flex-end", paddingRight: "4%" }}
           onPress={() => this.props.navigation.navigate("BusinessOptionsAr")}
         />
 
@@ -461,17 +501,35 @@ class CreateComponentAr extends Component {
             style={styles.input}
             textAlign="right"
           />
-          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>اختر فئة</Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              marginBottom: "-15%",
+              paddingTop: "5%",
+              fontSize: 24,
+              fontWeight: "600",
+              textDecorationColor: "black",
+              textDecorationStyle: "solid",
+              textDecorationLine: "underline",
+            }}
+          >
+            اختر فئة
+          </Text>
 
           <Picker
             selectedValue={this.state.category}
-            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
-            itemStyle={{height:150}}
+            style={{
+              width: 300,
+              height: 150,
+              alignContent: "center",
+              alignSelf: "center",
+              marginTop: "20%",
+            }}
+            itemStyle={{ height: 150 }}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
                 labelCategory: itemIndex,
-
               })
             }
           >
@@ -605,7 +663,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 3,
   },
-  input2:{
+  input2: {
     backgroundColor: "#ffff",
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -614,8 +672,7 @@ const styles = StyleSheet.create({
     borderColor: "#2885A6",
     borderWidth: 1,
     height: 100,
-  }
-  
+  },
 });
 
 export default CreateComponentAr;
