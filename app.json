@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "AbuJob",
-    "slug": "AbuJob",
-    "version": "1.0.1",
+    "name": "AbuJobs",
+    "slug": "AbuJobs",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/logo_1024.png",
     "splash": {
@@ -10,7 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "userInterfacestyle": "light",
+    "userInterfaceStyle": "light",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
