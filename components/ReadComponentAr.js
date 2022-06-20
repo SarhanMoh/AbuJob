@@ -21,8 +21,6 @@ import {
 import { dataBase } from "../firebase";
 import { Picker } from "@react-native-picker/picker";
 import { collection } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
-import { withNavigation } from "react-navigation";
 
 const options = [
   {
@@ -36,7 +34,7 @@ const options = [
 
     value: "RenovationsAr",
   },
-  
+
   {
     label: "علاج",
 
@@ -68,31 +66,31 @@ const options = [
 
     value: "TeachingAr",
   },
-  
+
   {
     label: "موسيقى",
 
     value: "MusicAr",
   },
-  
+
   {
     label: "خدمات البقالة",
 
     value: "GroceryAr",
   },
-  
+
   {
     label: "فنين",
 
     value: "TechniciansAr",
   },
- 
+
   {
     label: "اللياقة البدنية واليوجا",
 
     value: "FitnessAr",
   },
-  
+
   {
     label: "مختلف",
 
@@ -100,7 +98,7 @@ const options = [
   },
   {
     label: "שירותי רכב",
-    
+
     value: "Cars",
   },
   {
@@ -175,15 +173,14 @@ const options = [
   },
   {
     label: "כולם בעברית",
-    
+
     value: "AllHe",
   },
   {
     label: "الجميع بالعربي",
-    
+
     value: "All",
   },
-  
 ];
 class ReadComponentAr extends Component {
   constructor() {
@@ -201,7 +198,6 @@ class ReadComponentAr extends Component {
     const snapshot = await ref.get();
     let tmp = [];
     snapshot.forEach((doc) => {
-      
       //console.log(doc.id, '=>', doc.data());
       tmp.push(doc.data());
     });
@@ -232,12 +228,31 @@ class ReadComponentAr extends Component {
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
             onPress={() => this.props.navigation.navigate("BusinessOptionsAr")}
           />
-          <Text style={{alignSelf:"center" , marginBottom:"-15%" , paddingTop:"5%" , fontSize:24,fontWeight:"600" , textDecorationColor:"black",textDecorationStyle:"solid",textDecorationLine: 'underline'}}>اختر فئة</Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              marginBottom: "-15%",
+              paddingTop: "5%",
+              fontSize: 24,
+              fontWeight: "600",
+              textDecorationColor: "black",
+              textDecorationStyle: "solid",
+              textDecorationLine: "underline",
+            }}
+          >
+            اختر فئة
+          </Text>
 
           <Picker
             selectedValue={this.state.category}
-            style ={{width:300, height : 150 ,alignContent:"center",alignSelf:"center" , marginTop:"20%"}}
-            itemStyle={{height:150}}
+            style={{
+              width: 300,
+              height: 150,
+              alignContent: "center",
+              alignSelf: "center",
+              marginTop: "20%",
+            }}
+            itemStyle={{ height: 150 }}
             onValueChange={(itemValue, itemIndex) =>
               this.setState({
                 category: itemValue,
@@ -377,7 +392,7 @@ class ReadComponentAr extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                     التقييم:  
+                      التقييم:
                     </Text>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
@@ -427,11 +442,11 @@ const styles = StyleSheet.create({
   },
   info: {
     flexDirection: "row-reverse",
-    padding:1,
-    paddingLeft:"10%",
-    marginLeft:"10%",
+    padding: 1,
+    paddingLeft: "10%",
+    marginLeft: "10%",
     textAlign: "right",
-    width: "98%"
+    width: "98%",
   },
   button: {
     alignItems: "center",
@@ -455,7 +470,7 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    paddingLeft:"15%",
+    paddingLeft: "15%",
     backgroundColor: "#ffff",
     padding: 20,
     flexDirection: "column",

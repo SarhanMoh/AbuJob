@@ -16,13 +16,11 @@ import {
   TextInput,
   Text,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 import { dataBase } from "../firebase";
 import { Picker } from "@react-native-picker/picker";
 import { collection } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
-import { withNavigation } from "react-navigation";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const options = [
   {
@@ -89,7 +87,7 @@ class ReportsRead extends Component {
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
             onPress={() => this.props.navigation.navigate("ReportsOptions")}
           />
- <Text
+          <Text
             style={{
               alignSelf: "center",
               marginBottom: "-20%",
@@ -203,7 +201,16 @@ class ReportsRead extends Component {
                     >
                       מייל:
                     </Text>
-                    <Text style={{ fontSize: 14, opacity: 0.7 ,alignSelf:"center" , justifyContent:"center" , alignContent:"center" , alignItems:"center"}}>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        opacity: 0.7,
+                        alignSelf: "center",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       {" "}
                       {item.email}{" "}
                     </Text>
@@ -225,7 +232,7 @@ class ReportsRead extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                       תיאור הדוח:
+                      תיאור הדוח:
                     </Text>
                     <Text
                       style={{

@@ -65,21 +65,26 @@ export default function HomeScreen({
     const ref = dataBase.collection("AllHe");
     const snapshot = await ref.get();
     let tmp = [];
-    let counter = 0;
+    let tmpall = [];
+
     snapshot.forEach((doc) => {
       // if (counter < 13) {
-         tmp.push(doc.data());
-         counter++;
+      tmp.push(doc.data());
       // }
     });
-    setRecentlyList(tmp.sort(function (a, b) {
-      if (sorting === "alphabet") {
-        return a.name.localeCompare(b.name);
+
+    tmp.sort(function (a, b) {
+      b.col_he - a.col_he;
+    });
+
+    let counter = 0;
+    tmp.forEach((doc) => {
+      if (counter < 13) {
+        tmpall.push(doc);
+        counter++;
       }
-       else {
-        return b.rate - a.rate;
-      }
-  }));
+    });
+    setRecentlyList(tmpall);
   }
   useEffect(() => {
     getList();

@@ -16,13 +16,11 @@ import {
   TextInput,
   Text,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 import { dataBase } from "../firebase";
 import { Picker } from "@react-native-picker/picker";
 import { collection } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
-import { withNavigation } from "react-navigation";
-import { SafeAreaView } from "react-native-safe-area-context";
 //import ReportsReadAr from "../../../ArPages/components/ReportsReadAr";
 
 const options = [
@@ -90,7 +88,7 @@ class ReportsReadAr extends Component {
             style={{ alignSelf: "flex-end", paddingRight: "4%" }}
             onPress={() => this.props.navigation.navigate("ReportsOptionsAr")}
           />
- <Text
+          <Text
             style={{
               alignSelf: "center",
               marginBottom: "-20%",
@@ -204,7 +202,16 @@ class ReportsReadAr extends Component {
                     >
                       البريد الالكتروني:
                     </Text>
-                    <Text style={{ fontSize: 14, opacity: 0.7 ,alignSelf:"center" , justifyContent:"center" , alignContent:"center" , alignItems:"center" }}>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        opacity: 0.7,
+                        alignSelf: "center",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       {" "}
                       {item.email}{" "}
                     </Text>
@@ -213,7 +220,7 @@ class ReportsReadAr extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      رقم الهاتف : 
+                      رقم الهاتف :
                     </Text>
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
@@ -226,7 +233,7 @@ class ReportsReadAr extends Component {
                     <Text
                       style={{ fontSize: 16, opacity: 0.8, textAlign: "right" }}
                     >
-                      وصف الشكوى : 
+                      وصف الشكوى :
                     </Text>
                     <Text
                       style={{
