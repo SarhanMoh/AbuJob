@@ -156,6 +156,7 @@ export default function CategoryPageAr({ route, navigation }) {
         <View
           style={{
             flex: 1,
+            bottom: "-5%",
           }}
         >
           <View
@@ -199,8 +200,8 @@ export default function CategoryPageAr({ route, navigation }) {
               الفئة: {label}
             </Text>
           </View>
-          <View style={{ height: 1, backgroundColor: "#81daf5" }}></View>
         </View>
+        <View style={{ height: 1, backgroundColor: "#81daf5" }}></View>
       </View>
       {emptyList.length > 0 ? (
         <View style={{ flex: 1 }}>
@@ -301,8 +302,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1.5 : 0,
   },
   Header: {
-    height: "11%",
-    justifyContent: "flex-start",
+    height: "13%",
+    justifyContent: "space-between",
   },
   Topper: {
     height: 45,

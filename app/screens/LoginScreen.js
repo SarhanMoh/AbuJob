@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  SafeAreaView,
   ImageBackground,
   Alert,
   Modal,
@@ -105,117 +106,122 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
         source={require("../assets/back.png")}
         style={StyleSheet.absoluteFillObject}
         resizeMode="cover"
         blurRadius={25}
       />
-      <View>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <AntDesign
           name="back"
           size={34}
           color="#222"
           onPress={() => navigation.goBack()}
-          style={{ right: "0%", alignSelf: "flex-end" }}
+          style={{ right: "3%", top: "3%", alignSelf: "flex-end" }}
         />
         <View>
-          <TouchableOpacity onPress={() => setModalOpen(true)}>
-            {/* <Text style={styles.lanButton} > Ar/He </Text> */}
+          <View>
+            <TouchableOpacity
+              style={{ bottom: "-15%" }}
+              onPress={() => setModalOpen(true)}
+            >
+              {/* <Text style={styles.lanButton} > Ar/He </Text> */}
 
-            <Image
-              resizeMode="contain"
-              source={require("../assets/lang.png")}
-              style={styles.lanButton}
-            />
+              <Image
+                resizeMode="contain"
+                source={require("../assets/lang.png")}
+                style={styles.lanButton}
+              />
 
-            <Modal transparent={true} visible={modalOpen}>
-              <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    margin: 50,
-                    padding: 40,
-                    borderRadius: 10,
-                  }}
-                >
-                  <View style={styles.optButt}>
-                    <AntDesign
-                      name="close"
-                      size={34}
-                      color="#222"
-                      onPress={() => setModalOpen(false)}
-                    />
-                  </View>
-                  <View style={styles.modalContainer}>
-                    <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
-                    <View style={styles.buttonsCont}>
-                      <TouchableOpacity
-                        style={styles.buttonLan}
-                        onPress={() => {
-                          navigation.navigate("LoginAr"), setModalOpen(false);
-                        }}
-                      >
-                        <Text style={styles.textlan}>اللغة العربية</Text>
-                      </TouchableOpacity>
+              <Modal transparent={true} visible={modalOpen}>
+                <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
+                  <View
+                    style={{
+                      backgroundColor: "white",
+                      margin: 50,
+                      padding: 40,
+                      borderRadius: 10,
+                    }}
+                  >
+                    <View style={styles.optButt}>
+                      <AntDesign
+                        name="close"
+                        size={34}
+                        color="#222"
+                        onPress={() => setModalOpen(false)}
+                      />
+                    </View>
+                    <View style={styles.modalContainer}>
+                      <Text style={styles.tranText}>أختار لغة | בחר שפה</Text>
+                      <View style={styles.buttonsCont}>
+                        <TouchableOpacity
+                          style={styles.buttonLan}
+                          onPress={() => {
+                            navigation.navigate("LoginAr"), setModalOpen(false);
+                          }}
+                        >
+                          <Text style={styles.textlan}>اللغة العربية</Text>
+                        </TouchableOpacity>
 
-                      <TouchableOpacity
-                        style={styles.buttonLan2}
-                        onPress={() => {
-                          navigation.navigate("Login"), setModalOpen(false);
-                        }}
-                      >
-                        <Text style={styles.textlan}>שפה עברית</Text>
-                      </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.buttonLan2}
+                          onPress={() => {
+                            navigation.navigate("Login"), setModalOpen(false);
+                          }}
+                        >
+                          <Text style={styles.textlan}>שפה עברית</Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </Modal>
+              </Modal>
+            </TouchableOpacity>
+          </View>
+          <Image
+            style={styles.bigLogoStyle}
+            source={require("../assets/good.png")}
+          />
+          <Text style={[styles.adminText]}> ברוך הבא אדמין</Text>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.text}>מייל:</Text>
+          <TextInput
+            placeholder="מייל"
+            placeholderTextColor="#899499"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+          />
+          <Text style={styles.text}>סיסמה:</Text>
+          <TextInput
+            placeholder="סיסמה"
+            placeholderTextColor="#899499"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+            secureTextEntry
+          />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => getList(email.toLowerCase())}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>להתחבר</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ForgotPassAdmin")}
+          >
+            <Text style={styles.buttonSignIn}>שכחת את הסיסמה?</Text>
           </TouchableOpacity>
         </View>
-        <Image
-          style={styles.bigLogoStyle}
-          source={require("../assets/good.png")}
-        />
-        <Text style={[styles.adminText]}> ברוך הבא אדמין</Text>
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.text}>מייל:</Text>
-        <TextInput
-          placeholder="מייל"
-          placeholderTextColor="#899499"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={styles.input}
-        />
-        <Text style={styles.text}>סיסמה:</Text>
-        <TextInput
-          placeholder="סיסמה"
-          placeholderTextColor="#899499"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          style={styles.input}
-          secureTextEntry
-        />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={() => getList(email.toLowerCase())}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>להתחבר</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ForgotPassAdmin")}
-        >
-          <Text style={styles.buttonSignIn}>שכחת את הסיסמה?</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -223,10 +229,8 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ffff",
   },
   buttonLan2: {
     padding: 10,
