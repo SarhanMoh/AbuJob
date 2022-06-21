@@ -204,6 +204,7 @@ export default function HomeScreen({
                 borderTopLeftRadius: 0,
                 borderBottomLeftRadius: 0,
                 borderWidth: 0.5,
+                alignSelf: "flex-end",
                 width: "30%",
                 height: "100%",
               }}
@@ -423,6 +424,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 40,
     flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: "#81daf5",
     borderRadius: 30,
   },
