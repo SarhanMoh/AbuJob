@@ -8,7 +8,6 @@ import {
   Text,
   TextInput,
   SafeAreaView,
-  FlatList,
   Platform,
   StatusBar,
   ActivityIndicator,
@@ -19,6 +18,7 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { dataBase } from "../../firebase";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Firestore } from "firebase/firestore";
 import { navigate } from "../navi/RootNavi";
 
@@ -134,7 +134,7 @@ export default function RatingPage({ route, navigation }) {
         onPress={() => navigation.goBack()}
       />
 
-      <ScrollView
+      <KeyboardAwareScrollView
         style={styles.scrollView}
         contentContainerStyle={{
           paddingBottom: 0,
@@ -215,7 +215,7 @@ export default function RatingPage({ route, navigation }) {
           </View>
           <View style={{ height: 20 }}></View>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
