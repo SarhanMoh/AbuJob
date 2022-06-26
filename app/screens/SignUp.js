@@ -8,6 +8,7 @@ import {
   TextInput,
   StatusBar,
   ScrollView,
+  Linking,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -22,16 +23,15 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFN] = useState("");
- // const [lastname, setLS] = useState("");
+  // const [lastname, setLS] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const account = user.email;
-        navigation.navigate("Home",{account});
+        navigation.navigate("Home", { account });
       }
     });
     return unsubscribe;
@@ -40,37 +40,35 @@ const SignUp = ({ navigation }) => {
   const handleSignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
-      
+
       .then((userCredentials) => {
         // addUser()
         // const user = userCredentials.user;
         // console.log("Registered with:", user.email);
         let db = dataBase.collection("Users");
         db.add({
-          email:email,
+          email: email,
           address: address,
           fullName: fullName,
-          phone:phone,
+          phone: phone,
         })
           .then((res) => {
-            setEmail("")
-            setAddress("")
-            setFN("")
+            setEmail("");
+            setAddress("");
+            setFN("");
             // setLS("")
-            setPassword("")
-            setPhone("")
-            
-           navigation.navigate("Home",{account});
+            setPassword("");
+            setPhone("");
+
+            navigation.navigate("Home", { account });
           })
           .catch((err) => {
             console.error("Error occured: ", err);
-           
-            isLoading: false
-           
+
+            isLoading: false;
           });
-        
-      }).then((res)=>{
       })
+      .then((res) => {})
       .catch((error) => {
         //alert(error.message)
         switch (error.code) {
@@ -95,18 +93,17 @@ const SignUp = ({ navigation }) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(text) === false) {
       console.log("Email is Not Correct");
-      console.log("email",email);
+      console.log("email", email);
       // this.setState({ email: text })
-      setEmail(text)
+      setEmail(text);
       return false;
-    }
-    else {
+    } else {
       // this.setState({ email: text })
-      setEmail(text)
+      setEmail(text);
       console.log("Email is Correct");
-      console.log("email",email);
+      console.log("email", email);
     }
-  }
+  };
   //   const handleLogin = ()=>{
   //     auth
   //       .signInWithEmailAndPassword(email , password)
@@ -204,8 +201,29 @@ const SignUp = ({ navigation }) => {
             </TouchableOpacity>
             <Text style={styles.text}>
               על ידי רישום, אתה מאשר שאתה מסכים
-              <Text style={styles.link}> לתנאי השימוש</Text> ו
-              <Text style={styles.link}> מדיניות פרטיות</Text>
+              <Text
+                style={styles.link}
+                onPress={() => {
+                  Linking.openURL(
+                    "https://pages.flycricket.io/abujob-abu-job-b/terms.html"
+                  );
+                }}
+              >
+                {" "}
+                לתנאי השימוש
+              </Text>{" "}
+              ו
+              <Text
+                style={styles.link}
+                onPress={() => {
+                  Linking.openURL(
+                    "https://pages.flycricket.io/abujob-abu-job-b/privacy.html"
+                  );
+                }}
+              >
+                {" "}
+                מדיניות פרטיות
+              </Text>
               <Text> שלנו</Text>
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate("FirstPage")}>
@@ -294,6 +312,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     color: "gray",
     marginVertical: 30,
+    textAlign: "right",
   },
   link: {
     color: "#AF38EB",
@@ -309,8 +328,8 @@ const styles = StyleSheet.create({
     color: "#2885A6",
     textAlign: "right",
     fontSize: 16,
-    paddingTop:5,
-    fontWeight :"500"
+    paddingTop: 5,
+    fontWeight: "500",
     // padding:3,
     // paddingTop:3,
   },
