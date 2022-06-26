@@ -226,6 +226,7 @@ export default function CategoryPageAr({ route, navigation }) {
                     const id = item;
                     const id_pure = item.id_id;
                     const date = item.date;
+                    const lang = item.languages;
                     //console.log('keykey',id);
                     navigation.navigate("BusinessPageAr", {
                       name,
@@ -240,6 +241,7 @@ export default function CategoryPageAr({ route, navigation }) {
                       key,
                       id,
                       date,
+                      lang,
                     });
                   }}
                   style={{

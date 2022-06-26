@@ -227,6 +227,7 @@ export default function CategoryPage({ route, navigation }) {
                     const id = item;
                     const id_pure = item.id_id;
                     const date = item.date;
+                    const lang = item.languages;
                     navigation.navigate("BusinessPage", {
                       name,
                       city,
@@ -241,6 +242,7 @@ export default function CategoryPage({ route, navigation }) {
                       id,
                       id_pure,
                       date,
+                      lang,
                     });
                   }}
                   style={{

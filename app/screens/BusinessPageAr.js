@@ -55,6 +55,7 @@ export default function BusinessPageAr({ route, navigation }) {
     id,
     id_pure,
     date,
+    lang,
   } = route.params;
   // console.log("accepted3 ",account);
   // console.log("category" , key);
@@ -156,7 +157,7 @@ export default function BusinessPageAr({ route, navigation }) {
                 }}
               >
                 <Text style={styles.subName}> المدينة: </Text>
-                <Text style={{ fontSize: 15 }}>{city}</Text>
+                <Text style={{ fontSize: 16 }}>{city}</Text>
               </View>
               <View
                 style={{
@@ -166,7 +167,7 @@ export default function BusinessPageAr({ route, navigation }) {
                 }}
               >
                 <Text style={styles.subName}> الفئة: </Text>
-                <Text style={{ fontSize: 15 }}>{category}</Text>
+                <Text style={{ fontSize: 16 }}>{category}</Text>
               </View>
               <View
                 style={{
@@ -176,7 +177,17 @@ export default function BusinessPageAr({ route, navigation }) {
                 }}
               >
                 <Text style={styles.subName}> العنوان: </Text>
-                <Text style={{ fontSize: 15 }}>{address}</Text>
+                <Text style={{ fontSize: 16 }}>{address}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <Text style={styles.subName}> لغات: </Text>
+                <Text style={{ fontSize: 16 }}>{lang}</Text>
               </View>
               <TouchableOpacity
                 style={{
@@ -189,7 +200,7 @@ export default function BusinessPageAr({ route, navigation }) {
                 onPress={() => dialCall(phone)}
               >
                 <Text style={styles.subName}> الهاتف:</Text>
-                <Text style={{ fontSize: 15 }}> {phone}</Text>
+                <Text style={{ fontSize: 16 }}> {phone}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -396,14 +407,14 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   mainName: {
-    fontSize: 25,
+    fontSize: 23,
     fontWeight: "800",
     color: "white",
     paddingTop: SPACING,
   },
 
   subName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
     color: "white",
     alignSelf: "flex-end",
