@@ -9,6 +9,7 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
