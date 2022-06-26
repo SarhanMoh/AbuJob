@@ -18,13 +18,17 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "userInterfaceStyle": "light"
+      "userInterfaceStyle": "light",
+      "bundleIdentifier": "goodneighbors.abujob",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "goodneighbors.abujob",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
